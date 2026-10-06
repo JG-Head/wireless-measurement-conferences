@@ -651,13 +651,29 @@ tr.is-spain td:first-child { box-shadow: inset 3px 0 0 var(--spain); }
 
 .today-line span {
   position: absolute;
-  top: 8px;
+  top: auto;
+  bottom: 8px;
   left: 6px;
   font-size: 11px;
   font-weight: 750;
   color: var(--accent);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  background: #121a17;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.event-note, .popup-note {
+  color: #f3d48a;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.t-meta {
+  font-size: 11px;
+  font-weight: 750;
+  color: var(--announced);
 }
 
 .t-card {
