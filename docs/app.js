@@ -400,6 +400,11 @@ function renderSoon() {
   `;
 }
 
+function noteHtml(event) {
+  if (!event.notes) return "";
+  return `<p class="event-note">${escapeHtml(event.notes)}</p>`;
+}
+
 function deadlineCell(event) {
   const next = nextDeadline(event);
   if (next) {
@@ -429,6 +434,7 @@ function renderList() {
         <p>${escapeHtml(formatRange(event.start, event.end))}</p>
         <p class="place">${escapeHtml(event.city)}, ${escapeHtml(event.country)}</p>
         <p class="region-label">${escapeHtml(event.region)} · ${escapeHtml(event.tier_note || "")}</p>
+        ${noteHtml(event)}
         ${deadlineCell(event)}
         <p class="fit">${escapeHtml(event.topic_fit || "")}</p>
         <p class="links">${eventLinks(event)}</p>
@@ -458,6 +464,7 @@ function renderList() {
         <div class="event-acronym">${escapeHtml(event.acronym)}</div>
         <div class="event-name">${escapeHtml(event.name)}</div>
         <div class="event-tier">${escapeHtml(event.tier_note || "")}</div>
+        ${noteHtml(event)}
       </td>
       <td>${escapeHtml(formatRange(event.start, event.end))}</td>
       <td>
@@ -484,6 +491,7 @@ function popupHtml(events) {
       <p>${escapeHtml(formatRange(event.start, event.end))} · ${escapeHtml(event.city)}, ${escapeHtml(event.country)}</p>
       <p>${escapeHtml(affinityLabel(event.affinity))} affinity · ${escapeHtml(event.status || "")}</p>
       <p>${escapeHtml(event.topic_fit || "")}</p>
+      ${event.notes ? `<p class="popup-note">${escapeHtml(event.notes)}</p>` : ""}
       <p>${eventLinks(event).replaceAll('class="', 'class="popup-link ')}</p>
       <p><button type="button" class="btn" data-open="${escapeHtml(event.id)}">Full details</button></p>
     </div>
@@ -500,6 +508,7 @@ function renderMarkers(fit) {
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(event);
   });
+  const placedCoords = [];
 
   const empty = $("map-empty");
   if (!events.length) {
@@ -513,9 +522,11 @@ function renderMarkers(fit) {
     const spain = group.some((event) => event.spain);
     const high = group.some((event) => event.affinity === "high");
     const label = group.length === 1 ? group[0].acronym : `${group[0].city} · ${group.length}`;
+    const crowded = placedCoords.some((point) => Math.abs(point.lat - group[0].lat) < 0.45 && Math.abs(point.lon - group[0].lon) < 0.45);
+    placedCoords.push({ lat: group[0].lat, lon: group[0].lon });
     const icon = L.divIcon({
       className: `leaflet-div-icon pin${spain ? " pin-spain" : ""}${high ? " pin-high" : ""}`,
-      html: `<span class="pin-dot"></span><span class="pin-label">${escapeHtml(label)}</span>`,
+      html: `<span class="pin-dot"></span><span class="pin-label" style="top:${crowded ? "16px" : "-2px"}">${escapeHtml(label)}</span>`,
       iconSize: [18, 18],
       iconAnchor: [9, 9]
     });
@@ -533,20 +544,21 @@ function renderMarkers(fit) {
   });
 }
 
-function fitMap(events, maxZoom) {
+function fitMap(events, maxZoom, pad = 0.25) {
   if (!map || !events.length) return;
   const bounds = L.latLngBounds(events.map((event) => [event.lat, event.lon]));
   map.invalidateSize();
-  map.fitBounds(bounds.pad(0.25), { maxZoom });
+  map.fitBounds(bounds.pad(pad), { maxZoom });
   syncPinLabels();
 }
 
-function scheduleFit(events, maxZoom) {
+function scheduleFit(events, maxZoom, pad) {
   const token = ++mapFitToken;
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       if (token !== mapFitToken || !map) return;
-      fitMap(events, maxZoom);
+      fitMap(events, maxZoom, pad);
+      document.getElementById("map")?.scrollIntoView({ block: "center", inline: "nearest" });
     });
   });
 }
@@ -554,7 +566,7 @@ function scheduleFit(events, maxZoom) {
 function syncPinLabels() {
   const stage = document.querySelector(".map-stage");
   if (!stage || !map) return;
-  stage.classList.toggle("labels-on", map.getZoom() >= 4);
+  stage.classList.toggle("labels-on", map.getZoom() >= 5);
 }
 
 function ensureMap(fit) {
@@ -587,9 +599,9 @@ function ensureMap(fit) {
   }
 }
 
-function zoomTo(events, maxZoom) {
+function zoomTo(events, maxZoom, pad) {
   if (!map || !events.length) return;
-  scheduleFit(events, maxZoom);
+  scheduleFit(events, maxZoom, pad);
 }
 
 function renderTimeline() {
@@ -627,7 +639,8 @@ function renderTimeline() {
     laneEnds[lane] = item.x + item.w + 10;
   });
 
-  const height = 36 + laneEnds.length * 84 + 16;
+  const lanePitch = 96;
+  const height = 36 + laneEnds.length * lanePitch + 16;
   const months = [];
   let cursor = parseDate(windowFrom);
   const end = parseDate(windowTo);
@@ -662,10 +675,11 @@ function renderTimeline() {
         }).join("")}
         ${showToday ? `<div class="today-line" style="left:${xFor(today)}px"><span>Today</span></div>` : ""}
         ${placed.map((item) => `
-          <button type="button" class="t-card is-${escapeHtml(item.event.affinity || "low")}${item.event.spain ? " is-spain" : ""} affinity-${escapeHtml(item.event.affinity || "low")}${state.event === item.event.id ? " is-selected" : ""}" data-id="${escapeHtml(item.event.id)}" style="left:${item.x}px;top:${36 + item.lane * 84}px">
+          <button type="button" class="t-card is-${escapeHtml(item.event.affinity || "low")}${item.event.spain ? " is-spain" : ""} affinity-${escapeHtml(item.event.affinity || "low")}${state.event === item.event.id ? " is-selected" : ""}" data-id="${escapeHtml(item.event.id)}" style="left:${item.x}px;top:${36 + item.lane * lanePitch}px" title="${escapeHtml(item.event.notes || item.event.name)}">
             <span class="t-date">${escapeHtml(formatRange(item.event.start, item.event.end))}</span>
             <span class="t-acronym">${escapeHtml(item.event.acronym)}</span>
             <span class="t-place">${escapeHtml(item.event.city)}${item.event.spain ? " · España" : ""}</span>
+            ${item.event.status !== "Confirmed" || item.event.notes ? `<span class="t-meta">${item.event.status !== "Confirmed" ? escapeHtml(item.event.status) : ""}${item.event.status !== "Confirmed" && item.event.notes ? " · " : ""}${item.event.notes ? "Note" : ""}</span>` : ""}
           </button>
         `).join("")}
       </div>
@@ -758,6 +772,17 @@ function populateFilters() {
   const affinities = [...new Set(DATA.events.map((event) => event.affinity).filter(Boolean))];
   affinities.sort((a, b) => (AFFINITY_RANK[a] ?? 9) - (AFFINITY_RANK[b] ?? 9));
   fillSelect("affinity", affinities, affinityLabel);
+}
+
+function optionExists(id, value) {
+  return value === "all" || [...$(id).options].some((option) => option.value === value);
+}
+
+function coerceFilters() {
+  if (!optionExists("region", state.region)) state.region = "all";
+  if (!optionExists("status", state.status)) state.status = "all";
+  if (!optionExists("affinity", state.affinity)) state.affinity = "all";
+  if (state.event && !findEvent(state.event)) state.event = null;
 }
 
 function applyView() {
@@ -854,7 +879,7 @@ function openDrawer(id) {
     mapButton.addEventListener("click", () => {
       closeDrawer(false);
       setView("map");
-      requestAnimationFrame(() => zoomTo([event], 6));
+      requestAnimationFrame(() => zoomTo([event], 8));
     });
   }
   $("drawer-close").focus();
@@ -988,7 +1013,7 @@ function bind() {
       $("map-empty").textContent = "No Spain events match these filters.";
       return;
     }
-    zoomTo(events, 6);
+    zoomTo(events, 10, 0.06);
   });
   $("zoom-all").addEventListener("click", () => {
     renderMarkers();
@@ -1026,6 +1051,8 @@ async function init() {
     return;
   }
   populateFilters();
+  coerceFilters();
+  writeUrl();
   renderAbout();
   renderWatching();
   render();

@@ -10,7 +10,7 @@ Maintained for Jorge Garcia-Cabeza (UPM). The page has three views over one JSON
 
 Events happening now, upcoming deadlines, and series that are still undated (“Still watching”) stay visible above or below the views.
 
-Live site: <https://jg-head.github.io/wireless-measurement-conferences/>
+Expected Pages URL, once an admin enables it: <https://jg-head.github.io/wireless-measurement-conferences/>
 
 ## Update the data
 
@@ -38,19 +38,27 @@ python3 -m http.server -d docs 8080
 
 Open <http://localhost:8080>. List and timeline render from the JSON with no network. The map needs Leaflet from cdnjs and CARTO/OpenStreetMap tiles.
 
+## Dates that are not firm
+
+The JSON is copied through as written. Two editions carry a `notes` field, and the list, map popup, and timeline show that text:
+
+- **SIGMETRICS 2028** (London): city is announced; the mid-June start and end are placeholders. Exact dates are still TBD.
+- **EuCNC 2028** (Berlin, 5–9 Jun 2028): dates come from a secondary German tender. The note says to wait for the eucnc.eu 2028 page.
+
 ## GitHub Pages
 
-The site is the `/docs` folder on the `main` branch. Pages should use:
-
-- Source: **Deploy from a branch**
-- Branch: **main**
-- Folder: **/docs**
+The files to publish are in `/docs` on `main` (`.nojekyll` is included so the JSON and fonts are not passed through Jekyll).
 
 Expected URL: <https://jg-head.github.io/wireless-measurement-conferences/>
 
-A `.nojekyll` file is included so GitHub serves the JSON and fonts as static files. After a push to `main`, the first deploy can take about a minute. The workflow [`.github/workflows/check-site.yml`](.github/workflows/check-site.yml) checks that the two JSON copies match and that required fields are present. It does not build the site.
+That URL was still **404** on 6 Oct 2026. Creating the Pages site needs repository **administration** (`administration: write` and `pages: write`). `POST /repos/JG-Head/wireless-measurement-conferences/pages` returns 403 for the available GitHub App token, and `actions/configure-pages` cannot enable a site with the default `GITHUB_TOKEN`. An owner turns it on once:
 
-If Pages is not enabled yet, open **Settings → Pages**, choose **Deploy from a branch**, then `main` and `/docs`, and save.
+1. **Settings → Pages**
+2. **Build and deployment → Source:** Deploy from a branch
+3. **Branch:** `main`, **folder:** `/docs`
+4. Save
+
+The first deploy usually takes about a minute. The workflow [`.github/workflows/check-site.yml`](.github/workflows/check-site.yml) checks that the two JSON copies match. It does not publish the site.
 
 ## Layout
 
