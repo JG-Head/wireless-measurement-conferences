@@ -36,7 +36,7 @@ Fetching JSON does not work from a `file://` URL. Serve the site directory:
 python3 -m http.server -d docs 8080
 ```
 
-Open <http://localhost:8080>. List and timeline render from the JSON with no network. The map needs Leaflet from cdnjs and CARTO/OpenStreetMap tiles.
+Open <http://localhost:8080>. List and timeline render from the JSON with no network. The map needs Leaflet from cdnjs and OpenStreetMap tiles, which do not use an API key.
 
 ## Dates that are not firm
 
