@@ -11,6 +11,7 @@ const DEADLINE_LABELS = {
   camera_ready: "Camera-ready"
 };
 const DEADLINE_ORDER = ["abstract", "paper", "notification", "camera_ready"];
+const SUBMISSION_KEYS = new Set(["abstract", "paper"]);
 const AFFINITY_RANK = { high: 0, medium: 1, low: 2 };
 const STATUS_RANK = { Confirmed: 0, Announced: 1 };
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -24,6 +25,7 @@ const state = {
   status: "all",
   affinity: "all",
   soon: false,
+  submissions: true,
   sort: "date",
   dir: "asc",
   layout: "table",
@@ -129,27 +131,59 @@ function deadlineEntries(event) {
     }));
 }
 
+function submissionEntries(event) {
+  return deadlineEntries(event).filter((item) => SUBMISSION_KEYS.has(item.key));
+}
+
 function nextDeadline(event) {
   const today = todayISO();
-  return deadlineEntries(event)
+  return submissionEntries(event)
     .filter((item) => item.date >= today)
     .sort((a, b) => a.date.localeCompare(b.date))[0] || null;
 }
 
 function lastPastDeadline(event) {
   const today = todayISO();
-  return deadlineEntries(event)
+  return submissionEntries(event)
     .filter((item) => item.date < today)
     .sort((a, b) => b.date.localeCompare(a.date))[0] || null;
 }
 
-function hasSoonDeadline(event) {
+function cfpRole(event) {
+  if (event.attend_only) return "attend";
   const today = todayISO();
-  return deadlineEntries(event).some((item) => {
-    if (item.date < today) return false;
-    const delta = daysFromToday(item.date);
-    return delta >= 0 && delta <= SOON_DAYS;
-  });
+  const subs = submissionEntries(event);
+  if (subs.some((item) => item.date >= today)) return "open";
+  if (subs.length) return "closed";
+  return "upcoming";
+}
+
+function isSubmissionOpportunity(event) {
+  const role = cfpRole(event);
+  return role === "open" || role === "upcoming";
+}
+
+function cfpShort(event) {
+  const role = cfpRole(event);
+  if (role === "open") return "Open CFP";
+  if (role === "upcoming") return "CFP date not in file";
+  return "Attend only";
+}
+
+function cfpBlurb(event) {
+  const role = cfpRole(event);
+  if (role === "open") return "Open CFP: a paper or abstract deadline in this file is still ahead.";
+  if (role === "upcoming") return "CFP date not in this file. The edition stays on the list; no deadline was invented.";
+  const past = lastPastDeadline(event);
+  if (past) return `Attend only. The ${past.label.toLowerCase()} deadline ${formatDay(past.date)} has passed.`;
+  return "Attend only. No open paper deadline is listed, so this is not a submission target.";
+}
+
+function hasSoonDeadline(event) {
+  const next = nextDeadline(event);
+  if (!next) return false;
+  const delta = daysFromToday(next.date);
+  return delta >= 0 && delta <= SOON_DAYS;
 }
 
 function isNow(event) {
@@ -190,6 +224,10 @@ function placeMarks(event) {
 
 function pills(event) {
   const bits = [];
+  const role = cfpRole(event);
+  if (role === "open") bits.push('<span class="pill open">Open CFP</span>');
+  else if (role === "upcoming") bits.push('<span class="pill upcoming">CFP date not in file</span>');
+  else bits.push('<span class="pill attend">Attend only</span>');
   if (isNow(event)) bits.push('<span class="pill now">Now · En curso</span>');
   if (event.spain) bits.push('<span class="pill spain">Spain · España</span>');
   bits.push(`<span class="pill ${escapeHtml(event.affinity || "neutral")}">${escapeHtml(affinityLabel(event.affinity))} affinity</span>`);
@@ -210,6 +248,7 @@ function eventLinks(event) {
 function filteredEvents() {
   const query = state.q.trim().toLowerCase();
   return DATA.events.filter((event) => {
+    if (state.submissions && !isSubmissionOpportunity(event)) return false;
     if (state.spain && !event.spain) return false;
     if (state.region !== "all" && event.region !== state.region) return false;
     if (state.status !== "all" && event.status !== state.status) return false;
@@ -261,6 +300,7 @@ function readUrl() {
   state.status = params.get("status") || "all";
   state.affinity = params.get("affinity") || "all";
   state.soon = params.get("soon") === "1";
+  state.submissions = params.get("submissions") !== "0";
   const sort = params.get("sort");
   if (["date", "deadline", "affinity", "name", "country", "status"].includes(sort)) state.sort = sort;
   state.dir = params.get("dir") === "desc" ? "desc" : "asc";
@@ -288,6 +328,7 @@ function writeUrl() {
   set("status", state.status, "all");
   set("affinity", state.affinity, "all");
   set("soon", state.soon ? "1" : "", "");
+  set("submissions", state.submissions ? "" : "0", "");
   set("sort", state.sort, "date");
   set("dir", state.dir, "asc");
   if (state.layoutTouched) set("layout", state.layout, "table");
@@ -303,6 +344,7 @@ function syncControls() {
   $("status").value = [...$("status").options].some((option) => option.value === state.status) ? state.status : "all";
   $("affinity").value = [...$("affinity").options].some((option) => option.value === state.affinity) ? state.affinity : "all";
   $("sort").value = state.sort;
+  $("toggle-submissions").setAttribute("aria-pressed", state.submissions ? "true" : "false");
   $("toggle-spain").setAttribute("aria-pressed", state.spain ? "true" : "false");
   $("toggle-europe").setAttribute("aria-pressed", state.region === "Europe" ? "true" : "false");
   $("toggle-soon").setAttribute("aria-pressed", state.soon ? "true" : "false");
@@ -312,34 +354,42 @@ function syncControls() {
 }
 
 function renderStats() {
-  const events = DATA.events;
-  const spain = events.filter((event) => event.spain).length;
-  const europe = events.filter((event) => event.region === "Europe").length;
+  const open = DATA.events.filter((event) => cfpRole(event) === "open").length;
+  const upcoming = DATA.events.filter((event) => cfpRole(event) === "upcoming").length;
+  const attend = DATA.events.filter((event) => !isSubmissionOpportunity(event)).length;
+  const spain = DATA.events.filter((event) => event.spain && isSubmissionOpportunity(event)).length;
   const soon = soonItems().length;
-  const now = events.filter(isNow).length;
+  const now = DATA.events.filter(isNow).length;
   const bits = [
-    `<li><strong>${events.length}</strong> events</li>`,
-    `<li class="stat-spain"><strong>${spain}</strong> in Spain · España</li>`,
-    `<li><strong>${europe}</strong> in Europe</li>`,
-    `<li class="stat-soon"><strong>${soon}</strong> open deadlines in ${SOON_DAYS} days</li>`
+    `<li><strong>${open}</strong> open CFPs</li>`,
+    `<li><strong>${upcoming}</strong> CFP date not in file</li>`,
+    `<li class="stat-soon"><strong>${soon}</strong> paper deadlines in ${SOON_DAYS} days</li>`,
+    `<li class="stat-spain"><strong>${spain}</strong> in Spain on this list</li>`
   ];
+  if (attend) bits.push(`<li><strong>${attend}</strong> attend-only</li>`);
   if (now) bits.unshift(`<li class="stat-now"><strong>${now}</strong> happening now</li>`);
   $("stats").innerHTML = bits.join("");
 }
 
 function renderCount() {
   const shown = filteredEvents().length;
-  const total = DATA.events.length;
+  const pool = state.submissions
+    ? DATA.events.filter(isSubmissionOpportunity).length
+    : DATA.events.length;
+  const hidden = DATA.events.filter((event) => !isSubmissionOpportunity(event)).length;
   const spainNote = state.spain ? " · Spain only (solo España)" : "";
-  const soonNote = state.soon ? ` · open deadlines within ${SOON_DAYS} days` : "";
-  $("result-count").textContent = `Showing ${shown} of ${total} events${spainNote}${soonNote}`;
+  const soonNote = state.soon ? ` · paper deadlines within ${SOON_DAYS} days` : "";
+  $("result-count").textContent = state.submissions
+    ? `Showing ${shown} of ${pool} submission opportunities${spainNote}${soonNote}. ${hidden} attend-only ${hidden === 1 ? "meeting is" : "meetings are"} hidden.`
+    : `Showing ${shown} of ${pool} events, including attend-only${spainNote}${soonNote}`;
 }
 
 function soonItems() {
   const today = todayISO();
   const items = [];
   DATA.events.forEach((event) => {
-    deadlineEntries(event).forEach((item) => {
+    if (cfpRole(event) !== "open") return;
+    submissionEntries(event).forEach((item) => {
       if (item.date < today) return;
       const delta = daysFromToday(item.date);
       if (delta >= 0 && delta <= SOON_DAYS) items.push({ event, ...item, delta });
@@ -379,15 +429,15 @@ function renderSoon() {
   if (!items.length) {
     rail.classList.add("is-empty");
     rail.innerHTML = `
-      <h2 id="soon-heading">Open deadlines · next ${SOON_DAYS} days</h2>
-      <p>No abstract, paper, notification, or camera-ready date in the file falls inside the next ${SOON_DAYS} days.</p>
+      <h2 id="soon-heading">Open paper deadlines · next ${SOON_DAYS} days</h2>
+      <p>No paper or abstract date in the file falls inside the next ${SOON_DAYS} days. Camera-ready dates are not treated as a new submission.</p>
     `;
     return;
   }
   rail.classList.remove("is-empty");
   rail.innerHTML = `
-    <h2 id="soon-heading">Open deadlines · next ${SOON_DAYS} days</h2>
-    <p class="rail-note">${items.length} listed ${items.length === 1 ? "date is" : "dates are"} still ahead. Click one to open the event.</p>
+    <h2 id="soon-heading">Open paper deadlines · next ${SOON_DAYS} days</h2>
+    <p class="rail-note">${items.length} paper or abstract ${items.length === 1 ? "date is" : "dates are"} still ahead. Camera-ready is not counted. Click one to open the event.</p>
     <div class="chip-row">
       ${items.map((item) => `
         <button type="button" class="soon-chip${item.event.spain ? " is-spain" : ""}" data-focus="${escapeHtml(item.event.id)}">
@@ -412,17 +462,48 @@ function deadlineCell(event) {
     const soon = delta <= SOON_DAYS;
     return `<div class="deadline-cell">${escapeHtml(next.label)} · ${escapeHtml(formatDay(next.date))}${soon ? `<span class="when">${escapeHtml(relLabel(delta))}</span>` : ""}</div>`;
   }
+  if (cfpRole(event) === "upcoming") return `<div class="deadline-cell">CFP date not in this file</div>`;
   const past = lastPastDeadline(event);
-  if (past) return `<div class="deadline-cell is-closed">Closed · ${escapeHtml(past.label)} ${escapeHtml(formatDay(past.date))}</div>`;
-  return `<div class="deadline-cell is-closed">No deadline listed</div>`;
+  if (past) return `<div class="deadline-cell is-closed">Attend only · ${escapeHtml(past.label)} closed ${escapeHtml(formatDay(past.date))}</div>`;
+  return `<div class="deadline-cell is-closed">Attend only · no paper deadline listed</div>`;
+}
+
+function emptyLead() {
+  if (state.submissions && state.spain) {
+    return "No Spain meeting in the file still has an open paper deadline. Turn off Submission opportunities to see attend-only events such as CNSM 2026.";
+  }
+  if (state.submissions) {
+    return "No submission opportunities match these filters.";
+  }
+  return "No events match these filters.";
+}
+
+function emptyHtml() {
+  const actions = state.submissions
+    ? `<p><button type="button" class="btn" id="empty-show-all">Show attend-only too</button> <button type="button" class="btn btn-ghost" id="empty-clear">Clear filters</button></p>`
+    : `<p><button type="button" class="btn" id="empty-clear">Clear filters</button></p>`;
+  return `<div class="empty"><p>${escapeHtml(emptyLead())}</p>${actions}</div>`;
+}
+
+function bindEmptyActions() {
+  const clear = $("empty-clear");
+  if (clear) clear.addEventListener("click", clearFilters);
+  const show = $("empty-show-all");
+  if (show) {
+    show.addEventListener("click", () => {
+      state.submissions = false;
+      writeUrl();
+      render();
+    });
+  }
 }
 
 function renderList() {
   const events = sortedEvents();
   const root = $("view-list");
   if (!events.length) {
-    root.innerHTML = `<div class="empty"><p>No events match these filters.</p><p><button type="button" class="btn" id="empty-clear">Clear filters</button></p></div>`;
-    $("empty-clear").addEventListener("click", clearFilters);
+    root.innerHTML = emptyHtml();
+    bindEmptyActions();
     return;
   }
 
@@ -461,7 +542,7 @@ function renderList() {
   const body = events.map((event) => `
     <tr data-id="${escapeHtml(event.id)}" tabindex="0" class="${event.spain ? "is-spain" : ""} ${state.event === event.id ? "is-selected" : ""}">
       <td>
-        <div class="event-acronym">${escapeHtml(event.acronym)}</div>
+        <div class="event-acronym">${escapeHtml(event.acronym)} <span class="pill ${cfpRole(event) === "closed" ? "attend" : cfpRole(event)}">${escapeHtml(cfpShort(event))}</span></div>
         <div class="event-name">${escapeHtml(event.name)}</div>
         <div class="event-tier">${escapeHtml(event.tier_note || "")}</div>
         ${noteHtml(event)}
@@ -489,7 +570,7 @@ function popupHtml(events) {
       <h3>${escapeHtml(event.acronym)}</h3>
       <p>${escapeHtml(event.name)}</p>
       <p>${escapeHtml(formatRange(event.start, event.end))} · ${escapeHtml(event.city)}, ${escapeHtml(event.country)}</p>
-      <p>${escapeHtml(affinityLabel(event.affinity))} affinity · ${escapeHtml(event.status || "")}</p>
+      <p>${escapeHtml(cfpShort(event))} · ${escapeHtml(affinityLabel(event.affinity))} affinity · ${escapeHtml(event.status || "")}</p>
       <p>${escapeHtml(event.topic_fit || "")}</p>
       ${event.notes ? `<p class="popup-note">${escapeHtml(event.notes)}</p>` : ""}
       <p>${eventLinks(event).replaceAll('class="', 'class="popup-link ')}</p>
@@ -513,7 +594,9 @@ function renderMarkers(fit) {
   const empty = $("map-empty");
   if (!events.length) {
     empty.hidden = false;
-    empty.textContent = "No mapped events match these filters.";
+    empty.textContent = state.submissions
+      ? "No submission opportunities with coordinates match these filters."
+      : "No mapped events match these filters.";
   } else {
     empty.hidden = true;
   }
@@ -607,8 +690,8 @@ function renderTimeline() {
   const root = $("view-timeline");
   const events = sortedEvents().filter((event) => event.start);
   if (!events.length) {
-    root.innerHTML = `<div class="empty"><p>No events match these filters.</p><p><button type="button" class="btn" id="empty-clear">Clear filters</button></p></div>`;
-    $("empty-clear").addEventListener("click", clearFilters);
+    root.innerHTML = emptyHtml();
+    bindEmptyActions();
     return;
   }
 
@@ -638,7 +721,7 @@ function renderTimeline() {
     laneEnds[lane] = item.x + item.w + 10;
   });
 
-  const lanePitch = 96;
+  const lanePitch = 112;
   const height = 36 + laneEnds.length * lanePitch + 16;
   const months = [];
   let cursor = parseDate(windowFrom);
@@ -678,7 +761,7 @@ function renderTimeline() {
             <span class="t-date">${escapeHtml(formatRange(item.event.start, item.event.end))}</span>
             <span class="t-acronym">${escapeHtml(item.event.acronym)}</span>
             <span class="t-place">${escapeHtml(item.event.city)}${item.event.spain ? " · España" : ""}</span>
-            ${item.event.status !== "Confirmed" || item.event.notes ? `<span class="t-meta">${item.event.status !== "Confirmed" ? escapeHtml(item.event.status) : ""}${item.event.status !== "Confirmed" && item.event.notes ? " · " : ""}${item.event.notes ? "Note" : ""}</span>` : ""}
+            <span class="t-meta">${escapeHtml([cfpShort(item.event), item.event.status !== "Confirmed" ? item.event.status : "", item.event.notes ? "Note" : ""].filter(Boolean).join(" · "))}</span>
           </button>
         `).join("")}
       </div>
@@ -690,7 +773,7 @@ function renderWatching() {
   const items = DATA.watching || [];
   $("watching").innerHTML = `
     <h2 id="watching-heading">Still watching</h2>
-    <p class="intro">These series are in the data file without a dated edition inside this window. They are not scheduled events. Cities and deadlines are omitted until a primary announcement exists.</p>
+    <p class="intro">CFP not open yet. These series have no dated edition in the file, so they are not on the map or timeline. Cities and deadlines stay out until a primary announcement exists.</p>
     <div class="watch-grid">
       ${items.map((item) => `
         <article class="watch-card">
@@ -710,10 +793,10 @@ function renderAbout() {
   $("kicker").textContent = `${owner.name || "Research group"} · UPM · wireless access and end-to-end performance`;
   if (scholar) $("scholar-link").href = scholar;
   $("verified").textContent = DATA.verified_as_of ? `Verified ${formatDay(DATA.verified_as_of)}` : "Verification date not listed";
-  $("lede").textContent = `Tier B+ ACM and IEEE venues, ${formatMonthYear(DATA.window.from)} – ${formatMonthYear(DATA.window.to)}. English interface. Events hosted in Spain are marked España.`;
+  $("lede").textContent = `Default view: where a paper can still be submitted, or the CFP date is not in the file yet. ${formatMonthYear(DATA.window.from)} – ${formatMonthYear(DATA.window.to)}. Spain events are marked España.`;
   $("about").innerHTML = `
     <h2 id="about-heading">About this list</h2>
-    <p class="intro">A planning board for ${escapeHtml(owner.name || "the group")} at Universidad Politécnica de Madrid (UPM). The calendar only shows records in <a href="data/conferences.json">data/conferences.json</a>.</p>
+    <p class="intro">A planning board for ${escapeHtml(owner.name || "the group")} at Universidad Politécnica de Madrid (UPM). It prioritizes venues where the group can still submit. The calendar only shows records in <a href="data/conferences.json">data/conferences.json</a>.</p>
     <div class="about-grid">
       <div class="about-card">
         <h3>Focus</h3>
@@ -730,6 +813,11 @@ function renderAbout() {
         <h3>Affinity authors</h3>
         <p>Authors often cited alongside this measurement work.</p>
         <ul>${authors.map((author) => `<li>${escapeHtml(author)}</li>`).join("")}</ul>
+      </div>
+      <div class="about-card">
+        <h3>Submission opportunities</h3>
+        <p>The default list keeps two kinds of dated events: a paper or abstract deadline that is still ahead, and an edition whose CFP date is not in the file. Nothing here invents a deadline.</p>
+        <p>Meetings whose paper deadline has passed, or that only have camera-ready left, are marked attend-only and stay hidden until Submission opportunities is turned off. ICC and GLOBECOM stay in the pool: wireless networks and measurements are in their topics.</p>
       </div>
       <div class="about-card">
         <h3>High-affinity series</h3>
@@ -813,6 +901,7 @@ function clearFilters() {
   state.status = "all";
   state.affinity = "all";
   state.soon = false;
+  state.submissions = true;
   writeUrl();
   render();
 }
@@ -852,6 +941,7 @@ function drawerHtml(event) {
       <dt>Tier</dt><dd>${escapeHtml(event.tier_note || "")}</dd>
     </dl>
     <p>${escapeHtml(event.topic_fit || "")}</p>
+    <p>${escapeHtml(cfpBlurb(event))}</p>
     ${event.notes ? `<aside class="note"><strong>Note from the data file</strong><p>${escapeHtml(event.notes)}</p></aside>` : ""}
     <h3>Deadlines</h3>
     ${deadlineList}
@@ -942,6 +1032,11 @@ function bind() {
     writeUrl();
     render();
   });
+  $("toggle-submissions").addEventListener("click", () => {
+    state.submissions = !state.submissions;
+    writeUrl();
+    render();
+  });
   $("toggle-spain").addEventListener("click", () => {
     state.spain = !state.spain;
     writeUrl();
@@ -1009,7 +1104,9 @@ function bind() {
     const events = sortedEvents().filter((event) => event.spain && Number.isFinite(event.lat));
     if (!events.length) {
       $("map-empty").hidden = false;
-      $("map-empty").textContent = "No Spain events match these filters.";
+      $("map-empty").textContent = state.submissions
+        ? "No Spain submission opportunity matches these filters."
+        : "No Spain events match these filters.";
       return;
     }
     zoomTo(events, 10, 0.06);
