@@ -22,32 +22,6 @@
   "focus": "measurements of wireless access networks and end-to-end networking performance; crowdsourced cellular / spectrum / satellite DTC",
   "events": [
     {
-      "id": "wsa-2026",
-      "name": "International Workshop on Smart Antennas",
-      "acronym": "WSA 2026",
-      "series": "WSA",
-      "start": "2026-10-05",
-      "end": "2026-10-07",
-      "city": "Barcelona",
-      "country": "Spain",
-      "lat": 41.3851,
-      "lon": 2.1734,
-      "spain": true,
-      "site": "https://wsa2026.cttc.es/",
-      "cfp": "https://wsa2026.cttc.es/",
-      "deadlines": {
-        "paper": "2026-05-14",
-        "notification": "2026-07-15",
-        "camera_ready": "2026-08-15"
-      },
-      "topic_fit": "Smart antennas / wireless PHY \u2014 peripheral to E2E measurement",
-      "standing": "Workshop; IEEE/community smart antennas",
-      "tier_note": "Specialized workshop",
-      "status": "Confirmed",
-      "region": "Europe",
-      "affinity": "medium"
-    },
-    {
       "id": "imc-2026",
       "name": "ACM Internet Measurement Conference",
       "acronym": "IMC 2026",
@@ -67,7 +41,8 @@
       "tier_note": "A* / flagship measurement",
       "status": "Confirmed",
       "region": "Europe",
-      "affinity": "high"
+      "affinity": "high",
+      "attend_only": true
     },
     {
       "id": "cnsm-2026",
@@ -93,7 +68,8 @@
       "tier_note": "Tier B+ network management",
       "status": "Confirmed",
       "region": "Europe",
-      "affinity": "medium"
+      "affinity": "medium",
+      "attend_only": true
     },
     {
       "id": "hotnets-2026",
@@ -119,7 +95,8 @@
       "tier_note": "Selective workshop",
       "status": "Confirmed",
       "region": "North America",
-      "affinity": "medium"
+      "affinity": "medium",
+      "attend_only": true
     },
     {
       "id": "conext-2026",
@@ -143,33 +120,8 @@
       "tier_note": "A / strong networking",
       "status": "Confirmed",
       "region": "Europe",
-      "affinity": "high"
-    },
-    {
-      "id": "ntcr-2026",
-      "name": "Network Traffic Classification \u2013 Reloaded",
-      "acronym": "NTC-R 2026",
-      "series": "NTC-R",
-      "start": "2026-12-07",
-      "end": "2026-12-07",
-      "city": "Utrecht",
-      "country": "Netherlands",
-      "lat": 52.0907,
-      "lon": 5.1214,
-      "spain": false,
-      "site": "https://ntc-reloaded.github.io/",
-      "cfp": "https://ntc-reloaded.github.io/",
-      "deadlines": {
-        "paper": "2026-07-24",
-        "notification": "2026-08-30",
-        "camera_ready": "2026-10-05"
-      },
-      "topic_fit": "Traffic classification and measurement studies",
-      "standing": "CoNEXT co-located workshop",
-      "tier_note": "Workshop",
-      "status": "Confirmed",
-      "region": "Europe",
-      "affinity": "medium"
+      "affinity": "high",
+      "attend_only": true
     },
     {
       "id": "globecom-2026",
@@ -186,7 +138,7 @@
       "site": "https://globecom2026.ieee-globecom.org/",
       "cfp": "https://globecom2026.ieee-globecom.org/",
       "deadlines": {},
-      "topic_fit": "Watch measurement/wireless workshops each year",
+      "topic_fit": "Wireless networks and measurements are in the conference topics",
       "standing": "ComSoc flagship",
       "tier_note": "A (main); workshops vary",
       "status": "Confirmed",
@@ -215,7 +167,8 @@
       "tier_note": "Tier B+ / A- wireless",
       "status": "Confirmed",
       "region": "Americas",
-      "affinity": "high"
+      "affinity": "high",
+      "attend_only": true
     },
     {
       "id": "noms-2027",
@@ -264,33 +217,8 @@
       "tier_note": "A* networking",
       "status": "Confirmed",
       "region": "North America",
-      "affinity": "high"
-    },
-    {
-      "id": "ondm-2027",
-      "name": "Optical Network Design and Modelling",
-      "acronym": "ONDM 2027",
-      "series": "ONDM",
-      "start": "2027-05-25",
-      "end": "2027-05-28",
-      "city": "Castelldefels",
-      "country": "Spain",
-      "lat": 41.28,
-      "lon": 1.976,
-      "spain": true,
-      "site": "https://ondm2027.cttc.es/",
-      "cfp": "https://ondm2027.cttc.es/",
-      "deadlines": {
-        "paper": "2027-01-18",
-        "notification": "2027-04-05",
-        "camera_ready": "2027-04-19"
-      },
-      "topic_fit": "Optical / optical-wireless \u2014 adjacent to E2E access/backhaul",
-      "standing": "IFIP + IEEE optical networking",
-      "tier_note": "Tier B+ optical",
-      "status": "Confirmed",
-      "region": "Europe",
-      "affinity": "low"
+      "affinity": "high",
+      "attend_only": true
     },
     {
       "id": "icc-2027",
@@ -307,7 +235,7 @@
       "site": "https://icc2027.ieee-icc.org/",
       "cfp": "https://icc2027.ieee-icc.org/",
       "deadlines": {},
-      "topic_fit": "Watch measurement/wireless workshops",
+      "topic_fit": "Wireless networks and measurements are in the conference topics",
       "standing": "ComSoc flagship",
       "tier_note": "A (main); workshops vary",
       "status": "Confirmed",
@@ -443,7 +371,7 @@
       "site": "https://www.comsoc.org/",
       "cfp": "",
       "deadlines": {},
-      "topic_fit": "Watch measurement workshops",
+      "topic_fit": "Wireless networks and measurements are in the conference topics",
       "standing": "ComSoc flagship",
       "tier_note": "A (main)",
       "status": "Announced",
@@ -500,35 +428,43 @@
   "watching": [
     {
       "series": "IMC",
-      "note": "2027/28 not announced; typically Oct/Nov"
+      "note": "CFP not open yet. 2027/28 not announced; typically Oct/Nov",
+      "watch_next_edition": true
     },
     {
       "series": "PAM",
-      "note": "2027/28 not announced; typically March"
+      "note": "CFP not open yet. 2027/28 not announced; typically March",
+      "watch_next_edition": true
     },
     {
       "series": "TMA",
-      "note": "2027/28 not announced; typically June, Europe"
+      "note": "CFP not open yet. 2027/28 not announced; typically June, Europe",
+      "watch_next_edition": true
     },
     {
       "series": "IFIP Networking",
-      "note": "2027+ not announced; typically May"
+      "note": "CFP not open yet. 2027+ not announced; typically May",
+      "watch_next_edition": true
     },
     {
       "series": "DySPAN",
-      "note": "2027+ not announced; spectrum measurement \u2014 high affinity (user published DySPAN 2025)"
+      "note": "CFP not open yet. 2027+ not announced; spectrum measurement \u2014 high affinity (user published DySPAN 2025)",
+      "watch_next_edition": true
     },
     {
       "series": "CNSM",
-      "note": "2027+ not announced"
+      "note": "CFP not open yet. 2027+ not announced",
+      "watch_next_edition": true
     },
     {
       "series": "WCNC",
-      "note": "2028 not announced"
+      "note": "CFP not open yet. 2028 not announced",
+      "watch_next_edition": true
     },
     {
       "series": "PIMRC",
-      "note": "2028 not announced"
+      "note": "CFP not open yet. 2028 not announced",
+      "watch_next_edition": true
     }
   ]
 }

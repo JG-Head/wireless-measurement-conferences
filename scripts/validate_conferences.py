@@ -74,6 +74,8 @@ def main():
                 errors.append(f"{ident} lat/lon must be numbers")
             elif not (-90 <= lat <= 90 and -180 <= lon <= 180):
                 errors.append(f"{ident} lat/lon out of range")
+        if "attend_only" in event and not isinstance(event.get("attend_only"), bool):
+            errors.append(f"{ident} attend_only must be boolean")
         deadlines = event.get("deadlines")
         if not isinstance(deadlines, dict):
             errors.append(f"{ident} deadlines must be an object")
@@ -81,10 +83,18 @@ def main():
             for name, value in deadlines.items():
                 if not is_iso_date(value):
                     errors.append(f"{ident} deadline {name} must be YYYY-MM-DD")
+            if event.get("attend_only") is True:
+                today = data.get("verified_as_of", "")
+                for name in ("abstract", "paper"):
+                    value = deadlines.get(name)
+                    if value and value >= today:
+                        errors.append(f"{ident} attend_only but {name} {value} is still open")
 
     for item in data.get("watching") or []:
         if not item.get("series") or not item.get("note"):
             errors.append(f"watching entry needs series and note: {item!r}")
+        if item.get("watch_next_edition") is not True:
+            errors.append(f"watching {item.get('series')} needs watch_next_edition true")
 
     if errors:
         for message in errors:

@@ -4,13 +4,13 @@ Static planning board for Tier B+ ACM and IEEE venues on **wireless access netwo
 
 Maintained for Jorge Garcia-Cabeza (UPM). The page has three views over one JSON file:
 
-- **List** — table or cards, with search, Spain, Europe, status, affinity, and open deadlines in the next 90 days
+- **List** — table or cards. The default mode is **Submission opportunities**: a paper or abstract deadline still ahead, or a dated edition whose CFP date is not in the file. Attend-only meetings (closed paper calls) stay in the JSON and appear when that mode is turned off. Other filters: Spain, Europe, status, affinity, and paper deadlines in the next 90 days. Camera-ready is not treated as a new submission.
 - **Map** — Leaflet markers (no API key). Spain-hosted events use amber markers. Click a marker for details
 - **Timeline** — horizontal strip across the window
 
 Events happening now, upcoming deadlines, and series that are still undated (“Still watching”) stay visible above or below the views.
 
-Expected Pages URL, once an admin enables it: <https://jg-head.github.io/wireless-measurement-conferences/>
+Live Pages URL: <https://jg-head.github.io/wireless-measurement-conferences/>
 
 ## Update the data
 
@@ -26,7 +26,11 @@ Expected Pages URL, once an admin enables it: <https://jg-head.github.io/wireles
 
 3. Commit both files and push to `main`.
 
-Each event needs `id`, `name`, `acronym`, `series`, `start`, `end`, `city`, `country`, `spain` (true only when `country` is Spain), `lat` / `lon` when the city is known, `site`, `cfp`, `deadlines`, `topic_fit`, `standing`, `tier_note`, `status`, `region`, and `affinity` (`high`, `medium`, or `low`). Optional `notes` is shown as a callout (used for placeholder dates such as SIGMETRICS 2028). Deadline keys in use are `abstract`, `paper`, `notification`, and `camera_ready`, as `YYYY-MM-DD`.
+Each event needs `id`, `name`, `acronym`, `series`, `start`, `end`, `city`, `country`, `spain` (true only when `country` is Spain), `lat` / `lon` when the city is known, `site`, `cfp`, `deadlines`, `topic_fit`, `standing`, `tier_note`, `status`, `region`, and `affinity` (`high`, `medium`, or `low`). Optional `notes` is shown as a callout (used for placeholder dates such as SIGMETRICS 2028). Optional `attend_only: true` keeps a dated meeting in the file but hides it from the default submission list (the paper deadline has passed, or no open paper deadline is listed). Deadline keys in use are `abstract`, `paper`, `notification`, and `camera_ready`, as `YYYY-MM-DD`.
+
+Watching entries need `series`, `note`, and `watch_next_edition: true`. Their notes should say the CFP is not open yet. Do not add a dated event just to hold a series.
+
+ICC and GLOBECOM stay in the file. WSA, ONDM, and the closed NTC-R 2026 workshop were removed: the first two are a poor topical fit, and NTC-R had no remaining submission date.
 
 ## Preview locally
 
@@ -49,16 +53,9 @@ The JSON is copied through as written. Two editions carry a `notes` field, and t
 
 The files to publish are in `/docs` on `main` (`.nojekyll` is included so the JSON and fonts are not passed through Jekyll).
 
-Expected URL: <https://jg-head.github.io/wireless-measurement-conferences/>
+The site is published from `/docs` on `main`: <https://jg-head.github.io/wireless-measurement-conferences/>
 
-That URL was still **404** on 6 Oct 2026. Creating the Pages site needs repository **administration** (`administration: write` and `pages: write`). `POST /repos/JG-Head/wireless-measurement-conferences/pages` returns 403 for the available GitHub App token, and `actions/configure-pages` cannot enable a site with the default `GITHUB_TOKEN`. An owner turns it on once:
-
-1. **Settings → Pages**
-2. **Build and deployment → Source:** Deploy from a branch
-3. **Branch:** `main`, **folder:** `/docs`
-4. Save
-
-The first deploy usually takes about a minute. The workflow [`.github/workflows/check-site.yml`](.github/workflows/check-site.yml) checks that the two JSON copies match. It does not publish the site.
+Settings: **Deploy from a branch**, branch `main`, folder `/docs`. The workflow [`.github/workflows/check-site.yml`](.github/workflows/check-site.yml) checks that the two JSON copies match. It does not publish the site. A push to `main` is what updates the live page, usually within a minute.
 
 ## Layout
 
