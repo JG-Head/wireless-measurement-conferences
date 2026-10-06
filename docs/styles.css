@@ -562,8 +562,8 @@ tr.is-spain td:first-child { box-shadow: inset 3px 0 0 var(--spain); }
   white-space: nowrap;
   font-size: 11px;
   font-weight: 750;
-  color: #f7f4ec;
-  text-shadow: 0 1px 2px #000, 0 0 8px #000;
+  color: #14201b;
+  text-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 1px 0 #fff;
   pointer-events: none;
 }
 
