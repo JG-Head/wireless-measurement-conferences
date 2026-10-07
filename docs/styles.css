@@ -206,6 +206,53 @@ h1 {
 
 .field-search { flex: 1 1 240px; }
 
+.field-labs { flex: 1 1 100%; }
+
+.lab-filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+.lab-chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--bg);
+  line-height: 1.15;
+  cursor: pointer;
+}
+
+.lab-chip small { color: var(--faint); font-size: 11px; }
+
+.lab-chip[aria-pressed="true"] {
+  background: var(--accent-dim);
+  border-color: rgba(155, 231, 196, 0.55);
+  color: var(--accent);
+}
+
+.lab-chip[aria-pressed="true"] small { color: rgba(155, 231, 196, 0.8); }
+
+.lab-more { flex: 1 1 100%; }
+
+.lab-more summary {
+  cursor: pointer;
+  color: var(--faint);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.lab-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  max-width: 78ch;
+}
+
+.pill.lab { background: rgba(183, 208, 255, 0.14); color: var(--med); }
+.pill.lab.is-on { background: var(--accent-dim); color: var(--accent); }
+
 input[type="search"], select {
   appearance: none;
   background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2393a099' d='M1 1l5 5 5-5'/%3E%3C/svg%3E") no-repeat right 12px center;

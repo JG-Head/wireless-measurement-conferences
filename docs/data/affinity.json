@@ -1,0 +1,344 @@
+{
+  "verified_as_of": "2026-10-07",
+  "method": "One chip per coauthor cluster among papers cited in Jorge Garcia-Cabeza's bibliography (336 unique papers). Jorge's own coauthors are not affinity units.",
+  "excluded": [
+    "Jorge Garcia-Cabeza",
+    "Zoraida Frias",
+    "Luis Mendo",
+    "William Lehr",
+    "Eduardo Yraola"
+  ],
+  "themes": [
+    "Starlink",
+    "CBRS",
+    "cell-load",
+    "crowdsource",
+    "LEO"
+  ],
+  "units": [
+    {
+      "id": "karlstad",
+      "name": "Karlstad Starlink",
+      "tier": "core",
+      "contact": "Anna Brunstrom",
+      "members": [
+        "Anna Brunstrom",
+        "Johan Garcia",
+        "Simon Sundberg"
+      ],
+      "themes": [
+        "Starlink"
+      ],
+      "series": [],
+      "cited_venues": [
+        "MobiCom",
+        "Computer Communications",
+        "Computer Networks"
+      ],
+      "link": "Cited venues are MobiCom, Computer Communications, and Computer Networks. None of those series is on this calendar, so no event is tagged."
+    },
+    {
+      "id": "tu-wien",
+      "name": "TU Wien cell-load",
+      "tier": "core",
+      "contact": "Markus Rupp",
+      "members": [
+        "Markus Rupp",
+        "Philipp Svoboda",
+        "Vaclav Raida"
+      ],
+      "themes": [
+        "cell-load",
+        "crowdsource"
+      ],
+      "series": [
+        "TMA",
+        "GLOBECOM",
+        "VTC"
+      ],
+      "cited_venues": [
+        "TMA",
+        "GLOBECOM",
+        "VTC",
+        "IEEE Access"
+      ],
+      "link": "Cited venues on this calendar: TMA, GLOBECOM, and VTC."
+    },
+    {
+      "id": "osnabruck",
+      "name": "Osnabr\u00fcck Starlink",
+      "tier": "core",
+      "contact": "Dominic Laniewski",
+      "members": [
+        "Dominic Laniewski",
+        "Nils Aschenbruck",
+        "Eric Lanfer"
+      ],
+      "themes": [
+        "Starlink"
+      ],
+      "series": [
+        "TMA"
+      ],
+      "cited_venues": [
+        "TMA",
+        "IEEE Open Journal of the Communications Society"
+      ],
+      "link": "Cited venue on this calendar: TMA. The next edition is undated, under Still watching."
+    },
+    {
+      "id": "lens",
+      "name": "LENS LEO",
+      "tier": "core",
+      "contact": "Jianping Pan",
+      "members": [
+        "Jianping Pan",
+        "Jinwei Zhao"
+      ],
+      "themes": [
+        "LEO",
+        "Starlink"
+      ],
+      "series": [
+        "ICC"
+      ],
+      "cited_venues": [
+        "ICC",
+        "MMSys"
+      ],
+      "link": "Cited venue on this calendar: ICC. MMSys is not a row here."
+    },
+    {
+      "id": "cbrs",
+      "name": "CBRS / spectrum",
+      "tier": "core",
+      "contact": "Monisha Ghosh",
+      "members": [
+        "Monisha Ghosh",
+        "Muhammad Iqbal Rochman"
+      ],
+      "themes": [
+        "CBRS"
+      ],
+      "series": [
+        "DySPAN",
+        "PIMRC"
+      ],
+      "cited_venues": [
+        "DySPAN",
+        "PIMRC",
+        "IEEE Communications Magazine"
+      ],
+      "link": "Cited venues on this calendar: DySPAN and PIMRC. IEEE Communications Magazine is not a conference row."
+    },
+    {
+      "id": "mohan-marina",
+      "name": "Mohan\u2013Marina LEO",
+      "tier": "core",
+      "contact": "Nitinder Mohan",
+      "members": [
+        "Nitinder Mohan",
+        "Mahesh K. Marina",
+        "J\u00f6rg Ott"
+      ],
+      "themes": [
+        "LEO",
+        "Starlink"
+      ],
+      "series": [
+        "IMC",
+        "SIGMETRICS"
+      ],
+      "cited_venues": [
+        "IMC",
+        "ACM POMACS",
+        "SIGCOMM",
+        "WWW"
+      ],
+      "link": "Cited venues on this calendar: IMC, and ACM POMACS tagged as SIGMETRICS (the conference that publishes POMACS). SIGCOMM and WWW are not separate rows."
+    },
+    {
+      "id": "feamster",
+      "name": "Feamster",
+      "tier": "core",
+      "contact": "Nick Feamster",
+      "members": [
+        "Nick Feamster"
+      ],
+      "themes": [
+        "crowdsource"
+      ],
+      "series": [
+        "IMC",
+        "SIGMETRICS"
+      ],
+      "cited_venues": [
+        "IMC",
+        "ACM POMACS",
+        "SIGCOMM"
+      ],
+      "link": "Cited venues on this calendar: IMC, and ACM POMACS tagged as SIGMETRICS. SIGCOMM is not a separate row."
+    },
+    {
+      "id": "wamser",
+      "name": "Wamser QoE",
+      "tier": "core",
+      "contact": "Florian Wamser",
+      "members": [
+        "Florian Wamser",
+        "Andrew Hall",
+        "Stefan Wunderer"
+      ],
+      "themes": [
+        "crowdsource"
+      ],
+      "series": [
+        "EuCNC"
+      ],
+      "cited_venues": [
+        "EuCNC"
+      ],
+      "link": "Cited venue on this calendar: EuCNC (Joint European Conference on Networks and Communications)."
+    },
+    {
+      "id": "yanikomeroglu",
+      "name": "Yanikomeroglu LEO",
+      "tier": "core",
+      "contact": "Halim Yanikomeroglu",
+      "members": [
+        "Halim Yanikomeroglu",
+        "Aizaz U. Chaudhry"
+      ],
+      "themes": [
+        "LEO"
+      ],
+      "series": [],
+      "cited_venues": [
+        "IEEE Vehicular Technology Magazine",
+        "IEEE Transactions on Aerospace and Electronic Systems"
+      ],
+      "link": "Cited venues are journals (IEEE Vehicular Technology Magazine and IEEE Transactions on Aerospace and Electronic Systems). No conference on this calendar is tagged."
+    },
+    {
+      "id": "liu",
+      "name": "Jiangchuan Liu",
+      "tier": "secondary",
+      "contact": "Jiangchuan Liu",
+      "members": [
+        "Jiangchuan Liu"
+      ],
+      "themes": [
+        "LEO",
+        "Starlink",
+        "crowdsource"
+      ],
+      "series": [
+        "INFOCOM",
+        "IMC"
+      ],
+      "cited_venues": [
+        "INFOCOM",
+        "IMC",
+        "SIGCOMM"
+      ],
+      "link": "Secondary seed. Cited venues on this calendar: INFOCOM and IMC. SIGCOMM is not a separate row."
+    },
+    {
+      "id": "wang",
+      "name": "Shangguang Wang",
+      "tier": "secondary",
+      "contact": "Shangguang Wang",
+      "members": [
+        "Shangguang Wang"
+      ],
+      "themes": [
+        "Starlink"
+      ],
+      "series": [
+        "GLOBECOM"
+      ],
+      "cited_venues": [
+        "GLOBECOM"
+      ],
+      "link": "Secondary seed. Cited venue on this calendar: GLOBECOM."
+    },
+    {
+      "id": "zhang",
+      "name": "Xinggong Zhang",
+      "tier": "secondary",
+      "contact": "Xinggong Zhang",
+      "members": [
+        "Xinggong Zhang"
+      ],
+      "themes": [
+        "crowdsource",
+        "Starlink"
+      ],
+      "series": [
+        "CoNEXT"
+      ],
+      "cited_venues": [
+        "CoNEXT",
+        "WWW"
+      ],
+      "link": "Secondary seed. Cited venue on this calendar: CoNEXT. WWW is not a row here."
+    },
+    {
+      "id": "li",
+      "name": "Zhijing Li",
+      "tier": "secondary",
+      "contact": "Zhijing Li",
+      "members": [
+        "Zhijing Li"
+      ],
+      "themes": [
+        "crowdsource",
+        "Starlink"
+      ],
+      "series": [
+        "CoNEXT"
+      ],
+      "cited_venues": [
+        "CoNEXT",
+        "WWW"
+      ],
+      "link": "Secondary seed. Cited venue on this calendar: CoNEXT."
+    },
+    {
+      "id": "oughton",
+      "name": "Oughton",
+      "tier": "secondary",
+      "contact": "Edward J. Oughton",
+      "members": [
+        "Edward J. Oughton"
+      ],
+      "themes": [
+        "LEO",
+        "crowdsource"
+      ],
+      "series": [],
+      "cited_venues": [
+        "IEEE Access"
+      ],
+      "link": "Secondary seed (3 unique cites). Cited outlet is IEEE Access, so no conference on this calendar is tagged."
+    },
+    {
+      "id": "malandrino",
+      "name": "Malandrino",
+      "tier": "secondary",
+      "contact": "Francesco Malandrino",
+      "members": [
+        "Francesco Malandrino"
+      ],
+      "themes": [
+        "crowdsource"
+      ],
+      "series": [],
+      "cited_venues": [
+        "Vehicular Communications",
+        "IEEE Transactions on Mobile Computing"
+      ],
+      "link": "Secondary seed (3 unique cites). Cited outlets are journals, so no conference on this calendar is tagged."
+    }
+  ]
+}

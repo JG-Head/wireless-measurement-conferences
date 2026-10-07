@@ -33,7 +33,7 @@
     <form id="filters" class="filters" role="search">
       <label class="field field-search">
         <span>Search</span>
-        <input id="q" type="search" name="q" placeholder="Name, city, series, topic" autocomplete="off" enterkeyhint="search">
+        <input id="q" type="search" name="q" placeholder="Name, city, series, lab" autocomplete="off" enterkeyhint="search">
       </label>
 
       <div class="field">
@@ -69,8 +69,14 @@
         </select>
       </label>
 
+      <div class="field field-labs">
+        <span id="lab-label">Research labs</span>
+        <div id="lab-filters" class="lab-filters" role="group" aria-labelledby="lab-label"></div>
+        <p id="lab-note" class="lab-note" hidden></p>
+      </div>
+
       <label class="field">
-        <span>Affinity</span>
+        <span>Venue fit</span>
         <select id="affinity" name="affinity">
           <option value="all">All affinities</option>
         </select>

@@ -8,6 +8,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data" / "conferences.json"
 PUBLISHED = ROOT / "docs" / "data" / "conferences.json"
+AFFINITY_SOURCE = ROOT / "data" / "affinity.json"
+AFFINITY_PUBLISHED = ROOT / "docs" / "data" / "affinity.json"
+THEMES = {"Starlink", "CBRS", "cell-load", "crowdsource", "LEO"}
+BANNED_MEMBERS = ("frias", "mendo", "lehr", "yraola", "garcia-cabeza", "garcia cabeza")
 REQUIRED = [
     "id", "name", "acronym", "series", "start", "end", "city", "country",
     "spain", "site", "cfp", "deadlines", "topic_fit", "standing", "tier_note",
@@ -28,6 +32,69 @@ def is_iso_date(value):
     return year.isdigit() and month.isdigit() and day.isdigit()
 
 
+def load_affinity(errors):
+    if not AFFINITY_SOURCE.exists() or not AFFINITY_PUBLISHED.exists():
+        errors.append("data/affinity.json and docs/data/affinity.json are required")
+        return None
+    raw_source = AFFINITY_SOURCE.read_bytes()
+    if raw_source != AFFINITY_PUBLISHED.read_bytes():
+        errors.append("docs/data/affinity.json differs from data/affinity.json")
+        return None
+    affinity = json.loads(raw_source)
+    units = affinity.get("units")
+    if not isinstance(units, list) or not units:
+        errors.append("affinity units must be a non-empty list")
+        return None
+    seen = set()
+    for unit in units:
+        ident = unit.get("id", "<missing id>")
+        if ident in seen:
+            errors.append(f"duplicate affinity unit {ident}")
+        seen.add(ident)
+        if not isinstance(ident, str) or not ident.replace("-", "").isalnum() or ident != ident.lower():
+            errors.append(f"affinity id must be a lowercase slug: {ident}")
+        if unit.get("tier") not in {"core", "secondary"}:
+            errors.append(f"{ident} tier must be core or secondary")
+        members = unit.get("members")
+        if not isinstance(members, list) or not members:
+            errors.append(f"{ident} members must be a non-empty list")
+            members = []
+        contact = unit.get("contact")
+        if not isinstance(contact, str) or contact not in members:
+            errors.append(f"{ident} contact must be one of members")
+        for member in members:
+            folded = str(member).lower()
+            if any(token in folded for token in BANNED_MEMBERS):
+                errors.append(f"{ident} member is excluded from affinity: {member}")
+        themes = unit.get("themes")
+        if not isinstance(themes, list) or not themes or any(theme not in THEMES for theme in themes):
+            errors.append(f"{ident} themes must use {sorted(THEMES)}")
+        series = unit.get("series")
+        if not isinstance(series, list) or any(not isinstance(item, str) or not item for item in series):
+            errors.append(f"{ident} series must be a list of names")
+        if not isinstance(unit.get("link"), str) or not unit.get("link"):
+            errors.append(f"{ident} link note is required")
+        if not unit.get("name"):
+            errors.append(f"{ident} name is required")
+    return affinity
+
+
+def check_affinity_tags(record, ident, units_by_id, errors):
+    tags = record.get("affinity_units", [])
+    if tags is None:
+        return
+    if not isinstance(tags, list):
+        errors.append(f"{ident} affinity_units must be a list")
+        return
+    series = record.get("series")
+    expected = [unit["id"] for unit in units_by_id.values() if series in unit.get("series", [])]
+    if tags != expected:
+        errors.append(f"{ident} affinity_units {tags} != series tags {expected}")
+    for tag in tags:
+        if tag not in units_by_id:
+            errors.append(f"{ident} unknown affinity unit {tag}")
+
+
 def main():
     raw_source = SOURCE.read_bytes()
     raw_published = PUBLISHED.read_bytes()
@@ -36,6 +103,8 @@ def main():
 
     data = json.loads(raw_source)
     errors = []
+    affinity = load_affinity(errors)
+    units_by_id = {unit["id"]: unit for unit in (affinity or {}).get("units", []) if unit.get("id")}
     if not is_iso_date(data.get("verified_as_of", "")):
         errors.append("verified_as_of must be YYYY-MM-DD")
     window = data.get("window") or {}
@@ -89,12 +158,16 @@ def main():
                     value = deadlines.get(name)
                     if value and value >= today:
                         errors.append(f"{ident} attend_only but {name} {value} is still open")
+        if units_by_id:
+            check_affinity_tags(event, ident, units_by_id, errors)
 
     for item in data.get("watching") or []:
         if not item.get("series") or not item.get("note"):
             errors.append(f"watching entry needs series and note: {item!r}")
         if item.get("watch_next_edition") is not True:
             errors.append(f"watching {item.get('series')} needs watch_next_edition true")
+        if units_by_id:
+            check_affinity_tags(item, f"watching {item.get('series')}", units_by_id, errors)
 
     if errors:
         for message in errors:
