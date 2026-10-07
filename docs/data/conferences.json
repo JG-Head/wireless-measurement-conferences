@@ -42,7 +42,12 @@
       "status": "Confirmed",
       "region": "Europe",
       "affinity": "high",
-      "attend_only": true
+      "attend_only": true,
+      "affinity_units": [
+        "mohan-marina",
+        "feamster",
+        "liu"
+      ]
     },
     {
       "id": "cnsm-2026",
@@ -121,7 +126,11 @@
       "status": "Confirmed",
       "region": "Europe",
       "affinity": "high",
-      "attend_only": true
+      "attend_only": true,
+      "affinity_units": [
+        "zhang",
+        "li"
+      ]
     },
     {
       "id": "globecom-2026",
@@ -143,7 +152,11 @@
       "tier_note": "A (main); workshops vary",
       "status": "Confirmed",
       "region": "Asia",
-      "affinity": "medium"
+      "affinity": "medium",
+      "affinity_units": [
+        "tu-wien",
+        "wang"
+      ]
     },
     {
       "id": "wcnc-2027",
@@ -218,7 +231,10 @@
       "status": "Confirmed",
       "region": "North America",
       "affinity": "high",
-      "attend_only": true
+      "attend_only": true,
+      "affinity_units": [
+        "liu"
+      ]
     },
     {
       "id": "icc-2027",
@@ -240,7 +256,10 @@
       "tier_note": "A (main); workshops vary",
       "status": "Confirmed",
       "region": "North America",
-      "affinity": "medium"
+      "affinity": "medium",
+      "affinity_units": [
+        "lens"
+      ]
     },
     {
       "id": "sigmetrics-2027",
@@ -262,7 +281,11 @@
       "tier_note": "A / performance measurement",
       "status": "Confirmed",
       "region": "North America",
-      "affinity": "high"
+      "affinity": "high",
+      "affinity_units": [
+        "mohan-marina",
+        "feamster"
+      ]
     },
     {
       "id": "eucnc-2027",
@@ -284,7 +307,10 @@
       "tier_note": "Strong European 6G/testbed",
       "status": "Confirmed",
       "region": "Europe",
-      "affinity": "high"
+      "affinity": "high",
+      "affinity_units": [
+        "wamser"
+      ]
     },
     {
       "id": "vtc-2027-spring",
@@ -308,7 +334,10 @@
       "tier_note": "Tier B+ wireless",
       "status": "Confirmed",
       "region": "Europe",
-      "affinity": "medium"
+      "affinity": "medium",
+      "affinity_units": [
+        "tu-wien"
+      ]
     },
     {
       "id": "pimrc-2027",
@@ -332,7 +361,10 @@
       "tier_note": "Tier B+ wireless",
       "status": "Confirmed",
       "region": "Europe",
-      "affinity": "high"
+      "affinity": "high",
+      "affinity_units": [
+        "cbrs"
+      ]
     },
     {
       "id": "conext-2027",
@@ -354,7 +386,11 @@
       "tier_note": "A / strong networking",
       "status": "Announced",
       "region": "South America",
-      "affinity": "high"
+      "affinity": "high",
+      "affinity_units": [
+        "zhang",
+        "li"
+      ]
     },
     {
       "id": "globecom-2027",
@@ -376,7 +412,11 @@
       "tier_note": "A (main)",
       "status": "Announced",
       "region": "Middle East",
-      "affinity": "medium"
+      "affinity": "medium",
+      "affinity_units": [
+        "tu-wien",
+        "wang"
+      ]
     },
     {
       "id": "eucnc-2028",
@@ -399,7 +439,10 @@
       "status": "Announced",
       "region": "Europe",
       "affinity": "high",
-      "notes": "Secondary DE tender; await eucnc.eu 2028 page"
+      "notes": "Secondary DE tender; await eucnc.eu 2028 page",
+      "affinity_units": [
+        "wamser"
+      ]
     },
     {
       "id": "sigmetrics-2028",
@@ -422,14 +465,23 @@
       "status": "Announced",
       "region": "Europe",
       "affinity": "high",
-      "notes": "City announced; exact dates TBD \u2014 mid-June placeholder"
+      "notes": "City announced; exact dates TBD \u2014 mid-June placeholder",
+      "affinity_units": [
+        "mohan-marina",
+        "feamster"
+      ]
     }
   ],
   "watching": [
     {
       "series": "IMC",
       "note": "CFP not open yet. 2027/28 not announced; typically Oct/Nov",
-      "watch_next_edition": true
+      "watch_next_edition": true,
+      "affinity_units": [
+        "mohan-marina",
+        "feamster",
+        "liu"
+      ]
     },
     {
       "series": "PAM",
@@ -439,7 +491,11 @@
     {
       "series": "TMA",
       "note": "CFP not open yet. 2027/28 not announced; typically June, Europe",
-      "watch_next_edition": true
+      "watch_next_edition": true,
+      "affinity_units": [
+        "tu-wien",
+        "osnabruck"
+      ]
     },
     {
       "series": "IFIP Networking",
@@ -449,7 +505,10 @@
     {
       "series": "DySPAN",
       "note": "CFP not open yet. 2027+ not announced; spectrum measurement \u2014 high affinity (user published DySPAN 2025)",
-      "watch_next_edition": true
+      "watch_next_edition": true,
+      "affinity_units": [
+        "cbrs"
+      ]
     },
     {
       "series": "CNSM",
@@ -464,7 +523,10 @@
     {
       "series": "PIMRC",
       "note": "CFP not open yet. 2028 not announced",
-      "watch_next_edition": true
+      "watch_next_edition": true,
+      "affinity_units": [
+        "cbrs"
+      ]
     }
   ]
 }
