@@ -737,8 +737,14 @@ function ensureMap(fit) {
     }).addTo(map);
     markerLayer = L.featureGroup().addTo(map);
     map.on("popupopen", (popupEvent) => {
-      popupEvent.popup.getElement().querySelectorAll("[data-open]").forEach((button) => {
-        button.addEventListener("click", () => openDrawer(button.getAttribute("data-open")));
+      const popupEl = popupEvent.popup.getElement();
+      const marker = popupEvent.popup._source;
+      const icon = marker && marker.getElement();
+      if (icon) icon.tabIndex = -1;
+      popupEl.querySelectorAll("[data-open]").forEach((button) => {
+        if (button.dataset.bound) return;
+        button.dataset.bound = "1";
+        button.addEventListener("click", () => openDrawer(button.getAttribute("data-open"), icon || button));
       });
     });
     map.on("zoomend", syncPinLabels);
@@ -1082,10 +1088,10 @@ function drawerHtml(event) {
   `;
 }
 
-function openDrawer(id) {
+function openDrawer(id, opener) {
   const event = findEvent(id);
   if (!event) return;
-  lastFocus = document.activeElement;
+  lastFocus = opener || document.activeElement;
   state.event = id;
   writeUrl();
   $("drawer-kicker").textContent = event.series || "Event";

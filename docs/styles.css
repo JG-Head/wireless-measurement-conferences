@@ -70,6 +70,13 @@
   --low: var(--muted);
   --announced: var(--navy);
   --shadow: 0 12px 32px rgba(39, 53, 131, 0.12);
+  /* Stacking. Leaflet panes use 200–1000, so the map must be its own context
+     or those panes paint above the scrim and the drawer. */
+  --z-map: 1;
+  --z-sticky: 20;
+  --z-scrim: 40;
+  --z-drawer: 50;
+  --z-skip: 80;
   --serif: "Newsreader", "Iowan Old Style", Palatino, Georgia, serif;
   --sans: "Figtree", "Avenir Next", "Segoe UI", sans-serif;
   --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
@@ -108,7 +115,7 @@ button, input, select { font: inherit; color: inherit; }
   color: var(--on-orange);
   padding: 8px 12px;
   border-radius: 8px;
-  z-index: 80;
+  z-index: var(--z-skip);
 }
 
 .skip:focus { top: 12px; }
@@ -554,6 +561,8 @@ tr.is-spain td:first-child { box-shadow: inset 3px 0 0 var(--orange-line); }
 
 .map-stage {
   position: relative;
+  z-index: var(--z-map);
+  isolation: isolate;
   height: min(70vh, 640px);
   min-height: 420px;
   border-radius: var(--radius);
@@ -881,21 +890,29 @@ tr.is-spain td:first-child { box-shadow: inset 3px 0 0 var(--orange-line); }
   position: fixed;
   inset: 0;
   background: rgba(39, 53, 131, 0.4);
-  z-index: 40;
+  z-index: var(--z-scrim);
 }
 
 .drawer {
   position: fixed;
-  z-index: 50;
+  z-index: var(--z-drawer);
   top: 0;
   right: 0;
   bottom: 0;
   width: min(440px, 100%);
+  max-width: 100%;
   background: var(--bg-2);
   border-left: 1px solid var(--line-strong);
   box-shadow: var(--shadow);
   overflow: auto;
+  overflow-wrap: anywhere;
   padding: 18px 18px 40px;
+}
+
+.drawer .meta-grid,
+.drawer .deadlines li,
+.drawer .lab-list {
+  min-width: 0;
 }
 
 .drawer-bar {
@@ -978,6 +995,12 @@ tr.is-spain td:first-child { box-shadow: inset 3px 0 0 var(--orange-line); }
   .view-switch button { flex: 1; }
   .map-stage { min-height: 380px; height: 68vh; }
   .map-footer { flex-direction: column; align-items: stretch; }
+  .drawer {
+    left: 0;
+    right: 0;
+    width: auto;
+    border-left: 0;
+  }
   h1 { font-size: 2rem; }
 }
 
