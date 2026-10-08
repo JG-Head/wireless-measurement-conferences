@@ -743,6 +743,16 @@ function ensureMap(fit) {
     });
     map.on("zoomend", syncPinLabels);
     map.setView([30, 10], 2);
+    const stage = document.querySelector(".map-stage");
+    if (stage && typeof ResizeObserver !== "undefined") {
+      let lastWidth = stage.clientWidth;
+      new ResizeObserver(() => {
+        const width = stage.clientWidth;
+        if (!map || width === lastWidth) return;
+        lastWidth = width;
+        map.invalidateSize();
+      }).observe(stage);
+    }
   }
   renderMarkers();
   if (fit) {

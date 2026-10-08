@@ -537,7 +537,7 @@ tr.is-spain td:first-child { box-shadow: inset 3px 0 0 var(--spain); }
   background: var(--bg);
 }
 
-#map { height: 100%; width: 100%; background: var(--bg); }
+#map { height: 100%; width: 100%; max-width: 100%; background: var(--bg); }
 
 .map-tools {
   display: flex;
