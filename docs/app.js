@@ -674,7 +674,11 @@ function renderMarkers(fit) {
       direction: "top",
       offset: [0, -10]
     });
-    marker.bindPopup(popupHtml(group), { maxWidth: 320 });
+    marker.bindPopup(popupHtml(group), {
+      maxWidth: 280,
+      autoPanPadding: [32, 32],
+      keepInView: true
+    });
     markerLayer.addLayer(marker);
   });
 }
@@ -693,7 +697,12 @@ function scheduleFit(events, maxZoom, pad) {
     requestAnimationFrame(() => {
       if (token !== mapFitToken || !map) return;
       fitMap(events, maxZoom, pad);
-      document.getElementById("map")?.scrollIntoView({ block: "center", inline: "nearest" });
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.getElementById("map")?.scrollIntoView({
+        block: "nearest",
+        inline: "nearest",
+        behavior: reduceMotion ? "auto" : "smooth"
+      });
     });
   });
 }
@@ -713,7 +722,15 @@ function ensureMap(fit) {
     return;
   }
   if (!map) {
-    map = L.map("map", { scrollWheelZoom: false, worldCopyJump: true, minZoom: 2 });
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    map = L.map("map", {
+      scrollWheelZoom: false,
+      worldCopyJump: true,
+      minZoom: 2,
+      zoomAnimation: !reduceMotion,
+      fadeAnimation: !reduceMotion,
+      markerZoomAnimation: !reduceMotion
+    });
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19
@@ -726,6 +743,16 @@ function ensureMap(fit) {
     });
     map.on("zoomend", syncPinLabels);
     map.setView([30, 10], 2);
+    const stage = document.querySelector(".map-stage");
+    if (stage && typeof ResizeObserver !== "undefined") {
+      let lastWidth = stage.clientWidth;
+      new ResizeObserver(() => {
+        const width = stage.clientWidth;
+        if (!map || width === lastWidth) return;
+        lastWidth = width;
+        map.invalidateSize();
+      }).observe(stage);
+    }
   }
   renderMarkers();
   if (fit) {
@@ -774,7 +801,8 @@ function renderTimeline() {
   });
 
   const lanePitch = 112;
-  const height = 36 + laneEnds.length * lanePitch + 16;
+  const header = 54;
+  const height = header + laneEnds.length * lanePitch + 16;
   const months = [];
   let cursor = parseDate(windowFrom);
   const end = parseDate(windowTo);
@@ -797,7 +825,7 @@ function renderTimeline() {
   const showToday = today >= windowFrom && today <= windowTo;
 
   root.innerHTML = `
-    <p class="timeline-help">Scroll sideways across ${escapeHtml(formatMonthYear(windowFrom))} – ${escapeHtml(formatMonthYear(windowTo))}. Amber cards are hosted in Spain. The top edge shows affinity.</p>
+    <p class="timeline-help">Scroll sideways across ${escapeHtml(formatMonthYear(windowFrom))} – ${escapeHtml(formatMonthYear(windowTo))}. Orange cards are hosted in Spain. The top edge shows affinity.</p>
     <div class="timeline-scroll" id="timeline-scroll">
       <div class="timeline-canvas" style="width:${width}px;height:${height}px">
         ${years.map((year, index) => `<div class="year-band${index % 2 ? " alt" : ""}" style="left:${year.x}px;width:${year.w}px"></div>`).join("")}
@@ -809,7 +837,7 @@ function renderTimeline() {
         }).join("")}
         ${showToday ? `<div class="today-line" style="left:${xFor(today)}px"><span>Today</span></div>` : ""}
         ${placed.map((item) => `
-          <button type="button" class="t-card is-${escapeHtml(item.event.affinity || "low")}${item.event.spain ? " is-spain" : ""} affinity-${escapeHtml(item.event.affinity || "low")}${state.event === item.event.id ? " is-selected" : ""}" data-id="${escapeHtml(item.event.id)}" style="left:${item.x}px;top:${36 + item.lane * lanePitch}px" title="${escapeHtml(item.event.notes || item.event.name)}">
+          <button type="button" class="t-card is-${escapeHtml(item.event.affinity || "low")}${item.event.spain ? " is-spain" : ""} affinity-${escapeHtml(item.event.affinity || "low")}${state.event === item.event.id ? " is-selected" : ""}" data-id="${escapeHtml(item.event.id)}" style="left:${item.x}px;top:${header + item.lane * lanePitch}px" title="${escapeHtml(item.event.notes || item.event.name)}">
             <span class="t-date">${escapeHtml(formatRange(item.event.start, item.event.end))}</span>
             <span class="t-acronym">${escapeHtml(item.event.acronym)}</span>
             <span class="t-place">${escapeHtml(item.event.city)}${item.event.spain ? " · España" : ""}</span>
@@ -1220,18 +1248,43 @@ function bind() {
       $("map-empty").textContent = state.submissions
         ? "No Spain submission opportunity matches these filters."
         : "No Spain events match these filters.";
+      $("map-empty").scrollIntoView({ block: "nearest" });
       return;
     }
     zoomTo(events, 10, 0.06);
   });
   $("zoom-all").addEventListener("click", () => {
+    const events = sortedEvents().filter((event) => Number.isFinite(event.lat) && Number.isFinite(event.lon));
     renderMarkers();
-    zoomTo(sortedEvents().filter((event) => Number.isFinite(event.lat) && Number.isFinite(event.lon)), 4);
+    if (!events.length) {
+      $("map-empty").hidden = false;
+      $("map-empty").textContent = "No visible markers to fit.";
+      $("map-empty").scrollIntoView({ block: "nearest" });
+      return;
+    }
+    zoomTo(events, 4);
   });
   $("drawer-close").addEventListener("click", () => closeDrawer());
   $("backdrop").addEventListener("click", () => closeDrawer());
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !$("drawer").hidden) closeDrawer();
+    const drawer = $("drawer");
+    if (drawer.hidden) return;
+    if (event.key === "Escape") {
+      closeDrawer();
+      return;
+    }
+    if (event.key !== "Tab") return;
+    const focusable = [...drawer.querySelectorAll("a[href], button:not([disabled])")];
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   });
   window.matchMedia("(max-width: 860px)").addEventListener("change", (media) => {
     if (state.layoutTouched) return;
