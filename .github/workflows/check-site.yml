@@ -10,12 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate conference data and site files
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Validate conference data
+        run: python3 scripts/validate_conferences.py
+      - name: Rebuild and confirm the committed Pages output matches
         run: |
-          python3 scripts/validate_conferences.py
-          test -f docs/data/affinity.json
+          npm ci
+          npm run build
+          git diff --exit-code -- docs
+      - name: Required Pages files
+        run: |
           test -f docs/index.html
-          test -f docs/styles.css
-          test -f docs/app.js
           test -f docs/.nojekyll
           test -f docs/favicon.svg
+          test -f docs/data/conferences.json
+          test -f docs/data/affinity.json
+          grep -q 'type="module"' docs/index.html

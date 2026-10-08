@@ -1,30 +1,53 @@
 # Wireless measurement conferences
 
-Static planning board for Tier B+ ACM and IEEE venues on **wireless access network measurement** and **end-to-end networking performance**, October 2026 through October 2028.
+Planning board for Tier B+ ACM and IEEE venues on **wireless access network measurement** and **end-to-end networking performance**, October 2026 through October 2028.
 
-Maintained for Jorge Garcia-Cabeza (UPM). The page has three views over one JSON file:
+Maintained for Jorge Garcia-Cabeza (UPM). The page is a Vue 3 app with a left sidebar (views and filters) and card-style panels. It has three views over one JSON file:
 
 - **List** — table or cards. The default mode is **Submission opportunities**: a paper or abstract deadline still ahead, or a dated edition whose CFP date is not in the file. Attend-only meetings (closed paper calls) stay in the JSON and appear when that mode is turned off. Other filters: organizer (IEEE, ACM, or Other; multi-select, empty means all), research labs (one chip per cited coauthor cluster), Spain, Europe, status, venue fit, and paper deadlines in the next 90 days. Camera-ready is not treated as a new submission.
-- **Map** — Leaflet markers on OpenStreetMap tiles (no API key). Spain-hosted events use the ETSIT orange. **Reset view** fits the markers that match the current filters. Click a marker for details
-- **Timeline** — horizontal strip across the window
+- **Map** — Leaflet markers on OpenStreetMap tiles (no API key). Spain-hosted events use the ETSIT orange. **Reset view** fits the markers that match the current filters. Click a marker for details.
+- **Timeline** — horizontal strip across the window.
 
-Events happening now, upcoming deadlines, and series that are still undated (“Still watching”) stay visible above or below the views.
+Events happening now, upcoming deadlines, and series that are still undated (“Still watching”) stay visible above or below the views. Filters and the open event are stored in the query string (`?view=map&event=<id>`, `organizer`, `labs`, `submissions=0`, and the rest), so a link opens the same view.
 
 Live Pages URL: <https://jg-head.github.io/wireless-measurement-conferences/>
 
+## Develop and build
+
+The app source is the repo root (`index.html`, `src/`, `public/`, `vite.config.js`). GitHub Pages still publishes `/docs` on `main`, so a production build writes into `docs/` with base path `/wireless-measurement-conferences/`. No repository settings change is required.
+
+```bash
+npm install
+npm run dev
+```
+
+Dev server: <http://localhost:5173/>. It reads `data/conferences.json` and `data/affinity.json` directly.
+
+```bash
+npm run build
+npm run preview
+```
+
+`npm run build` writes the site into `docs/` and copies both JSON files to `docs/data/`. Preview: <http://localhost:4173/wireless-measurement-conferences/>.
+
+Runtime dependencies are free and permissively licensed: Vue (MIT), Bootstrap 5 and Bootstrap Icons (MIT), Leaflet (BSD-2-Clause). Vite is a dev dependency (MIT). The page does not load Highcharts, PrimeVue, or any other paid or dual-licensed library. Map tiles stay OpenStreetMap. Newsreader and Figtree are SIL Open Font License.
+
 ## Update the data
 
-`data/conferences.json` is the source of truth. The site reads the copy at `docs/data/conferences.json`. Do not add venues, cities, dates, or deadlines that are not in a source you have checked. Undated series belong in `watching`, not as invented events.
+`data/conferences.json` is the source of truth. The site fetches `docs/data/conferences.json` at runtime, so a deadline edit does not require changing Vue components. Do not add venues, cities, dates, or deadlines that are not in a source you have checked. Undated series belong in `watching`, not as invented events.
 
-1. Edit `data/conferences.json`.
-2. Copy it into the site:
+1. Edit `data/conferences.json` and, when the lab list changes, `data/affinity.json`.
+2. Copy the JSON into the published site, or rebuild:
 
    ```bash
    cp data/conferences.json docs/data/conferences.json
+   cp data/affinity.json docs/data/affinity.json
    python3 scripts/validate_conferences.py
    ```
 
-3. Commit both files and push to `main`.
+   `npm run build` does the same copy after it rebuilds the JavaScript. A data-only change can stop at the copy.
+
+3. Commit the JSON (and `docs/data/` if you copied it) and push to `main`.
 
 Each event needs `id`, `name`, `acronym`, `series`, `start`, `end`, `city`, `country`, `spain` (true only when `country` is Spain), `lat` / `lon` when the city is known, `site`, `cfp`, `deadlines`, `topic_fit`, `standing`, `tier_note`, `status`, `region`, `affinity` (`high`, `medium`, or `low`), and `organizer` (`IEEE`, `ACM`, or `Other`). Optional `organizer_detail` names a joint sponsor when the filter bucket stays with the primary one (NOMS is `IEEE` with detail `IEEE/IFIP`). Optional `notes` is shown as a callout (used for placeholder dates such as SIGMETRICS 2028). Optional `attend_only: true` keeps a dated meeting in the file but hides it from the default submission list (the paper deadline has passed, or no open paper deadline is listed). Deadline keys in use are `abstract`, `paper`, `notification`, and `camera_ready`, as `YYYY-MM-DD`.
 
@@ -36,13 +59,7 @@ ICC and GLOBECOM stay in the file. WSA, ONDM, and the closed NTC-R 2026 workshop
 
 ## Preview locally
 
-Fetching JSON does not work from a `file://` URL. Serve the site directory:
-
-```bash
-python3 -m http.server -d docs 8080
-```
-
-Open <http://localhost:8080>. List and timeline render from the JSON with no network. The map needs Leaflet from cdnjs and OpenStreetMap tiles, which do not use an API key.
+Use `npm run dev` or `npm run preview` (see above). Fetching JSON does not work from a `file://` URL. The map needs a network connection for OpenStreetMap tiles. Leaflet ships with the build, so the list and timeline do not depend on a CDN.
 
 ## Dates that are not firm
 
@@ -53,20 +70,19 @@ The JSON is copied through as written. Two editions carry a `notes` field, and t
 
 ## GitHub Pages
 
-The files to publish are in `/docs` on `main` (`.nojekyll` is included so the JSON and fonts are not passed through Jekyll).
-
-The site is published from `/docs` on `main`: <https://jg-head.github.io/wireless-measurement-conferences/>
-
-Settings: **Deploy from a branch**, branch `main`, folder `/docs`. The workflow [`.github/workflows/check-site.yml`](.github/workflows/check-site.yml) checks that the two JSON copies match. It does not publish the site. A push to `main` is what updates the live page, usually within a minute.
+The built site is committed under `/docs` on `main` (`.nojekyll` is included so the JSON and fonts are not passed through Jekyll). Settings stay **Deploy from a branch**, branch `main`, folder `/docs`. The workflow [`.github/workflows/check-site.yml`](.github/workflows/check-site.yml) checks the JSON and that `npm run build` reproduces `docs/`. It does not publish the site. A push to `main` is what updates the live page, usually within a minute.
 
 ## Layout
 
 | Path | Role |
 | --- | --- |
-| `data/conferences.json` | Source of truth |
-| `docs/` | Static site published by GitHub Pages |
-| `docs/data/conferences.json` | Copy the site fetches |
+| `index.html`, `src/` | Vue 3 source |
+| `data/conferences.json` | Source of truth for venues |
+| `data/affinity.json` | Source of truth for the lab filter |
+| `docs/` | Vite build published by GitHub Pages |
+| `docs/data/` | JSON the live site fetches |
 | `scripts/validate_conferences.py` | Schema and copy check |
+| `scripts/copy-data.mjs` | Copies both JSON files into `docs/data/` |
 
 ## License
 
