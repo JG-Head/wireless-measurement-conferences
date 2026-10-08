@@ -33,7 +33,7 @@
     <form id="filters" class="filters" role="search">
       <label class="field field-search">
         <span>Search</span>
-        <input id="q" type="search" name="q" placeholder="Name, city, series, lab" autocomplete="off" enterkeyhint="search">
+        <input id="q" type="search" name="q" placeholder="Name, city, series, organizer, lab" autocomplete="off" enterkeyhint="search">
       </label>
 
       <div class="field">
@@ -52,6 +52,15 @@
             <span>Paper deadlines soon</span>
             <small>90 days</small>
           </button>
+        </div>
+      </div>
+
+      <div class="field field-org">
+        <span id="organizer-label">Organizer · Organizador</span>
+        <div id="organizer-filters" class="org-filters" role="group" aria-labelledby="organizer-label">
+          <button type="button" class="org-chip" data-org="IEEE" aria-pressed="false">IEEE</button>
+          <button type="button" class="org-chip" data-org="ACM" aria-pressed="false">ACM</button>
+          <button type="button" class="org-chip" data-org="Other" aria-pressed="false">Other</button>
         </div>
       </div>
 

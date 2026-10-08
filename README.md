@@ -4,7 +4,7 @@ Static planning board for Tier B+ ACM and IEEE venues on **wireless access netwo
 
 Maintained for Jorge Garcia-Cabeza (UPM). The page has three views over one JSON file:
 
-- **List** — table or cards. The default mode is **Submission opportunities**: a paper or abstract deadline still ahead, or a dated edition whose CFP date is not in the file. Attend-only meetings (closed paper calls) stay in the JSON and appear when that mode is turned off. Other filters: research labs (one chip per cited coauthor cluster), Spain, Europe, status, venue fit, and paper deadlines in the next 90 days. Camera-ready is not treated as a new submission.
+- **List** — table or cards. The default mode is **Submission opportunities**: a paper or abstract deadline still ahead, or a dated edition whose CFP date is not in the file. Attend-only meetings (closed paper calls) stay in the JSON and appear when that mode is turned off. Other filters: organizer (IEEE, ACM, or Other; multi-select, empty means all), research labs (one chip per cited coauthor cluster), Spain, Europe, status, venue fit, and paper deadlines in the next 90 days. Camera-ready is not treated as a new submission.
 - **Map** — Leaflet markers on OpenStreetMap tiles (no API key). Spain-hosted events use the ETSIT orange. **Reset view** fits the markers that match the current filters. Click a marker for details
 - **Timeline** — horizontal strip across the window
 
@@ -26,9 +26,9 @@ Live Pages URL: <https://jg-head.github.io/wireless-measurement-conferences/>
 
 3. Commit both files and push to `main`.
 
-Each event needs `id`, `name`, `acronym`, `series`, `start`, `end`, `city`, `country`, `spain` (true only when `country` is Spain), `lat` / `lon` when the city is known, `site`, `cfp`, `deadlines`, `topic_fit`, `standing`, `tier_note`, `status`, `region`, and `affinity` (`high`, `medium`, or `low`). Optional `notes` is shown as a callout (used for placeholder dates such as SIGMETRICS 2028). Optional `attend_only: true` keeps a dated meeting in the file but hides it from the default submission list (the paper deadline has passed, or no open paper deadline is listed). Deadline keys in use are `abstract`, `paper`, `notification`, and `camera_ready`, as `YYYY-MM-DD`.
+Each event needs `id`, `name`, `acronym`, `series`, `start`, `end`, `city`, `country`, `spain` (true only when `country` is Spain), `lat` / `lon` when the city is known, `site`, `cfp`, `deadlines`, `topic_fit`, `standing`, `tier_note`, `status`, `region`, `affinity` (`high`, `medium`, or `low`), and `organizer` (`IEEE`, `ACM`, or `Other`). Optional `organizer_detail` names a joint sponsor when the filter bucket stays with the primary one (NOMS is `IEEE` with detail `IEEE/IFIP`). Optional `notes` is shown as a callout (used for placeholder dates such as SIGMETRICS 2028). Optional `attend_only: true` keeps a dated meeting in the file but hides it from the default submission list (the paper deadline has passed, or no open paper deadline is listed). Deadline keys in use are `abstract`, `paper`, `notification`, and `camera_ready`, as `YYYY-MM-DD`.
 
-Watching entries need `series`, `note`, and `watch_next_edition: true`. Their notes should say the CFP is not open yet. Do not add a dated event just to hold a series.
+Watching entries need `series`, `note`, `organizer`, and `watch_next_edition: true`. Their notes should say the CFP is not open yet. Do not add a dated event just to hold a series.
 
 `data/affinity.json` (copied to `docs/data/affinity.json`) is the research-lab filter. Each unit is one coauthor cluster from the cited-paper analysis. Jorge’s coauthors are listed under `excluded` and must not be added as members. An event or watching row may include `affinity_units`. A series is tagged only when that cluster’s cited venues name it: POMACS is tagged as SIGMETRICS, and PIMRC is tagged for the Ghosh–Rochman symposium papers. Clusters whose outlets are not on this calendar have an empty `series` list. The default list is still submission opportunities; the lab chips narrow that list.
 

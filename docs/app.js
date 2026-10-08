@@ -17,6 +17,7 @@ const AFFINITY_RANK = { high: 0, medium: 1, low: 2 };
 const STATUS_RANK = { Confirmed: 0, Announced: 1 };
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const VIEWS = ["list", "map", "timeline"];
+const ORGANIZERS = ["IEEE", "ACM", "Other"];
 
 const state = {
   view: "list",
@@ -27,6 +28,7 @@ const state = {
   affinity: "all",
   soon: false,
   submissions: true,
+  organizers: [],
   labs: [],
   sort: "date",
   dir: "asc",
@@ -252,8 +254,22 @@ function placeMarks(event) {
   return bits.join("");
 }
 
+function organizerBadge(record) {
+  const name = record.organizer;
+  if (!name) return "";
+  const kind = name === "IEEE" ? "ieee" : name === "ACM" ? "acm" : "other";
+  return `<span class="pill org org-${kind}">${escapeHtml(name)}</span>`;
+}
+
+function matchesOrganizer(record) {
+  if (!state.organizers.length) return true;
+  return state.organizers.includes(record.organizer);
+}
+
 function pills(event) {
   const bits = [];
+  const badge = organizerBadge(event);
+  if (badge) bits.push(badge);
   const role = cfpRole(event);
   if (role === "open") bits.push('<span class="pill open">Open CFP</span>');
   else if (role === "upcoming") bits.push('<span class="pill upcoming">CFP date not in file</span>');
@@ -286,6 +302,7 @@ function filteredEvents() {
     if (state.status !== "all" && event.status !== state.status) return false;
     if (state.affinity !== "all" && event.affinity !== state.affinity) return false;
     if (state.soon && !hasSoonDeadline(event)) return false;
+    if (!matchesOrganizer(event)) return false;
     if (!matchesLabs(event)) return false;
     if (!query) return true;
     const labText = (event.affinity_units || []).flatMap((id) => {
@@ -294,7 +311,7 @@ function filteredEvents() {
       return [unit.name, unit.contact, ...(unit.members || []), ...(unit.themes || [])];
     });
     const haystack = [
-      event.acronym, event.name, event.series, event.city, event.country,
+      event.acronym, event.name, event.series, event.organizer, event.organizer_detail, event.city, event.country,
       event.topic_fit, event.tier_note, event.standing, event.notes, event.region, event.status,
       event.spain ? "spain españa" : "",
       labText.join(" ")
@@ -340,6 +357,7 @@ function readUrl() {
   state.affinity = params.get("affinity") || "all";
   state.soon = params.get("soon") === "1";
   state.submissions = params.get("submissions") !== "0";
+  state.organizers = ORGANIZERS.filter((name) => (params.get("organizer") || "").split(",").includes(name));
   state.labs = (params.get("labs") || "").split(",").map((item) => item.trim()).filter(Boolean);
   const sort = params.get("sort");
   if (["date", "deadline", "affinity", "name", "country", "status"].includes(sort)) state.sort = sort;
@@ -369,6 +387,7 @@ function writeUrl() {
   set("affinity", state.affinity, "all");
   set("soon", state.soon ? "1" : "", "");
   set("submissions", state.submissions ? "" : "0", "");
+  set("organizer", state.organizers.join(","), "");
   set("labs", state.labs.join(","), "");
   set("sort", state.sort, "date");
   set("dir", state.dir, "asc");
@@ -389,6 +408,9 @@ function syncControls() {
   $("toggle-spain").setAttribute("aria-pressed", state.spain ? "true" : "false");
   $("toggle-europe").setAttribute("aria-pressed", state.region === "Europe" ? "true" : "false");
   $("toggle-soon").setAttribute("aria-pressed", state.soon ? "true" : "false");
+  document.querySelectorAll("[data-org]").forEach((button) => {
+    button.setAttribute("aria-pressed", state.organizers.includes(button.getAttribute("data-org")) ? "true" : "false");
+  });
   $("layout-table").setAttribute("aria-pressed", state.layout === "table" ? "true" : "false");
   $("layout-cards").setAttribute("aria-pressed", state.layout === "cards" ? "true" : "false");
   $("layout-switch").hidden = state.view !== "list";
@@ -420,10 +442,11 @@ function renderCount() {
   const hidden = DATA.events.filter((event) => !isSubmissionOpportunity(event)).length;
   const spainNote = state.spain ? " · Spain only (solo España)" : "";
   const soonNote = state.soon ? ` · paper deadlines within ${SOON_DAYS} days` : "";
+  const orgNote = state.organizers.length ? ` · organizer: ${state.organizers.join(", ")}` : "";
   const labNote = state.labs.length ? ` · labs: ${selectedLabNames()}` : "";
   $("result-count").textContent = state.submissions
-    ? `Showing ${shown} of ${pool} submission opportunities${spainNote}${soonNote}${labNote}. ${hidden} attend-only ${hidden === 1 ? "meeting is" : "meetings are"} hidden.`
-    : `Showing ${shown} of ${pool} events, including attend-only${spainNote}${soonNote}${labNote}`;
+    ? `Showing ${shown} of ${pool} submission opportunities${spainNote}${soonNote}${orgNote}${labNote}. ${hidden} attend-only ${hidden === 1 ? "meeting is" : "meetings are"} hidden.`
+    : `Showing ${shown} of ${pool} events, including attend-only${spainNote}${soonNote}${orgNote}${labNote}`;
 }
 
 function soonItems() {
@@ -431,6 +454,7 @@ function soonItems() {
   const items = [];
   DATA.events.forEach((event) => {
     if (state.labs.length && !matchesLabs(event)) return;
+    if (!matchesOrganizer(event)) return;
     if (cfpRole(event) !== "open") return;
     submissionEntries(event).forEach((item) => {
       if (item.date < today) return;
@@ -443,7 +467,7 @@ function soonItems() {
 }
 
 function renderNow() {
-  const happening = DATA.events.filter((event) => isNow(event) && matchesLabs(event)).sort((a, b) => a.start.localeCompare(b.start));
+  const happening = DATA.events.filter((event) => isNow(event) && matchesLabs(event) && matchesOrganizer(event)).sort((a, b) => a.start.localeCompare(b.start));
   const rail = $("now-rail");
   if (!happening.length) {
     rail.hidden = true;
@@ -514,7 +538,7 @@ function deadlineCell(event) {
 function emptyLead() {
   if (state.labs.length) {
     const names = selectedLabNames();
-    const watching = (DATA.watching || []).filter(matchesLabs).map((item) => item.series);
+    const watching = (DATA.watching || []).filter((item) => matchesLabs(item) && matchesOrganizer(item)).map((item) => item.series);
     if (watching.length) {
       return `No dated event in this list is tagged for ${names}. ${watching.join(", ")} ${watching.length === 1 ? "is" : "are"} under Still watching.`;
     }
@@ -594,7 +618,7 @@ function renderList() {
   const body = events.map((event) => `
     <tr data-id="${escapeHtml(event.id)}" tabindex="0" class="${event.spain ? "is-spain" : ""} ${state.event === event.id ? "is-selected" : ""}">
       <td>
-        <div class="event-acronym">${escapeHtml(event.acronym)} <span class="pill ${cfpRole(event) === "closed" ? "attend" : cfpRole(event)}">${escapeHtml(cfpShort(event))}</span></div>
+        <div class="event-acronym">${escapeHtml(event.acronym)} ${organizerBadge(event)} <span class="pill ${cfpRole(event) === "closed" ? "attend" : cfpRole(event)}">${escapeHtml(cfpShort(event))}</span></div>
         <div class="event-name">${escapeHtml(event.name)}</div>
         <div class="event-tier">${escapeHtml(event.tier_note || "")}</div>
         ${noteHtml(event)}
@@ -622,7 +646,7 @@ function popupHtml(events) {
       <h3>${escapeHtml(event.acronym)}</h3>
       <p>${escapeHtml(event.name)}</p>
       <p>${escapeHtml(formatRange(event.start, event.end))} · ${escapeHtml(event.city)}, ${escapeHtml(event.country)}</p>
-      <p>${escapeHtml(cfpShort(event))} · ${escapeHtml(affinityLabel(event.affinity))} affinity · ${escapeHtml(event.status || "")}</p>
+      <p>${organizerBadge(event)} ${escapeHtml(cfpShort(event))} · ${escapeHtml(affinityLabel(event.affinity))} affinity · ${escapeHtml(event.status || "")}</p>
       <p>${escapeHtml(event.topic_fit || "")}</p>
       ${event.notes ? `<p class="popup-note">${escapeHtml(event.notes)}</p>` : ""}
       <p>${eventLinks(event).replaceAll('class="', 'class="popup-link ')}</p>
@@ -847,7 +871,7 @@ function renderTimeline() {
             <span class="t-date">${escapeHtml(formatRange(item.event.start, item.event.end))}</span>
             <span class="t-acronym">${escapeHtml(item.event.acronym)}</span>
             <span class="t-place">${escapeHtml(item.event.city)}${item.event.spain ? " · España" : ""}</span>
-            <span class="t-meta">${escapeHtml([cfpShort(item.event), item.event.status !== "Confirmed" ? item.event.status : "", item.event.notes ? "Note" : ""].filter(Boolean).join(" · "))}</span>
+            <span class="t-meta">${escapeHtml([item.event.organizer, cfpShort(item.event), item.event.status !== "Confirmed" ? item.event.status : "", item.event.notes ? "Note" : ""].filter(Boolean).join(" · "))}</span>
           </button>
         `).join("")}
       </div>
@@ -890,17 +914,19 @@ function renderLabFilters() {
 
 function renderWatching() {
   const all = DATA.watching || [];
-  const items = state.labs.length ? all.filter(matchesLabs) : all;
-  const intro = state.labs.length && !items.length
-    ? "None of the undated series is tagged for the selected labs."
-    : "CFP not open yet. These series have no dated edition in the file, so they are not on the map or timeline. Cities and deadlines stay out until a primary announcement exists.";
+  const items = all.filter((item) => matchesLabs(item) && matchesOrganizer(item));
+  const intro = items.length
+    ? "CFP not open yet. These series have no dated edition in the file, so they are not on the map or timeline. Cities and deadlines stay out until a primary announcement exists."
+    : state.labs.length && !state.organizers.length
+      ? "None of the undated series is tagged for the selected labs."
+      : "None of the undated series matches these filters.";
   $("watching").innerHTML = `
     <h2 id="watching-heading">Still watching</h2>
     <p class="intro">${escapeHtml(intro)}</p>
     <div class="watch-grid">
       ${items.map((item) => `
         <article class="watch-card">
-          <h3>${escapeHtml(item.series)} ${isHighSeries(item.series) ? '<span class="pill high">High affinity</span>' : ""}${(DATA.user_venues || []).some((venue) => venue.toLowerCase() === String(item.series).toLowerCase()) ? '<span class="pill own">Own venue</span>' : ""}</h3>
+          <h3>${escapeHtml(item.series)} ${organizerBadge(item)} ${isHighSeries(item.series) ? '<span class="pill high">High affinity</span>' : ""}${(DATA.user_venues || []).some((venue) => venue.toLowerCase() === String(item.series).toLowerCase()) ? '<span class="pill own">Own venue</span>' : ""}</h3>
           <p>${escapeHtml(item.note || "")}</p>
           ${labPills(item) ? `<div class="pill-row">${labPills(item)}</div>` : ""}
         </article>
@@ -1030,6 +1056,7 @@ function clearFilters() {
   state.affinity = "all";
   state.soon = false;
   state.submissions = true;
+  state.organizers = [];
   state.labs = [];
   writeUrl();
   render();
@@ -1072,6 +1099,7 @@ function drawerHtml(event) {
       <dt>Where</dt><dd>${escapeHtml(event.city)}, ${escapeHtml(event.country)}${event.spain ? " · España" : ""}</dd>
       <dt>Region</dt><dd>${escapeHtml(event.region || "")}</dd>
       <dt>Series</dt><dd>${escapeHtml(event.series || "")}</dd>
+      <dt>Organizer</dt><dd>${escapeHtml(event.organizer || "")}${event.organizer_detail ? ` · ${escapeHtml(event.organizer_detail)}` : ""}</dd>
       <dt>Standing</dt><dd>${escapeHtml(event.standing || "")}</dd>
       <dt>Tier</dt><dd>${escapeHtml(event.tier_note || "")}</dd>
     </dl>
@@ -1195,6 +1223,17 @@ function bind() {
       writeUrl();
       render();
     });
+  });
+  $("organizer-filters").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-org]");
+    if (!button) return;
+    const name = button.getAttribute("data-org");
+    const selected = new Set(state.organizers);
+    if (selected.has(name)) selected.delete(name);
+    else selected.add(name);
+    state.organizers = ORGANIZERS.filter((item) => selected.has(item));
+    writeUrl();
+    render();
   });
   $("lab-filters").addEventListener("click", (event) => {
     const button = event.target.closest("[data-lab]");

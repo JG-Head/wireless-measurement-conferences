@@ -26,6 +26,7 @@
       "name": "ACM Internet Measurement Conference",
       "acronym": "IMC 2026",
       "series": "IMC",
+      "organizer": "ACM",
       "start": "2026-10-12",
       "end": "2026-10-16",
       "city": "Karlsruhe",
@@ -54,6 +55,7 @@
       "name": "IEEE Conference on Network and Service Management",
       "acronym": "CNSM 2026",
       "series": "CNSM",
+      "organizer": "IEEE",
       "start": "2026-10-26",
       "end": "2026-10-30",
       "city": "Alcal\u00e1 de Henares",
@@ -81,6 +83,7 @@
       "name": "ACM Workshop on Hot Topics in Networks",
       "acronym": "HotNets 2026",
       "series": "HotNets",
+      "organizer": "ACM",
       "start": "2026-11-16",
       "end": "2026-11-17",
       "city": "Salt Lake City",
@@ -108,6 +111,7 @@
       "name": "ACM Conference on emerging Networking EXperiments and Technologies",
       "acronym": "CoNEXT 2026",
       "series": "CoNEXT",
+      "organizer": "ACM",
       "start": "2026-12-08",
       "end": "2026-12-10",
       "city": "Utrecht",
@@ -137,6 +141,7 @@
       "name": "IEEE Global Communications Conference",
       "acronym": "GLOBECOM 2026",
       "series": "GLOBECOM",
+      "organizer": "IEEE",
       "start": "2026-12-07",
       "end": "2026-12-11",
       "city": "Macau",
@@ -169,6 +174,7 @@
       "name": "IEEE Wireless Communications and Networking Conference",
       "acronym": "WCNC 2027",
       "series": "WCNC",
+      "organizer": "IEEE",
       "start": "2027-04-05",
       "end": "2027-04-08",
       "city": "Panama City",
@@ -194,6 +200,7 @@
       "name": "The ACM Web Conference",
       "acronym": "WWW 2027",
       "series": "WWW",
+      "organizer": "ACM",
       "start": "2027-05-10",
       "end": "2027-05-14",
       "city": "Dublin",
@@ -227,6 +234,8 @@
       "name": "IEEE/IFIP Network Operations and Management Symposium",
       "acronym": "NOMS 2027",
       "series": "NOMS",
+      "organizer": "IEEE",
+      "organizer_detail": "IEEE/IFIP",
       "start": "2027-05-10",
       "end": "2027-05-14",
       "city": "Montreal",
@@ -251,6 +260,7 @@
       "name": "IEEE INFOCOM",
       "acronym": "INFOCOM 2027",
       "series": "INFOCOM",
+      "organizer": "IEEE",
       "start": "2027-05-24",
       "end": "2027-05-27",
       "city": "Honolulu",
@@ -280,6 +290,7 @@
       "name": "IEEE International Conference on Communications",
       "acronym": "ICC 2027",
       "series": "ICC",
+      "organizer": "IEEE",
       "start": "2027-05-30",
       "end": "2027-06-03",
       "city": "Washington",
@@ -309,6 +320,7 @@
       "name": "ACM SIGMETRICS",
       "acronym": "SIGMETRICS 2027",
       "series": "SIGMETRICS",
+      "organizer": "ACM",
       "start": "2027-06-07",
       "end": "2027-06-11",
       "city": "Atlanta",
@@ -335,6 +347,7 @@
       "name": "EuCNC & 6G Summit",
       "acronym": "EuCNC 2027",
       "series": "EuCNC",
+      "organizer": "Other",
       "start": "2027-06-08",
       "end": "2027-06-11",
       "city": "Dublin",
@@ -360,6 +373,7 @@
       "name": "IEEE Vehicular Technology Conference Spring",
       "acronym": "VTC2027-Spring",
       "series": "VTC",
+      "organizer": "IEEE",
       "start": "2027-06-20",
       "end": "2027-06-23",
       "city": "Hamburg",
@@ -387,6 +401,7 @@
       "name": "IEEE Personal, Indoor and Mobile Radio Communications",
       "acronym": "PIMRC 2027",
       "series": "PIMRC",
+      "organizer": "IEEE",
       "start": "2027-09-07",
       "end": "2027-09-10",
       "city": "Lisbon",
@@ -414,6 +429,7 @@
       "name": "ACM CoNEXT",
       "acronym": "CoNEXT 2027",
       "series": "CoNEXT",
+      "organizer": "ACM",
       "start": "2027-12-06",
       "end": "2027-12-09",
       "city": "Rio de Janeiro",
@@ -440,6 +456,7 @@
       "name": "IEEE GLOBECOM",
       "acronym": "GLOBECOM 2027",
       "series": "GLOBECOM",
+      "organizer": "IEEE",
       "start": "2027-12-06",
       "end": "2027-12-10",
       "city": "Abu Dhabi",
@@ -466,6 +483,7 @@
       "name": "EuCNC & 6G Summit",
       "acronym": "EuCNC 2028",
       "series": "EuCNC",
+      "organizer": "Other",
       "start": "2028-06-05",
       "end": "2028-06-09",
       "city": "Berlin",
@@ -492,6 +510,7 @@
       "name": "ACM SIGMETRICS",
       "acronym": "SIGMETRICS 2028",
       "series": "SIGMETRICS",
+      "organizer": "ACM",
       "start": "2028-06-15",
       "end": "2028-06-19",
       "city": "London",
@@ -518,6 +537,7 @@
   "watching": [
     {
       "series": "IMC",
+      "organizer": "ACM",
       "note": "CFP not open yet. 2027/28 not announced; typically Oct/Nov",
       "watch_next_edition": true,
       "affinity_units": [
@@ -528,11 +548,13 @@
     },
     {
       "series": "PAM",
+      "organizer": "Other",
       "note": "CFP not open yet. 2027/28 not announced; typically March",
       "watch_next_edition": true
     },
     {
       "series": "TMA",
+      "organizer": "Other",
       "note": "CFP not open yet. 2027/28 not announced; typically June, Europe",
       "watch_next_edition": true,
       "affinity_units": [
@@ -542,11 +564,13 @@
     },
     {
       "series": "IFIP Networking",
+      "organizer": "Other",
       "note": "CFP not open yet. 2027+ not announced; typically May",
       "watch_next_edition": true
     },
     {
       "series": "DySPAN",
+      "organizer": "IEEE",
       "note": "CFP not open yet. 2027+ not announced; spectrum measurement \u2014 high affinity (user published DySPAN 2025)",
       "watch_next_edition": true,
       "affinity_units": [
@@ -555,16 +579,19 @@
     },
     {
       "series": "CNSM",
+      "organizer": "IEEE",
       "note": "CFP not open yet. 2027+ not announced",
       "watch_next_edition": true
     },
     {
       "series": "WCNC",
+      "organizer": "IEEE",
       "note": "CFP not open yet. 2028 not announced",
       "watch_next_edition": true
     },
     {
       "series": "PIMRC",
+      "organizer": "IEEE",
       "note": "CFP not open yet. 2028 not announced",
       "watch_next_edition": true,
       "affinity_units": [
@@ -573,6 +600,7 @@
     },
     {
       "series": "INFOCOM",
+      "organizer": "IEEE",
       "note": "CFP not open yet. 2028 dates, city, and CFP are not on an official IEEE or ComSoc page; typically May",
       "watch_next_edition": true,
       "affinity_units": [
@@ -581,6 +609,7 @@
     },
     {
       "series": "TPRC",
+      "organizer": "Other",
       "note": "TPRC55 is announced for 23-25 September 2027. The Call for Papers will be announced in mid-January 2027. Official pages do not name the 2027 city (TPRC54 was in Washington, D.C.). Usually late September.",
       "watch_next_edition": true
     }

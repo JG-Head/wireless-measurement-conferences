@@ -250,6 +250,28 @@ h1 {
 
 .field-labs { flex: 1 1 100%; }
 
+.field-org { flex: 1 1 220px; }
+
+.org-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.org-chip {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--bg);
+  color: var(--navy);
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.org-chip[aria-pressed="true"] {
+  background: var(--accent-dim);
+  border-color: var(--orange-line);
+  color: var(--navy);
+}
+
 .lab-filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 
 .lab-chip {
@@ -536,6 +558,9 @@ tr.is-spain td:first-child { box-shadow: inset 3px 0 0 var(--orange-line); }
 .pill.upcoming { background: var(--gold-dim); color: var(--navy); border: 1px solid var(--gold-line); }
 .pill.attend { background: var(--bg-3); color: var(--muted); }
 .pill.neutral { background: var(--bg-3); color: var(--muted); }
+.pill.org { background: var(--bg); color: var(--navy); border: 1px solid var(--line-strong); }
+.pill.org-acm { color: var(--soon); border-color: var(--cyan-line); }
+.pill.org-other { color: var(--muted); border-color: var(--line); }
 
 .cards {
   display: grid;
