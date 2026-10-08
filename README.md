@@ -5,7 +5,7 @@ Static planning board for Tier B+ ACM and IEEE venues on **wireless access netwo
 Maintained for Jorge Garcia-Cabeza (UPM). The page has three views over one JSON file:
 
 - **List** — table or cards. The default mode is **Submission opportunities**: a paper or abstract deadline still ahead, or a dated edition whose CFP date is not in the file. Attend-only meetings (closed paper calls) stay in the JSON and appear when that mode is turned off. Other filters: research labs (one chip per cited coauthor cluster), Spain, Europe, status, venue fit, and paper deadlines in the next 90 days. Camera-ready is not treated as a new submission.
-- **Map** — Leaflet markers (no API key). Spain-hosted events use amber markers. Click a marker for details
+- **Map** — Leaflet markers on OpenStreetMap tiles (no API key). Spain-hosted events use the ETSIT orange. **Reset view** fits the markers that match the current filters. Click a marker for details
 - **Timeline** — horizontal strip across the window
 
 Events happening now, upcoming deadlines, and series that are still undated (“Still watching”) stay visible above or below the views.

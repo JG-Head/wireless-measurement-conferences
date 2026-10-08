@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#0e1412">
+  <meta name="theme-color" content="#070A18">
   <meta name="description" content="Submission opportunities at ACM and IEEE conferences for wireless access measurement and end-to-end performance. Default list keeps open paper deadlines and editions whose CFP date is not in the file yet.">
   <title>Wireless measurement conferences · 2026–2028</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip" href="#view-root">Skip to events</a>
@@ -123,12 +123,12 @@
       <section id="view-map" role="tabpanel" aria-labelledby="tab-map" hidden>
         <div class="map-stage">
           <div id="map" role="region" aria-label="Event map"></div>
-          <div class="map-tools">
-            <button type="button" class="btn btn-map" id="zoom-spain">Zoom to Spain</button>
-            <button type="button" class="btn btn-map" id="zoom-all">All events</button>
-          </div>
         </div>
         <div class="map-footer">
+          <div class="map-tools">
+            <button type="button" class="btn btn-map" id="zoom-spain">Zoom to Spain</button>
+            <button type="button" class="btn btn-map" id="zoom-all" aria-label="Reset map to fit all visible markers">Reset view</button>
+          </div>
           <ul class="legend" aria-label="Map legend">
             <li><i class="swatch swatch-spain" aria-hidden="true"></i> Spain · España</li>
             <li><i class="swatch swatch-other" aria-hidden="true"></i> Other city</li>
