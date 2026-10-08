@@ -147,7 +147,8 @@
       ],
       "series": [
         "IMC",
-        "SIGMETRICS"
+        "SIGMETRICS",
+        "WWW"
       ],
       "cited_venues": [
         "IMC",
@@ -155,7 +156,7 @@
         "SIGCOMM",
         "WWW"
       ],
-      "link": "Cited venues on this calendar: IMC, and ACM POMACS tagged as SIGMETRICS (the conference that publishes POMACS). SIGCOMM and WWW are not separate rows."
+      "link": "Cited venues on this calendar: IMC, WWW, and ACM POMACS tagged as SIGMETRICS (the conference that publishes POMACS). SIGCOMM is not a separate row."
     },
     {
       "id": "feamster",
@@ -275,13 +276,14 @@
         "Starlink"
       ],
       "series": [
-        "CoNEXT"
+        "CoNEXT",
+        "WWW"
       ],
       "cited_venues": [
         "CoNEXT",
         "WWW"
       ],
-      "link": "Secondary seed. Cited venue on this calendar: CoNEXT. WWW is not a row here."
+      "link": "Secondary seed. Cited venues on this calendar: CoNEXT and WWW."
     },
     {
       "id": "li",
@@ -296,13 +298,14 @@
         "Starlink"
       ],
       "series": [
-        "CoNEXT"
+        "CoNEXT",
+        "WWW"
       ],
       "cited_venues": [
         "CoNEXT",
         "WWW"
       ],
-      "link": "Secondary seed. Cited venue on this calendar: CoNEXT."
+      "link": "Secondary seed. Cited venues on this calendar: CoNEXT and WWW."
     },
     {
       "id": "oughton",
