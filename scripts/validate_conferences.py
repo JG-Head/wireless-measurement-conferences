@@ -15,9 +15,33 @@ BANNED_MEMBERS = ("frias", "mendo", "lehr", "yraola", "garcia-cabeza", "garcia c
 REQUIRED = [
     "id", "name", "acronym", "series", "start", "end", "city", "country",
     "spain", "site", "cfp", "deadlines", "topic_fit", "standing", "tier_note",
-    "status", "region", "affinity",
+    "status", "region", "affinity", "organizer",
 ]
 AFFINITY = {"high", "medium", "low"}
+ORGANIZER = {"IEEE", "ACM", "Other"}
+# Filter bucket. Joint sponsors stay in one bucket; organizer_detail can name the pair.
+ORGANIZER_BY_SERIES = {
+    "ICC": "IEEE",
+    "GLOBECOM": "IEEE",
+    "INFOCOM": "IEEE",
+    "WCNC": "IEEE",
+    "PIMRC": "IEEE",
+    "VTC": "IEEE",
+    "NOMS": "IEEE",
+    "CNSM": "IEEE",
+    "DySPAN": "IEEE",
+    "IMC": "ACM",
+    "SIGMETRICS": "ACM",
+    "CoNEXT": "ACM",
+    "HotNets": "ACM",
+    "WWW": "ACM",
+    "MobiCom": "ACM",
+    "TPRC": "Other",
+    "PAM": "Other",
+    "TMA": "Other",
+    "IFIP Networking": "Other",
+    "EuCNC": "Other",
+}
 
 
 def fail(message):
@@ -77,6 +101,21 @@ def load_affinity(errors):
         if not unit.get("name"):
             errors.append(f"{ident} name is required")
     return affinity
+
+
+def check_organizer(record, ident, errors):
+    series = record.get("series")
+    organizer = record.get("organizer")
+    expected = ORGANIZER_BY_SERIES.get(series)
+    if organizer not in ORGANIZER:
+        errors.append(f"{ident} organizer must be IEEE, ACM, or Other")
+    elif expected and organizer != expected:
+        errors.append(f"{ident} organizer {organizer} != {expected} for {series}")
+    elif series and expected is None:
+        errors.append(f"{ident} series {series} has no organizer bucket")
+    detail = record.get("organizer_detail")
+    if detail is not None and (not isinstance(detail, str) or not detail.strip()):
+        errors.append(f"{ident} organizer_detail must be non-empty text")
 
 
 def check_affinity_tags(record, ident, units_by_id, errors):
@@ -158,6 +197,7 @@ def main():
                     value = deadlines.get(name)
                     if value and value >= today:
                         errors.append(f"{ident} attend_only but {name} {value} is still open")
+        check_organizer(event, ident, errors)
         if units_by_id:
             check_affinity_tags(event, ident, units_by_id, errors)
 
@@ -166,6 +206,7 @@ def main():
             errors.append(f"watching entry needs series and note: {item!r}")
         if item.get("watch_next_edition") is not True:
             errors.append(f"watching {item.get('series')} needs watch_next_edition true")
+        check_organizer(item, f"watching {item.get('series')}", errors)
         if units_by_id:
             check_affinity_tags(item, f"watching {item.get('series')}", units_by_id, errors)
 
