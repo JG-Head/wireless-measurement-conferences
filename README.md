@@ -30,7 +30,9 @@ npm run preview
 
 `npm run build` writes the site into `docs/` and copies both JSON files to `docs/data/`. Preview: <http://localhost:4173/wireless-measurement-conferences/>.
 
-Runtime dependencies are free and permissively licensed: Vue (MIT), Bootstrap 5 and Bootstrap Icons (MIT), Leaflet (BSD-2-Clause). Vite is a dev dependency (MIT). The page does not load Highcharts, PrimeVue, or any other paid or dual-licensed library. Map tiles stay OpenStreetMap. Newsreader and Figtree are SIL Open Font License.
+Runtime dependencies are free and permissively licensed: Vue (MIT), Bootstrap 5 and Bootstrap Icons (MIT), Leaflet (BSD-2-Clause). Vite is a dev dependency (MIT). The page does not load Highcharts, PrimeVue, or any other paid or dual-licensed library. Map tiles stay OpenStreetMap. Figtree (SIL Open Font License) is the UI face.
+
+The look follows the ETSIT slide language without logos: navy `#002060`, accent orange `#C65F00` for large bold text and bars, and `#B55700` wherever orange text is small or white sits on orange. Tokens and contrast notes are in `src/styles.css`.
 
 ## Update the data
 
@@ -86,4 +88,4 @@ The built site is committed under `/docs` on `main` (`.nojekyll` is included so 
 
 ## License
 
-[MIT](LICENSE). Newsreader and Figtree are under the SIL Open Font License (`docs/fonts/*-OFL.txt`).
+[MIT](LICENSE). Figtree is under the SIL Open Font License (`docs/fonts/Figtree-OFL.txt`).

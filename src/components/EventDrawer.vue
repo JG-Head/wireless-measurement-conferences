@@ -98,7 +98,7 @@ onBeforeUnmount(() => {
     <h3>Deadlines</h3>
     <p v-if="!rows(dash.selected).length" class="region-label">No deadlines listed in the data file.</p>
     <ul v-else class="deadlines">
-      <li v-for="item in rows(dash.selected)" :key="item.key" :class="{ 'is-past': item.past, 'is-soon': item.soon }">
+      <li v-for="item in rows(dash.selected)" :key="item.key" :class="{ 'is-past': item.past, 'is-soon': item.soon && item.delta > 30, 'is-urgent': item.soon && item.delta <= 30 }">
         <span>{{ item.label }}</span>
         <span>{{ dash.formatDay(item.date) }}</span>
         <span class="rel">{{ item.past ? `Passed · ${relLabel(item.delta)}` : relLabel(item.delta) }}</span>

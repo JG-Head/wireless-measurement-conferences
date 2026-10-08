@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useDash } from "./composables/useDashboard";
 import AppSidebar from "./components/AppSidebar.vue";
 import EventList from "./components/EventList.vue";
@@ -14,6 +14,10 @@ const dash = useDash();
 const navOpen = ref(false);
 const mapAlive = ref(dash.state.view === "map");
 const mapRef = ref(null);
+const viewTitle = computed(() => (
+  dash.state.view === "map" ? "Map" : dash.state.view === "timeline" ? "Timeline" : "Submission list"
+));
+const nextItem = computed(() => dash.soon[0] || null);
 
 watch(() => dash.state.view, (view) => {
   if (view === "map") mapAlive.value = true;
@@ -37,7 +41,15 @@ onMounted(() => {
 
 <template>
   <a class="skip" href="#view-root">Skip to events</a>
-  <div class="app-shell">
+  <div class="app-frame">
+    <header class="mast">
+      <div class="mast-bar"></div>
+      <div class="mast-body">
+        <p class="school">Escuela Técnica Superior de Ingenieros de Telecomunicación · Universidad Politécnica de Madrid</p>
+        <h1>Wireless measurement conferences</h1>
+        <p class="mast-sub">Wireless access and end-to-end performance<span v-if="dash.windowLabel"> · {{ dash.windowLabel }}</span></p>
+      </div>
+    </header>
     <button type="button" class="nav-toggle" :aria-expanded="navOpen" aria-controls="app-sidebar" @click="navOpen = true">
       <i class="bi bi-list" aria-hidden="true"></i>
       <span>Filters</span>
@@ -48,16 +60,20 @@ onMounted(() => {
       <AppSidebar />
     </aside>
     <div class="workspace">
-      <header class="page-head">
-        <p class="kicker">Wireless access and end-to-end performance</p>
-        <p class="page-title">{{ dash.state.view === 'map' ? 'Map' : dash.state.view === 'timeline' ? 'Timeline' : 'Submission list' }}</p>
-      </header>
-      <ul class="stats" aria-label="Summary">
-        <li v-for="item in dash.stats" :key="item.key" :class="`stat-${item.key}`"><strong>{{ item.text.split(' ')[0] }}</strong> {{ item.text.slice(item.text.indexOf(' ') + 1) }}</li>
+      <h2 class="section-title">{{ viewTitle }}</h2>
+      <ul class="kpis" aria-label="Summary">
+        <li v-if="nextItem" class="kpi" :class="{ 'is-urgent': nextItem.delta <= 30 }">
+          <span class="kpi-num">{{ nextItem.delta }}<span class="kpi-arrow" aria-hidden="true"></span></span>
+          <span class="kpi-label">days to {{ nextItem.event.acronym }} {{ nextItem.label.toLowerCase() }}</span>
+        </li>
+        <li v-for="item in dash.stats" :key="item.key" class="kpi">
+          <span class="kpi-num">{{ item.text.split(' ')[0] }}</span>
+          <span class="kpi-label">{{ item.text.slice(item.text.indexOf(' ') + 1) }}</span>
+        </li>
       </ul>
-      <div class="result-bar">
-        <p class="result-count" aria-live="polite">{{ dash.countText }}</p>
-        <div v-if="dash.state.view === 'list'" class="layout-switch" role="group" aria-label="List layout">
+      <p class="takeaway" aria-live="polite">{{ dash.countText }}</p>
+      <div v-if="dash.state.view === 'list'" class="result-bar">
+        <div class="layout-switch" role="group" aria-label="List layout">
           <button type="button" :aria-pressed="dash.state.layout === 'table'" @click="dash.patch({ layout: 'table', layoutTouched: true })">Table</button>
           <button type="button" :aria-pressed="dash.state.layout === 'cards'" @click="dash.patch({ layout: 'cards', layoutTouched: true })">Cards</button>
         </div>
@@ -71,13 +87,14 @@ onMounted(() => {
       <WatchingPanel />
       <AboutPanel />
       <footer class="site-footer">
-        <p>
+        <p class="footer-label">{{ viewTitle }}</p>
+        <p class="footer-meta">
           Dates, cities, and deadlines are copied from
           <a href="https://github.com/JG-Head/wireless-measurement-conferences/blob/main/data/conferences.json">data/conferences.json</a>
           <template v-if="dash.data.verified_as_of"> (verified {{ dash.formatDay(dash.data.verified_as_of) }})</template>.
           Check the official site before submitting. This page does not add venues.
         </p>
-        <p class="colophon">Type: Newsreader and Figtree, SIL Open Font License. Map tiles © OpenStreetMap contributors. Built with Vue, Vite, and Bootstrap.</p>
+        <p class="footer-meta">Figtree, SIL Open Font License. Map tiles © OpenStreetMap contributors. Built with Vue, Vite, and Bootstrap.</p>
       </footer>
     </div>
   </div>

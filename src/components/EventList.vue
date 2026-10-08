@@ -35,10 +35,10 @@ function deadline(event) {
   const next = nextDeadline(event, dash.today);
   if (next) {
     const delta = daysFromToday(next.date, dash.today);
-    return { text: `${next.label} · ${dash.formatDay(next.date)}`, when: delta <= SOON_DAYS ? relLabel(delta) : "", closed: false, upcoming: false };
+    return { text: `${next.label} · ${dash.formatDay(next.date)}`, when: delta <= SOON_DAYS ? relLabel(delta) : "", closed: false, upcoming: false, urgent: delta <= 30 };
   }
-  if (cfpRole(event, dash.today) === "upcoming") return { text: "CFP date not in this file", when: "", closed: false, upcoming: true };
-  return { text: "Attend only", when: "", closed: true, upcoming: false };
+  if (cfpRole(event, dash.today) === "upcoming") return { text: "CFP date not in this file", when: "", closed: false, upcoming: true, urgent: false };
+  return { text: "Attend only", when: "", closed: true, upcoming: false, urgent: false };
 }
 </script>
 
@@ -57,7 +57,7 @@ function deadline(event) {
         v-for="event in dash.sorted"
         :key="event.id"
         class="event-card"
-        :class="{ 'is-spain': event.spain, 'is-selected': dash.state.event === event.id }"
+        :class="{ 'is-spain': event.spain, 'is-selected': dash.state.event === event.id, 'is-urgent': deadline(event).urgent }"
         :data-id="event.id"
         tabindex="0"
         @click="dash.openEvent(event.id, $event.currentTarget)"
@@ -72,7 +72,7 @@ function deadline(event) {
         <p class="place">{{ event.city }}, {{ event.country }}</p>
         <p class="region-label">{{ event.region }} · {{ event.tier_note }}</p>
         <p v-if="event.notes" class="event-note">{{ event.notes }}</p>
-        <div class="deadline-cell" :class="{ 'is-closed': deadline(event).closed }">
+        <div class="deadline-cell" :class="{ 'is-closed': deadline(event).closed, 'is-urgent': deadline(event).urgent }">
           {{ deadline(event).text }}
           <span v-if="deadline(event).when" class="when">{{ deadline(event).when }}</span>
         </div>
@@ -100,7 +100,7 @@ function deadline(event) {
             :key="event.id"
             :data-id="event.id"
             tabindex="0"
-            :class="{ 'is-spain': event.spain, 'is-selected': dash.state.event === event.id }"
+            :class="{ 'is-spain': event.spain, 'is-selected': dash.state.event === event.id, 'is-urgent': deadline(event).urgent }"
             @click="dash.openEvent(event.id, $event.currentTarget)"
             @keydown="onRowKey($event, event.id)"
           >
@@ -127,7 +127,7 @@ function deadline(event) {
             <td><span class="pill" :class="statusClass(event.status)">{{ event.status }}</span></td>
             <td><span class="pill" :class="event.affinity || 'neutral'">{{ affinityLabel(event.affinity) }}</span></td>
             <td>
-              <div class="deadline-cell" :class="{ 'is-closed': deadline(event).closed }">
+              <div class="deadline-cell" :class="{ 'is-closed': deadline(event).closed, 'is-urgent': deadline(event).urgent }">
                 {{ deadline(event).text }}
                 <span v-if="deadline(event).when" class="when">{{ deadline(event).when }}</span>
               </div>
