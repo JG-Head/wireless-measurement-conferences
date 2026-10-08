@@ -1,5 +1,5 @@
 {
-  "verified_as_of": "2026-10-06",
+  "verified_as_of": "2026-10-08",
   "window": {
     "from": "2026-10-01",
     "to": "2028-10-31"
@@ -145,14 +145,20 @@
       "lon": 113.5439,
       "spain": false,
       "site": "https://globecom2026.ieee-globecom.org/",
-      "cfp": "https://globecom2026.ieee-globecom.org/",
-      "deadlines": {},
+      "cfp": "https://globecom2026.ieee-globecom.org/authors",
+      "deadlines": {
+        "paper": "2026-05-03",
+        "notification": "2026-08-01",
+        "camera_ready": "2026-09-08"
+      },
       "topic_fit": "Wireless networks and measurements are in the conference topics",
       "standing": "ComSoc flagship",
       "tier_note": "A (main); workshops vary",
       "status": "Confirmed",
       "region": "Asia",
       "affinity": "medium",
+      "attend_only": true,
+      "notes": "Symposium papers: firm deadline 3 May 2026 on the authors page (the March 2026 call said 1 April 2026). Notification 1 August 2026; final upload 8 September 2026. Workshop papers closed 19 August 2026.",
       "affinity_units": [
         "tu-wien",
         "wang"
@@ -182,6 +188,39 @@
       "region": "Americas",
       "affinity": "high",
       "attend_only": true
+    },
+    {
+      "id": "www-2027",
+      "name": "The ACM Web Conference",
+      "acronym": "WWW 2027",
+      "series": "WWW",
+      "start": "2027-05-10",
+      "end": "2027-05-14",
+      "city": "Dublin",
+      "country": "Ireland",
+      "lat": 53.3498,
+      "lon": -6.2603,
+      "spain": false,
+      "site": "https://www2027.thewebconf.org/",
+      "cfp": "https://www2027.thewebconf.org/research-track-papers/",
+      "deadlines": {
+        "abstract": "2026-10-18",
+        "paper": "2026-10-25",
+        "notification": "2027-01-04",
+        "camera_ready": "2027-01-31"
+      },
+      "topic_fit": "Crowdsourced and web measurement; cited WWW papers from Mohan-Marina, Zhang, and Li",
+      "standing": "Annual ACM SIGWEB flagship (The Web Conference)",
+      "tier_note": "A* / web measurement",
+      "status": "Confirmed",
+      "region": "Europe",
+      "affinity": "high",
+      "notes": "Research and industry track, AoE. WebConf 2028 is announced for Edmonton, Canada; dates and a CFP are not published.",
+      "affinity_units": [
+        "mohan-marina",
+        "zhang",
+        "li"
+      ]
     },
     {
       "id": "noms-2027",
@@ -249,14 +288,18 @@
       "lon": -77.0369,
       "spain": false,
       "site": "https://icc2027.ieee-icc.org/",
-      "cfp": "https://icc2027.ieee-icc.org/",
-      "deadlines": {},
+      "cfp": "https://www.comsoc.org/conferences-events/ieee-international-conference-communications-2027",
+      "deadlines": {
+        "paper": "2026-10-02"
+      },
       "topic_fit": "Wireless networks and measurements are in the conference topics",
       "standing": "ComSoc flagship",
       "tier_note": "A (main); workshops vary",
       "status": "Confirmed",
       "region": "North America",
       "affinity": "medium",
+      "attend_only": true,
+      "notes": "ComSoc lists the technical-paper deadline as 2 October 2026. No abstract deadline is on that page.",
       "affinity_units": [
         "lens"
       ]
@@ -527,6 +570,19 @@
       "affinity_units": [
         "cbrs"
       ]
+    },
+    {
+      "series": "INFOCOM",
+      "note": "CFP not open yet. 2028 dates, city, and CFP are not on an official IEEE or ComSoc page; typically May",
+      "watch_next_edition": true,
+      "affinity_units": [
+        "liu"
+      ]
+    },
+    {
+      "series": "TPRC",
+      "note": "TPRC55 is announced for 23-25 September 2027. The Call for Papers will be announced in mid-January 2027. Official pages do not name the 2027 city (TPRC54 was in Washington, D.C.). Usually late September.",
+      "watch_next_edition": true
     }
   ]
 }
