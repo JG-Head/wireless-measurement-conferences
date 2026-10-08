@@ -36,7 +36,7 @@ const dash = useDash();
           :key="`${item.event.id}-${item.key}`"
           type="button"
           class="soon-chip"
-          :class="{ 'is-spain': item.event.spain }"
+          :class="{ 'is-spain': item.event.spain, 'is-urgent': item.delta <= 30 }"
           @click="dash.openEvent(item.event.id, $event.currentTarget)"
         >
           <span class="chip-when">{{ relLabel(item.delta) }}</span>

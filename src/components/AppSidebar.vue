@@ -28,9 +28,9 @@ function surname(unit) {
 
 <template>
   <div class="sidebar-inner">
-    <p class="kicker">{{ dash.ownerName }} · UPM</p>
-    <h1>Wireless measurement conferences</h1>
-    <p class="sidebar-lede">Default view: where a paper can still be submitted, or the CFP date is not in the file yet. {{ dash.windowLabel }}. Spain events are marked España.</p>
+    <p class="sidebar-kicker">{{ dash.ownerName }}</p>
+    <h2 class="section-title">Filters</h2>
+    <p class="sidebar-lede">Default view: where a paper can still be submitted, or the CFP date is not in the file yet. Spain events are marked España.</p>
     <p class="verified">{{ dash.verifiedLabel }}</p>
     <p v-if="dash.scholar" class="sidebar-links">
       <a class="text-link" :href="dash.scholar">Google Scholar</a>
