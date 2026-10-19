@@ -1,5 +1,5 @@
 {
-  "verified_as_of": "2026-10-12",
+  "verified_as_of": "2026-10-19",
   "window": {
     "from": "2026-10-01",
     "to": "2028-10-31"
@@ -293,15 +293,17 @@
       "organizer": "IEEE",
       "start": "2027-05-17",
       "end": "2027-05-20",
-      "city": "Washington",
-      "country": "USA",
-      "lat": 38.9072,
-      "lon": -77.0369,
+      "city": "Kanata (Ottawa)",
+      "country": "Canada",
+      "lat": 45.3481,
+      "lon": -75.9176,
       "spain": false,
-      "site": "https://www.comsoc.org/conferences-events/ieee-international-symposium-dynamic-spectrum-access-networks-2027",
-      "cfp": "https://www.comsoc.org/conferences-events/ieee-international-symposium-dynamic-spectrum-access-networks-2027",
+      "site": "https://dyspan2027.ieee-dyspan.org/",
+      "cfp": "https://dyspan2027.ieee-dyspan.org/call-papers",
       "deadlines": {
-        "paper": "2026-12-07"
+        "paper": "2026-12-07",
+        "notification": "2027-02-15",
+        "camera_ready": "2027-03-05"
       },
       "topic_fit": "Spectrum technology and policy; spectrum management and wireless connectivity",
       "standing": "IEEE ComSoc portfolio event; in person",
@@ -309,7 +311,7 @@
       "status": "Confirmed",
       "region": "North America",
       "affinity": "high",
-      "notes": "ComSoc lists the technical-paper deadline as 7 December 2026. That page does not state a timezone, abstract, notification, or camera-ready date.",
+      "notes": "Brookstreet Hotel, 525 Legget Drive, Kanata (Ottawa), Canada. The DySPAN site lists the paper deadline as 7 December 2026, notification as 15 February 2027, and camera-ready as 5 March 2027. It does not state a timezone.",
       "affinity_units": [
         "cbrs"
       ]
@@ -461,6 +463,36 @@
       ]
     },
     {
+      "id": "mobisys-2027",
+      "name": "ACM International Conference on Mobile Systems, Applications, and Services",
+      "acronym": "MobiSys 2027",
+      "series": "MobiSys",
+      "organizer": "ACM",
+      "organizer_detail": "ACM SIGMOBILE",
+      "start": "2027-06-21",
+      "end": "2027-06-25",
+      "city": "Ho Chi Minh City",
+      "country": "Vietnam",
+      "lat": 10.7737,
+      "lon": 106.7166,
+      "spain": false,
+      "site": "https://www.sigmobile.org/mobisys/2027/",
+      "cfp": "https://www.sigmobile.org/mobisys/2027/",
+      "deadlines": {
+        "abstract": "2026-11-27",
+        "paper": "2026-12-04",
+        "notification": "2027-03-06",
+        "camera_ready": "2027-04-14"
+      },
+      "topic_fit": "Mobile and wireless systems",
+      "standing": "Annual ACM SIGMOBILE",
+      "tier_note": "A*",
+      "status": "Confirmed",
+      "region": "Asia",
+      "affinity": "high",
+      "notes": "Abstract registration and paper submission are 23:59 AoE. The page does not state a timezone for the 6 March 2027 notification or the 14 April 2027 camera-ready date. No street venue is listed; the map pin is the city."
+    },
+    {
       "id": "pimrc-2027",
       "name": "IEEE Personal, Indoor and Mobile Radio Communications",
       "acronym": "PIMRC 2027",
@@ -486,6 +518,44 @@
       "affinity": "high",
       "affinity_units": [
         "cbrs"
+      ]
+    },
+    {
+      "id": "imc-2027",
+      "name": "ACM Internet Measurement Conference",
+      "acronym": "IMC 2027",
+      "series": "IMC",
+      "organizer": "ACM",
+      "start": "2027-10-25",
+      "end": "2027-10-29",
+      "city": "Atlanta",
+      "country": "USA",
+      "lat": 33.749,
+      "lon": -84.388,
+      "spain": false,
+      "site": "https://conferences.sigcomm.org/imc/2027/",
+      "cfp": "https://conferences.sigcomm.org/imc/2027/cfp/",
+      "deadlines": {
+        "abstract": "2026-11-10",
+        "paper": "2026-11-17",
+        "notification": "2027-02-25",
+        "camera_ready": "2027-04-14",
+        "cycle2_abstract": "2027-03-31",
+        "cycle2_paper": "2027-04-07",
+        "cycle2_notification": "2027-07-22",
+        "cycle2_camera_ready": "2027-09-02"
+      },
+      "topic_fit": "Internet and cellular measurement",
+      "standing": "Annual ACM SIGCOMM Internet measurement conference",
+      "tier_note": "Tier A",
+      "status": "Confirmed",
+      "region": "North America",
+      "affinity": "high",
+      "notes": "CFP posted 17 Oct 2026. Abstract, paper, notification, and camera-ready are cycle 1. Papers rejected from IMC 2026 Cycle 2 cannot be submitted to IMC 2027 Cycle 1. The site does not state a timezone. Sponsored by ACM SIGCOMM.",
+      "affinity_units": [
+        "mohan-marina",
+        "feamster",
+        "liu"
       ]
     },
     {
@@ -602,7 +672,7 @@
     {
       "series": "IMC",
       "organizer": "ACM",
-      "note": "CFP not open yet. 2027/28 not announced; typically Oct/Nov",
+      "note": "CFP not open yet. 2028 not announced; typically Oct/Nov",
       "watch_next_edition": true,
       "affinity_units": [
         "mohan-marina",

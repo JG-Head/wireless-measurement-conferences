@@ -36,6 +36,7 @@ ORGANIZER_BY_SERIES = {
     "HotNets": "ACM",
     "WWW": "ACM",
     "MobiCom": "ACM",
+    "MobiSys": "ACM",
     "TPRC": "Other",
     "PAM": "Other",
     "TMA": "Other",
