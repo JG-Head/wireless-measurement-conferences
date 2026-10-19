@@ -7,13 +7,21 @@ export const SORTS = ["date", "deadline", "affinity", "name", "country", "status
 const DEADLINE_LABELS = {
   abstract: "Abstract",
   paper: "Paper",
-  short_abstract: "Short paper abstract",
-  short_paper: "Short paper",
   notification: "Notification",
-  camera_ready: "Camera-ready"
+  camera_ready: "Camera-ready",
+  cycle2_abstract: "Cycle 2 abstract",
+  cycle2_paper: "Cycle 2 paper",
+  cycle2_notification: "Cycle 2 notification",
+  cycle2_camera_ready: "Cycle 2 camera-ready",
+  short_abstract: "Short paper abstract",
+  short_paper: "Short paper"
 };
-const DEADLINE_ORDER = ["abstract", "paper", "short_abstract", "short_paper", "notification", "camera_ready"];
-const SUBMISSION_KEYS = new Set(["abstract", "paper", "short_abstract", "short_paper"]);
+const DEADLINE_ORDER = [
+  "abstract", "paper", "notification", "camera_ready",
+  "cycle2_abstract", "cycle2_paper", "cycle2_notification", "cycle2_camera_ready",
+  "short_abstract", "short_paper"
+];
+const SUBMISSION_KEYS = new Set(["abstract", "paper", "short_abstract", "short_paper", "cycle2_abstract", "cycle2_paper"]);
 const AFFINITY_RANK = { high: 0, medium: 1, low: 2 };
 const STATUS_RANK = { Confirmed: 0, Announced: 1 };
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
