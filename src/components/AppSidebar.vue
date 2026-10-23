@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { useDash } from "../composables/useDashboard";
-import { ORGANIZERS, VIEWS, affinityLabel } from "../lib/model";
+import { ORGANIZERS, VIEW_META, VIEWS, affinityLabel } from "../lib/model";
 
 const dash = useDash();
 const secondaryOpen = computed(() => dash.secondaryLabs.some((unit) => dash.state.labs.includes(unit.id)));
@@ -30,7 +30,8 @@ function surname(unit) {
   <div class="sidebar-inner">
     <p class="sidebar-kicker">{{ dash.ownerName }}</p>
     <h2 class="section-title">Filters</h2>
-    <p class="sidebar-lede">Default view: where a paper can still be submitted, or the CFP date is not in the file yet. Spain events are marked España.</p>
+    <p v-if="dash.state.view === 'journals'" class="sidebar-lede">Q1 journals for wireless, network, and measurement work. Quartiles are SJR. A blank field was not on the official pages that were checked.</p>
+    <p v-else class="sidebar-lede">Default view: where a paper can still be submitted, or the CFP date is not in the file yet. Spain events are marked España.</p>
     <p class="verified">{{ dash.verifiedLabel }}</p>
     <p v-if="dash.scholar" class="sidebar-links">
       <a class="text-link" :href="dash.scholar">Google Scholar</a>
@@ -49,18 +50,50 @@ function surname(unit) {
         :aria-controls="`view-${view}`"
         @click="dash.setView(view)"
       >
-        <i :class="view === 'list' ? 'bi bi-list-ul' : view === 'map' ? 'bi bi-geo-alt' : 'bi bi-calendar3'" aria-hidden="true"></i>
-        {{ view === 'list' ? 'List' : view === 'map' ? 'Map' : 'Timeline' }}
+        <i :class="VIEW_META[view].icon" aria-hidden="true"></i>
+        {{ VIEW_META[view].label }}
       </button>
     </div>
 
     <form class="sidebar-filters" role="search" @submit.prevent>
-      <label class="field">
+      <label v-if="dash.state.view === 'journals'" class="field">
+        <span>Search</span>
+        <input v-model="dash.state.jq" class="form-control" type="search" placeholder="Name, acronym, publisher" autocomplete="off" @input="dash.persist()">
+      </label>
+      <label v-else class="field">
         <span>Search</span>
         <input v-model="dash.state.q" class="form-control" type="search" placeholder="Name, city, series, organizer, lab" autocomplete="off" @input="dash.persist()">
       </label>
 
-      <div class="field">
+      <div v-if="dash.state.view === 'journals'" class="field">
+        <span>Journal filters</span>
+        <label class="field">
+          <span>Publisher</span>
+          <select v-model="dash.state.jpub" class="form-select" @change="dash.persist()">
+            <option value="all">All publishers</option>
+            <option v-for="name in dash.publishers" :key="name" :value="name">{{ name }}</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Open access</span>
+          <select v-model="dash.state.joa" class="form-select" @change="dash.persist()">
+            <option value="all">All access models</option>
+            <option value="full">Fully open access</option>
+            <option value="hybrid">Hybrid</option>
+            <option value="apc">Charges an APC</option>
+          </select>
+        </label>
+        <button type="button" class="toggle" :aria-pressed="dash.state.jtop" @click="dash.patch({ jtop: !dash.state.jtop })">
+          <span>Top percentile</span>
+          <small>Top 1%, 5%, or 10%</small>
+        </button>
+        <button type="button" class="toggle" :aria-pressed="dash.state.jissue" @click="dash.patch({ jissue: !dash.state.jissue })">
+          <span>Open special issue</span>
+          <small>Deadline still listed</small>
+        </button>
+      </div>
+
+      <div v-if="dash.state.view !== 'journals'" class="field">
         <span>Quick filters</span>
         <button type="button" class="toggle toggle-submit" :aria-pressed="dash.state.submissions" @click="dash.patch({ submissions: !dash.state.submissions })">
           <span>Submission opportunities</span>
@@ -77,7 +110,7 @@ function surname(unit) {
         </button>
       </div>
 
-      <div class="field">
+      <div v-if="dash.state.view !== 'journals'" class="field">
         <span id="organizer-label">Organizer · Organizador</span>
         <div class="org-filters" role="group" aria-labelledby="organizer-label">
           <button
@@ -92,7 +125,7 @@ function surname(unit) {
         </div>
       </div>
 
-      <label class="field">
+      <label v-if="dash.state.view !== 'journals'" class="field">
         <span>Region</span>
         <select v-model="dash.state.region" class="form-select" @change="dash.persist()">
           <option value="all">All regions</option>
@@ -100,7 +133,7 @@ function surname(unit) {
         </select>
       </label>
 
-      <label class="field">
+      <label v-if="dash.state.view !== 'journals'" class="field">
         <span>Status</span>
         <select v-model="dash.state.status" class="form-select" @change="dash.persist()">
           <option value="all">All statuses</option>
@@ -108,7 +141,7 @@ function surname(unit) {
         </select>
       </label>
 
-      <label class="field">
+      <label v-if="dash.state.view !== 'journals'" class="field">
         <span>Venue fit</span>
         <select v-model="dash.state.affinity" class="form-select" @change="dash.persist()">
           <option value="all">All affinities</option>
@@ -116,7 +149,7 @@ function surname(unit) {
         </select>
       </label>
 
-      <label class="field">
+      <label v-if="dash.state.view !== 'journals'" class="field">
         <span>Sort</span>
         <select v-model="dash.state.sort" class="form-select" @change="dash.state.dir = 'asc'; dash.persist()">
           <option value="date">Date</option>
@@ -128,7 +161,7 @@ function surname(unit) {
         </select>
       </label>
 
-      <div class="field">
+      <div v-if="dash.state.view !== 'journals'" class="field">
         <span id="lab-label">Research labs</span>
         <div class="lab-filters" role="group" aria-labelledby="lab-label">
           <button

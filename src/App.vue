@@ -6,6 +6,8 @@ import EventList from "./components/EventList.vue";
 import EventMap from "./components/EventMap.vue";
 import EventTimeline from "./components/EventTimeline.vue";
 import EventDrawer from "./components/EventDrawer.vue";
+import JournalGrid from "./components/JournalGrid.vue";
+import JournalDrawer from "./components/JournalDrawer.vue";
 import DeadlineRails from "./components/DeadlineRails.vue";
 import WatchingPanel from "./components/WatchingPanel.vue";
 import AboutPanel from "./components/AboutPanel.vue";
@@ -14,9 +16,12 @@ const dash = useDash();
 const navOpen = ref(false);
 const mapAlive = ref(dash.state.view === "map");
 const mapRef = ref(null);
-const viewTitle = computed(() => (
-  dash.state.view === "map" ? "Map" : dash.state.view === "timeline" ? "Timeline" : "Submission list"
-));
+const viewTitle = computed(() => {
+  if (dash.state.view === "map") return "Map";
+  if (dash.state.view === "timeline") return "Timeline";
+  if (dash.state.view === "journals") return "Journals";
+  return "Submission list";
+});
 const nextItem = computed(() => dash.soon[0] || null);
 
 watch(() => dash.state.view, (view) => {
@@ -40,7 +45,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <a class="skip" href="#view-root">Skip to events</a>
+  <a class="skip" href="#view-root">Skip to content</a>
   <div class="app-frame">
     <header class="mast">
       <div class="mast-bar"></div>
@@ -62,11 +67,11 @@ onMounted(() => {
     <div class="workspace">
       <h2 class="section-title">{{ viewTitle }}</h2>
       <ul class="kpis" aria-label="Summary">
-        <li v-if="nextItem" class="kpi" :class="{ 'is-urgent': nextItem.delta <= 30 }">
+        <li v-if="dash.state.view !== 'journals' && nextItem" class="kpi" :class="{ 'is-urgent': nextItem.delta <= 30 }">
           <span class="kpi-num">{{ nextItem.delta }}<span class="kpi-arrow" aria-hidden="true"></span></span>
           <span class="kpi-label">days to {{ nextItem.event.acronym }} {{ nextItem.label.toLowerCase() }}</span>
         </li>
-        <li v-for="item in dash.stats" :key="item.key" class="kpi">
+        <li v-for="item in (dash.state.view === 'journals' ? dash.journalStats : dash.stats)" :key="item.key" class="kpi">
           <span class="kpi-num">{{ item.text.split(' ')[0] }}</span>
           <span class="kpi-label">{{ item.text.slice(item.text.indexOf(' ') + 1) }}</span>
         </li>
@@ -78,25 +83,34 @@ onMounted(() => {
           <button type="button" :aria-pressed="dash.state.layout === 'cards'" @click="dash.patch({ layout: 'cards', layoutTouched: true })">Cards</button>
         </div>
       </div>
-      <DeadlineRails />
+      <DeadlineRails v-if="dash.state.view !== 'journals'" />
       <div id="view-root">
         <EventList v-show="dash.state.view === 'list'" />
         <EventMap v-if="mapAlive" v-show="dash.state.view === 'map'" ref="mapRef" :active="dash.state.view === 'map'" />
         <EventTimeline v-show="dash.state.view === 'timeline'" />
+        <JournalGrid v-show="dash.state.view === 'journals'" />
       </div>
-      <WatchingPanel />
+      <WatchingPanel v-if="dash.state.view !== 'journals'" />
       <AboutPanel />
       <footer class="site-footer">
         <p class="footer-label">{{ viewTitle }}</p>
         <p class="footer-meta">
-          Dates, cities, and deadlines are copied from
-          <a href="https://github.com/JG-Head/wireless-measurement-conferences/blob/main/data/conferences.json">data/conferences.json</a>
-          <template v-if="dash.data.verified_as_of"> (verified {{ dash.formatDay(dash.data.verified_as_of) }})</template>.
-          Check the official site before submitting. This page does not add venues.
+          <template v-if="dash.state.view === 'journals'">
+            Journal metrics and author details are copied from
+            <a href="https://github.com/JG-Head/wireless-measurement-conferences/blob/main/data/journals.json">data/journals.json</a>.
+            A blank field was not on the official pages checked. Confirm the journal site before submitting.
+          </template>
+          <template v-else>
+            Dates, cities, and deadlines are copied from
+            <a href="https://github.com/JG-Head/wireless-measurement-conferences/blob/main/data/conferences.json">data/conferences.json</a>
+            <template v-if="dash.data.verified_as_of"> (verified {{ dash.formatDay(dash.data.verified_as_of) }})</template>.
+            Check the official site before submitting. This page does not add venues.
+          </template>
         </p>
         <p class="footer-meta">Figtree, SIL Open Font License. Map tiles © OpenStreetMap contributors. Built with Vue, Vite, and Bootstrap.</p>
       </footer>
     </div>
   </div>
-  <EventDrawer @show-map="showOnMap" />
+  <EventDrawer v-if="dash.state.view !== 'journals'" @show-map="showOnMap" />
+  <JournalDrawer v-if="dash.state.view === 'journals'" />
 </template>

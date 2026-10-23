@@ -10,6 +10,8 @@ SOURCE = ROOT / "data" / "conferences.json"
 PUBLISHED = ROOT / "docs" / "data" / "conferences.json"
 AFFINITY_SOURCE = ROOT / "data" / "affinity.json"
 AFFINITY_PUBLISHED = ROOT / "docs" / "data" / "affinity.json"
+JOURNALS_SOURCE = ROOT / "data" / "journals.json"
+JOURNALS_PUBLISHED = ROOT / "docs" / "data" / "journals.json"
 THEMES = {"Starlink", "CBRS", "cell-load", "crowdsource", "LEO"}
 BANNED_MEMBERS = ("frias", "mendo", "lehr", "yraola", "garcia-cabeza", "garcia cabeza")
 REQUIRED = [
@@ -135,6 +137,69 @@ def check_affinity_tags(record, ident, units_by_id, errors):
             errors.append(f"{ident} unknown affinity unit {tag}")
 
 
+def http_url(value):
+    return isinstance(value, str) and (value.startswith("https://") or value.startswith("http://"))
+
+
+def check_journals(units_by_id, errors):
+    if not JOURNALS_SOURCE.exists() or not JOURNALS_PUBLISHED.exists():
+        errors.append("data/journals.json and docs/data/journals.json are required")
+        return
+    raw = JOURNALS_SOURCE.read_bytes()
+    if raw != JOURNALS_PUBLISHED.read_bytes():
+        errors.append("docs/data/journals.json differs from data/journals.json")
+        return
+    data = json.loads(raw)
+    verified = data.get("verified_as_of", "")
+    if not is_iso_date(verified):
+        errors.append("journals verified_as_of must be YYYY-MM-DD")
+    rows = data.get("journals")
+    if not isinstance(rows, list) or not rows:
+        errors.append("journals must be a non-empty list")
+        return
+    seen = set()
+    for journal in rows:
+        ident = journal.get("id", "<missing id>")
+        if ident in seen:
+            errors.append(f"duplicate journal id {ident}")
+        seen.add(ident)
+        if not isinstance(ident, str) or ident != ident.lower() or not ident.replace("-", "").isalnum():
+            errors.append(f"journal id must be a lowercase slug: {ident}")
+        for key in ("name", "acronym", "publisher", "fit"):
+            if not journal.get(key):
+                errors.append(f"{ident} missing {key}")
+        if not http_url(journal.get("website")):
+            errors.append(f"{ident} website must be an http(s) URL")
+        quartile = journal.get("quartile") or {}
+        if quartile.get("value") != "Q1":
+            errors.append(f"{ident} quartile must be Q1")
+        if not quartile.get("category") or not isinstance(quartile.get("year"), int):
+            errors.append(f"{ident} quartile needs a category and year")
+        if not http_url(quartile.get("source_url")):
+            errors.append(f"{ident} quartile needs a source URL")
+        for key in ("submission_url", "guidelines_url"):
+            if journal.get(key) not in (None, "") and not http_url(journal.get(key)):
+                errors.append(f"{ident} {key} must be an http(s) URL")
+        issues = journal.get("special_issues", [])
+        if not isinstance(issues, list):
+            errors.append(f"{ident} special_issues must be a list")
+            continue
+        for issue in issues:
+            if not issue.get("title") or not is_iso_date(issue.get("deadline", "")):
+                errors.append(f"{ident} special issue needs a title and YYYY-MM-DD deadline")
+            elif issue.get("deadline") < verified:
+                errors.append(f"{ident} special issue deadline {issue.get('deadline')} is before verified_as_of")
+            if not http_url(issue.get("url")):
+                errors.append(f"{ident} special issue needs a URL")
+        tags = journal.get("affinity_units", [])
+        if not isinstance(tags, list):
+            errors.append(f"{ident} affinity_units must be a list")
+        else:
+            for tag in tags:
+                if tag not in units_by_id:
+                    errors.append(f"{ident} unknown affinity unit {tag}")
+
+
 def main():
     raw_source = SOURCE.read_bytes()
     raw_published = PUBLISHED.read_bytes()
@@ -210,6 +275,8 @@ def main():
         check_organizer(item, f"watching {item.get('series')}", errors)
         if units_by_id:
             check_affinity_tags(item, f"watching {item.get('series')}", units_by_id, errors)
+
+    check_journals(units_by_id, errors)
 
     if errors:
         for message in errors:

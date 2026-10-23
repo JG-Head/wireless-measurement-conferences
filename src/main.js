@@ -32,8 +32,14 @@ try {
   } catch {
     labs = { units: [] };
   }
+  let journals = { journals: [] };
+  try {
+    journals = await loadJson("data/journals.json");
+  } catch {
+    journals = { journals: [] };
+  }
   const initial = readFilters(new URLSearchParams(location.search));
-  const dashboard = createDashboard(data, labs, initial);
+  const dashboard = createDashboard(data, labs, journals, initial);
   createApp(App).provide(dashboardKey, dashboard).mount("#app");
 } catch (err) {
   root.innerHTML = `<div class="empty"><p>Conference data failed to load (${err.message}).</p><p>Serve the site over HTTP so <code>data/conferences.json</code> can load.</p></div>`;

@@ -25,6 +25,7 @@ import {
   watchingItems,
   writeFilters
 } from "../lib/model";
+import { filterJournals, journalPublishers, journalResultText, journalStats } from "../lib/journals";
 
 export const dashboardKey = Symbol("dashboard");
 
@@ -36,7 +37,7 @@ export function useDash() {
   return inject(dashboardKey);
 }
 
-export function createDashboard(data, labs, initial = {}) {
+export function createDashboard(data, labs, journalsFile = {}, initial = {}) {
   const state = reactive({
     view: "list",
     q: "",
@@ -53,6 +54,12 @@ export function createDashboard(data, labs, initial = {}) {
     layout: "table",
     layoutTouched: false,
     event: null,
+    journal: null,
+    jq: "",
+    jpub: "all",
+    jtop: false,
+    joa: "all",
+    jissue: false,
     ...initial
   });
 
@@ -82,13 +89,23 @@ export function createDashboard(data, labs, initial = {}) {
   const knownLabs = new Set(labUnits(labs).map((unit) => unit.id));
   state.labs = state.labs.filter((id) => knownLabs.has(id));
   if (state.event && !events.some((event) => event.id === state.event)) state.event = null;
+  const journalList = Array.isArray(journalsFile.journals) ? journalsFile.journals : [];
+  const publishers = journalPublishers(journalList);
+  if (state.jpub !== "all" && !publishers.includes(state.jpub)) state.jpub = "all";
+  if (state.journal && !journalList.some((journal) => journal.id === state.journal)) state.journal = null;
 
   const sorted = computed(() => sortEvents(filterEvents(events, state, labs, today), state, today));
   const soon = computed(() => soonItems(events, state, today));
   const now = computed(() => happeningNow(events, state, today));
   const watching = computed(() => watchingItems(data, state, labs));
   const selected = computed(() => events.find((event) => event.id === state.event) || null);
-  const countText = computed(() => resultText(sorted.value.length, data, state, labs, today));
+  const journals = computed(() => filterJournals(journalList, state));
+  const selectedJournal = computed(() => journalList.find((journal) => journal.id === state.journal) || null);
+  const countText = computed(() => (
+    state.view === "journals"
+      ? journalResultText(journals.value.length, journalList.length)
+      : resultText(sorted.value.length, data, state, labs, today)
+  ));
   const emptyMessage = computed(() => emptyLead(state, data, labs));
   const watchIntro = computed(() => watchingIntro(watching.value, state));
 
@@ -134,6 +151,11 @@ export function createDashboard(data, labs, initial = {}) {
     state.submissions = true;
     state.organizers = [];
     state.labs = [];
+    state.jq = "";
+    state.jpub = "all";
+    state.jtop = false;
+    state.joa = "all";
+    state.jissue = false;
     persist();
   }
 
@@ -157,6 +179,24 @@ export function createDashboard(data, labs, initial = {}) {
     lastFocus = opener || document.activeElement;
     state.event = id;
     persist();
+  }
+
+  function openJournal(id, opener) {
+    if (!journalList.some((journal) => journal.id === id)) return;
+    lastFocus = opener || document.activeElement;
+    state.journal = id;
+    persist();
+  }
+
+  function closeJournal(restoreFocus = true) {
+    const id = state.journal;
+    state.journal = null;
+    persist();
+    if (!restoreFocus) return;
+    const target = lastFocus && lastFocus.isConnected
+      ? lastFocus
+      : document.querySelector(`[data-id="${CSS.escape(id || "")}"] button`);
+    if (target && typeof target.focus === "function") target.focus();
   }
 
   function closeEvent(restoreFocus = true) {
@@ -184,6 +224,11 @@ export function createDashboard(data, labs, initial = {}) {
     statuses,
     affinities,
     sorted,
+    journals,
+    journalList,
+    publishers,
+    selectedJournal,
+    journalStats: journalStats(journalList),
     soon,
     now,
     watching,
@@ -202,17 +247,23 @@ export function createDashboard(data, labs, initial = {}) {
     setSort,
     openEvent,
     closeEvent,
+    openJournal,
+    closeJournal,
     patch,
     applyFilters,
     persist,
     labById: (id) => labById(labs, id),
     eventLabs: (event) => eventLabs(event, labs),
+    journalLabs: (journal) => (journal?.affinity_units || []).map((id) => labById(labs, id)).filter(Boolean),
     formatDay,
     formatMonthYear,
     safeUrl,
     ownerName: data.owner?.name || "Research group",
     scholar: safeUrl(data.owner?.scholar),
-    verifiedLabel: data.verified_as_of ? `Verified ${formatDay(data.verified_as_of)}` : "Verification date not listed",
+    verifiedLabel: computed(() => {
+      const date = state.view === "journals" ? journalsFile.verified_as_of : data.verified_as_of;
+      return date ? `Verified ${formatDay(date)}` : "Verification date not listed";
+    }),
     windowLabel: data.window ? `${formatMonthYear(data.window.from)} – ${formatMonthYear(data.window.to)}` : ""
   });
   persist();

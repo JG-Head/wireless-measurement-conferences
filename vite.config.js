@@ -23,7 +23,8 @@ function previewBase() {
 function serveSourceData() {
   const files = {
     "/data/conferences.json": "data/conferences.json",
-    "/data/affinity.json": "data/affinity.json"
+    "/data/affinity.json": "data/affinity.json",
+    "/data/journals.json": "data/journals.json"
   };
   return {
     name: "serve-source-data",

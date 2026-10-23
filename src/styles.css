@@ -480,7 +480,27 @@ h1 {
 .watch-card, .about-card { background: var(--bg); border: 1.5px solid var(--navy); }
 .event-card.is-spain, .event-card.is-urgent { box-shadow: inset 6px 0 0 var(--orange); }
 .event-card.is-selected { outline: 2px solid var(--navy); outline-offset: -2px; }
-.event-card h3, .watch-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--slate); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.event-card h3, .watch-card h3, .journal-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--slate); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.journal-card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  min-width: 0;
+}
+.journal-card .event-acronym { color: var(--orange); font-size: 20px; font-weight: 700; line-height: 1.2; }
+.journal-card.is-selected { outline: 2px solid var(--navy); outline-offset: -2px; }
+.journal-meta, .journal-fit { color: var(--slate); font-size: 14px; margin: 0; }
+.journal-meta.clamp { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.journal-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+.journal-actions .btn { min-height: 44px; display: inline-flex; align-items: center; }
+.issue-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.issue-list li { display: flex; flex-direction: column; gap: 2px; color: var(--slate); font-size: 14px; }
+.journal-metrics { grid-template-columns: 88px minmax(0, 1fr); }
+.journal-metrics a, .drawer h3 + p a { display: inline-block; }
 
 .map-stage {
   position: relative;
@@ -592,6 +612,7 @@ h1 {
   font-weight: 700;
   margin: 0 0 8px;
 }
+.drawer h3 { margin-top: 16px; }
 .about-card ul { margin: 8px 0 0; padding-left: 18px; color: var(--slate); }
 .about-card p + p { margin-top: 8px; }
 .about-card p, .watch-card p { color: var(--slate); }
