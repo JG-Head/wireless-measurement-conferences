@@ -28,4 +28,5 @@ jobs:
           test -f docs/favicon.svg
           test -f docs/data/conferences.json
           test -f docs/data/affinity.json
+          test -f docs/data/journals.json
           grep -q 'type="module"' docs/index.html

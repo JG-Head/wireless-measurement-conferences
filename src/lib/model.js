@@ -1,7 +1,14 @@
 export const SOON_DAYS = 90;
 export const HIGH_SERIES = ["IMC", "DySPAN", "CoNEXT", "SIGMETRICS", "PAM", "TMA", "PIMRC", "EuCNC", "WCNC"];
 export const ORGANIZERS = ["IEEE", "ACM", "Other"];
-export const VIEWS = ["list", "map", "timeline"];
+export const VIEWS = ["list", "map", "timeline", "journals"];
+export const VIEW_META = {
+  list: { label: "List", icon: "bi bi-list-ul" },
+  map: { label: "Map", icon: "bi bi-geo-alt" },
+  timeline: { label: "Timeline", icon: "bi bi-calendar3" },
+  journals: { label: "Journals", icon: "bi bi-journal-text" }
+};
+export const JOURNAL_OA = ["full", "hybrid", "apc"];
 export const SORTS = ["date", "deadline", "affinity", "name", "country", "status"];
 
 const DEADLINE_LABELS = {
@@ -438,7 +445,13 @@ export function readFilters(params) {
     dir: params.get("dir") === "desc" ? "desc" : "asc",
     layout: layout === "cards" || layout === "table" ? layout : (narrow ? "cards" : "table"),
     layoutTouched: layout === "cards" || layout === "table",
-    event: params.get("event") || null
+    event: params.get("event") || null,
+    journal: params.get("journal") || null,
+    jq: params.get("jq") || "",
+    jpub: params.get("jpub") || "all",
+    jtop: params.get("jtop") === "1",
+    joa: JOURNAL_OA.includes(params.get("joa")) ? params.get("joa") : "all",
+    jissue: params.get("jissue") === "1"
   };
 }
 
@@ -464,5 +477,11 @@ export function writeFilters(state) {
   if (state.layoutTouched) set("layout", state.layout, "table");
   else params.delete("layout");
   set("event", state.event, null);
+  set("journal", state.journal, null);
+  set("jq", state.jq, "");
+  set("jpub", state.jpub, "all");
+  set("jtop", state.jtop ? "1" : "", "");
+  set("joa", state.joa, "all");
+  set("jissue", state.jissue ? "1" : "", "");
   history.replaceState(null, "", url);
 }

@@ -1,0 +1,1016 @@
+{
+  "verified_as_of": "2026-10-23",
+  "notes": "Only journals with a verified Q1 SJR in Computer Networks and Communications or Electrical and Electronic Engineering are included. Proceedings of the ACM on Networking is omitted because no SJR page and no Scopus quartile page were found. Blank fields were not stated on the official pages checked on this date.",
+  "journals": [
+    {
+      "id": "tmc",
+      "name": "IEEE Transactions on Mobile Computing",
+      "acronym": "TMC",
+      "publisher": "IEEE",
+      "publisher_detail": "IEEE Computer Society",
+      "website": "https://www.computer.org/csdl/journal/tm",
+      "submission_url": "https://mc.manuscriptcentral.com/cs-ieee",
+      "submission_note": "The Computer Society author page says most of its journals use ScholarOne Manuscripts at this address, and that the IEEE Author Portal connects to the same ScholarOne database. A TMC-only portal URL is not printed on that page.",
+      "guidelines_url": "https://www.computer.org/publications/author-resources",
+      "quartile": {
+        "value": "Q1",
+        "category": "Computer Networks and Communications",
+        "year": 2025,
+        "metric": "SJR",
+        "sjr": 2.397,
+        "source_url": "https://www.scimagojr.com/journalsearch.php?clean=0&q=25038&tip=sid",
+        "also": [
+          "Electrical and Electronic Engineering",
+          "Software"
+        ]
+      },
+      "citescore": {
+        "value": 11.9,
+        "year": 2024,
+        "category": "Computer Networks and Communications",
+        "rank": 40,
+        "out_of": 507,
+        "percentile": 92,
+        "source_url": "https://www.scopus.com/sourceid/25038",
+        "note": "Scopus says CiteScore 2024 was calculated on 5 May 2025. The same page also lists Electrical and Electronic Engineering at the 92nd percentile (rank 71 of 970) and Software at the 90th percentile (rank 46 of 490)."
+      },
+      "impact_factor": {
+        "value": 8.8,
+        "year": 2025,
+        "quartile": "Q1",
+        "source_url": "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-August-2026.pdf",
+        "source_label": "IEEE Open title list, accurate as of 15 August 2026, based on the 2025 Journal Citation Reports"
+      },
+      "percentile": {
+        "label": "Top 10%",
+        "metric": "CiteScore",
+        "category": "Computer Networks and Communications",
+        "percentile": 92,
+        "rank": 40,
+        "out_of": 507,
+        "year": 2024,
+        "source_url": "https://www.scopus.com/sourceid/25038"
+      },
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": {
+        "model": "hybrid",
+        "charges": true,
+        "amount": 2800,
+        "currency": "USD",
+        "year": 2026,
+        "source_url": "https://open.ieee.org/for-authors/article-processing-charges/",
+        "model_source_url": "https://www.computer.org/digital-library/journals/tm/cfp-ieee-transactions-mobile-computing",
+        "note": "The TMC call states a hybrid model (traditional submission or author-paid open access). It does not print an APC. IEEE Open states that the 2026 hybrid open-access APC is US$2,800. The Computer Society author page states a 5% IEEE member discount and a 20% society or council discount, which cannot be combined or applied to overlength or color charges. Corresponding authors from low-income countries may request a waiver or reduction."
+      },
+      "fit": "Mobile and wireless systems measurement, including cellular systems and end-to-end mobile performance.",
+      "special_issues": [],
+      "affinity_units": [
+        "malandrino"
+      ],
+      "scope": "TMC covers architectures, support services, algorithm and protocol design, mobile environments, mobile communication systems, applications, and emerging technologies. The call says work that is only physical-layer signal processing, or AI/ML that is not grounded in a mobile-computing problem, is typically out of scope.",
+      "scope_source": "https://www.computer.org/digital-library/journals/tm/cfp-ieee-transactions-mobile-computing",
+      "review_model": {
+        "text": "Unless a double-anonymous review is requested, articles use a single-anonymous review. The Computer Society solicits at least three independent reviewers. A double-anonymous request needs an explanation and is honored at the editor-in-chief's discretion. TMC is not in the list of Computer Society transactions that decline double-anonymous review.",
+        "source_url": "https://www.computer.org/publications/author-resources"
+      },
+      "template": {
+        "text": "IEEE Template Selector. The author page says templates do not reflect the final format.",
+        "url": "https://journals.ieeeauthorcenter.ieee.org/create-your-ieee-journal-article/authoring-tools-and-templates/tools-for-ieee-authors/ieee-article-templates/",
+        "source_url": "https://www.computer.org/publications/author-resources"
+      },
+      "paper_types": {
+        "text": "Regular and special-issue papers use a 100- to 200-word abstract. The same author page also describes short papers (50-word abstract) and comments papers for Computer Society journals. A TMC-only list of accepted article types was not on the pages that loaded.",
+        "source_url": "https://www.computer.org/publications/author-resources"
+      },
+      "length_limits": {
+        "text": "Computer Society policy sets the regular published length of a transactions paper at 12 formatted pages, including references and author biographies. The same page says submission page limits may differ and that each journal's own page-length policy should be checked. The TMC-specific author page did not load as text.",
+        "source_url": "https://www.computer.org/publications/author-resources"
+      },
+      "overlength": {
+        "text": "Pages or a fraction of a page over the 12-page transactions limit are charged US$220 per page after final editing and layout. This is independent of open-access or voluntary page charges. The page does not print a separate color-charge amount.",
+        "source_url": "https://www.computer.org/publications/author-resources"
+      },
+      "editor_in_chief": null
+    },
+    {
+      "id": "twc",
+      "name": "IEEE Transactions on Wireless Communications",
+      "acronym": "TWC",
+      "publisher": "IEEE",
+      "publisher_detail": "IEEE Communications Society",
+      "website": "https://www.comsoc.org/publications/journals/ieee-twc",
+      "submission_url": "https://ieee.atyponrex.com/journal/twc",
+      "submission_note": "The guidelines say all submissions are handled through the TWC IEEE Author Portal. The Communications Society menu labels this Author Portal address as Submit a Manuscript.",
+      "guidelines_url": "https://www.comsoc.org/publications/journals/ieee-twc/policies-guidelines",
+      "quartile": {
+        "value": "Q1",
+        "category": "Electrical and Electronic Engineering",
+        "year": 2025,
+        "metric": "SJR",
+        "sjr": 3.684,
+        "source_url": "https://www.scimagojr.com/journalsearch.php?clean=0&q=18933&tip=sid",
+        "also": [
+          "Applied Mathematics",
+          "Computer Science Applications"
+        ]
+      },
+      "citescore": {
+        "value": 17.3,
+        "year": 2024,
+        "category": "Electrical and Electronic Engineering",
+        "rank": 31,
+        "percentile": 96,
+        "source_url": "https://www.scopus.com/sourceid/25038",
+        "note": "Taken from the Electrical and Electronic Engineering ranking table on the Scopus page for source 25038. A direct Scopus source page for TWC did not load."
+      },
+      "impact_factor": {
+        "value": 10.3,
+        "year": 2025,
+        "quartile": "Q1",
+        "source_url": "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-August-2026.pdf",
+        "source_label": "IEEE Open title list, accurate as of 15 August 2026, based on the 2025 Journal Citation Reports"
+      },
+      "percentile": {
+        "label": "Top 5%",
+        "metric": "CiteScore",
+        "category": "Electrical and Electronic Engineering",
+        "percentile": 96,
+        "rank": 31,
+        "year": 2024,
+        "source_url": "https://www.scopus.com/sourceid/25038"
+      },
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": {
+        "model": "hybrid",
+        "charges": true,
+        "amount": 2800,
+        "currency": "USD",
+        "year": 2026,
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-twc/policies-guidelines",
+        "note": "IEEE members receive a 5% discount and IEEE society members a 20% discount. Discounts cannot be combined and do not apply to undergraduate or graduate students. Corresponding authors from World Bank low-income countries are eligible for discounts."
+      },
+      "fit": "Wireless link and system experiments, including cellular, WLAN, and prototype measurements.",
+      "special_issues": [],
+      "affinity_units": [],
+      "scope": "TWC invites theoretical and practical manuscripts on wireless communications, including system experiments, prototypes, and new applications. Papers are out of scope when they are not centered on a wireless communications problem and when channel effects such as fading and interference do not play a prominent role.",
+      "scope_source": "https://www.comsoc.org/publications/journals/ieee-twc/policies-guidelines",
+      "review_model": {
+        "text": "Single-anonymous peer review. Each published article was reviewed by a minimum of two independent reviewers. Reviewer identities are hidden from the authors; reviewers know the authors.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-twc/policies-guidelines"
+      },
+      "template": {
+        "text": "IEEE Template Selector (LaTeX and Microsoft Word).",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-twc/policies-guidelines"
+      },
+      "paper_types": {
+        "text": "Transactions papers, and Transactions Comments or Corrections. Comments are usually very short, often less than a printed page, and cannot contain an original contribution. Two-part papers that cannot stand alone are not considered.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-twc/policies-guidelines"
+      },
+      "length_limits": {
+        "text": "Transactions papers may not exceed 13 double-column single-spaced pages at 10-point font, including title, authors, abstract, index terms, text, equations, figures, tables, appendices, and references. Revised manuscripts may not exceed 16 pages in the same format. The abstract is 75 to 200 words.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-twc/policies-guidelines"
+      },
+      "overlength": {
+        "text": "Voluntary page charge of US$110 per printed page for the first ten pages. Mandatory page charge of US$220 for each printed page beyond ten, for papers submitted after 1 January 2020. The open-access APC is in addition to overlength page charges.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-twc/policies-guidelines"
+      },
+      "editor_in_chief": {
+        "name": "Vincent Wong",
+        "affiliation": "University of British Columbia, Canada",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-twc/ieee-transactions-wireless-communications-editorial-board"
+      }
+    },
+    {
+      "id": "jsac",
+      "name": "IEEE Journal on Selected Areas in Communications",
+      "acronym": "JSAC",
+      "publisher": "IEEE",
+      "publisher_detail": "IEEE Communications Society",
+      "website": "https://www.comsoc.org/publications/journals/ieee-jsac",
+      "submission_url": "https://mc.manuscriptcentral.com/jsac-ieee",
+      "submission_note": "The Communications Society menu labels ScholarOne Manuscripts at this address as Submit a Manuscript. The author guidelines say papers are submitted via EDAS to the guest-editor team of the special issue named in that issue's call. The guidelines page does not print an EDAS URL.",
+      "guidelines_url": "https://www.comsoc.org/publications/journals/ieee-jsac/policies-guidelines",
+      "quartile": {
+        "value": "Q1",
+        "category": "Computer Networks and Communications",
+        "year": 2025,
+        "metric": "SJR",
+        "sjr": 6.496,
+        "rank": 2,
+        "source_url": "https://www.scimagojr.com/journalrank.php?category=1705",
+        "also": [
+          "Electrical and Electronic Engineering"
+        ]
+      },
+      "citescore": {
+        "value": 33.6,
+        "year": 2024,
+        "category": "Electrical and Electronic Engineering",
+        "rank": 7,
+        "percentile": 99,
+        "source_url": "https://www.scopus.com/sourceid/25038",
+        "note": "Taken from the Electrical and Electronic Engineering ranking table on the Scopus page for source 25038."
+      },
+      "impact_factor": {
+        "value": 16.8,
+        "year": 2025,
+        "quartile": "Q1",
+        "source_url": "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-August-2026.pdf",
+        "source_label": "IEEE Open title list, accurate as of 15 August 2026, based on the 2025 Journal Citation Reports"
+      },
+      "percentile": {
+        "label": "Top 1%",
+        "metric": "CiteScore",
+        "category": "Electrical and Electronic Engineering",
+        "percentile": 99,
+        "rank": 7,
+        "year": 2024,
+        "source_url": "https://www.scopus.com/sourceid/25038"
+      },
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": {
+        "model": "hybrid",
+        "charges": true,
+        "amount": 2800,
+        "currency": "USD",
+        "year": 2026,
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-jsac/policies-guidelines",
+        "note": "IEEE members receive a 5% discount and IEEE society members a 20% discount. Discounts cannot be combined and do not apply to undergraduate or graduate students. Corresponding authors from World Bank low-income countries are eligible for discounts."
+      },
+      "fit": "Selected-topic wireless and network measurement when an open issue matches.",
+      "special_issues": [
+        {
+          "title": "Exploiting Flexible Positioning: Movable and Pinching Antennas for Next-Generation Wireless Networks",
+          "deadline": "2026-10-30",
+          "publication": "July 2027",
+          "url": "https://www.comsoc.org/publications/journals/ieee-jsac/cfp/exploiting-flexible-positioning-movable-and-pinching-antennas-next-generation-wireless-networks",
+          "source_url": "https://www.comsoc.org/publications/journals/ieee-jsac/cfp"
+        },
+        {
+          "title": "Next-Generation Underwater Acoustic Communication Systems",
+          "deadline": "2027-03-31",
+          "publication": "Second/Third Quarter 2028",
+          "url": "https://www.comsoc.org/publications/journals/ieee-jsac/cfp/next-generation-underwater-acoustic-communication-systems",
+          "source_url": "https://www.comsoc.org/publications/journals/ieee-jsac/cfp"
+        }
+      ],
+      "affinity_units": [],
+      "scope": "Each issue focuses on one communications topic. The journal publishes papers for those special issues rather than a standing open call.",
+      "scope_source": "https://www.comsoc.org/publications/submit-paper",
+      "review_model": null,
+      "template": {
+        "text": "IEEE Template Selector (LaTeX and Microsoft Word).",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-jsac/policies-guidelines"
+      },
+      "paper_types": {
+        "text": "Papers are submitted to a special issue. Guest editors may write a tutorial or overview for the issue. Guest-editor research papers are no longer accepted.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-jsac/policies-guidelines"
+      },
+      "length_limits": {
+        "text": "Papers may not exceed 13 double-column single-spaced pages at 10-point font with 1-inch margins, including title, authors, abstract, index terms, text, equations, figures, tables, appendices, and references. Revised papers are limited to 16 pages. The abstract is 75 to 200 words.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-jsac/policies-guidelines"
+      },
+      "overlength": {
+        "text": "The author section states a voluntary charge of US$110 per printed page for the first 10 pages, and a mandatory US$220 for each page beyond 10, for papers submitted after 1 January 2020. The guest-editor section states that every JSAC special issue has mandatory overlength charges of US$220 starting at the ninth printed page (the free limit is 8). A guest editor may also set a shorter maximum length for that issue.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-jsac/policies-guidelines"
+      },
+      "editor_in_chief": {
+        "name": "Zhiguo Ding",
+        "affiliation": "Nanyang Technological University, Singapore",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-jsac/ieee-journal-selected-areas-communications-editorial-board"
+      }
+    },
+    {
+      "id": "tccn",
+      "name": "IEEE Transactions on Cognitive Communications and Networking",
+      "acronym": "TCCN",
+      "publisher": "IEEE",
+      "publisher_detail": "IEEE Communications Society",
+      "website": "https://www.comsoc.org/publications/journals/ieee-tccn",
+      "submission_url": "https://ieee.atyponrex.com/journal/tccn",
+      "submission_note": "The guidelines say submissions use the TCCN web editorial system at Manuscript Central (IEEE Author Portal). The Communications Society menu labels this Author Portal address as Submit a Manuscript.",
+      "guidelines_url": "https://www.comsoc.org/publications/journals/ieee-tccn/policies-guidelines",
+      "quartile": {
+        "value": "Q1",
+        "category": "Computer Networks and Communications",
+        "year": 2025,
+        "metric": "SJR",
+        "sjr": 2.359,
+        "source_url": "https://www.scimagojr.com/journalsearch.php?clean=0&q=21100854831&tip=sid",
+        "also": [
+          "Artificial Intelligence",
+          "Hardware and Architecture"
+        ]
+      },
+      "citescore": {
+        "value": 14.9,
+        "year": 2024,
+        "category": "Computer Networks and Communications",
+        "rank": 23,
+        "out_of": 507,
+        "percentile": 95,
+        "source_url": "https://www.scopus.com/sourceid/21100854831",
+        "note": "The same Scopus page lists Hardware and Architecture at the 96th percentile (rank 9 of 224) and Artificial Intelligence at the 91st percentile (rank 38 of 450)."
+      },
+      "impact_factor": {
+        "value": 8.0,
+        "year": 2025,
+        "quartile": "Q1",
+        "source_url": "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-August-2026.pdf",
+        "source_label": "IEEE Open title list, accurate as of 15 August 2026, based on the 2025 Journal Citation Reports"
+      },
+      "percentile": {
+        "label": "Top 5%",
+        "metric": "CiteScore",
+        "category": "Computer Networks and Communications",
+        "percentile": 95,
+        "rank": 23,
+        "out_of": 507,
+        "year": 2024,
+        "source_url": "https://www.scopus.com/sourceid/21100854831"
+      },
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": {
+        "model": "hybrid",
+        "charges": true,
+        "amount": 2800,
+        "currency": "USD",
+        "year": 2026,
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tccn/policies-guidelines",
+        "note": "IEEE members receive a 5% discount and IEEE society members a 20% discount. Discounts cannot be combined and do not apply to undergraduate or graduate students. Corresponding authors from World Bank low-income countries are eligible for discounts."
+      },
+      "fit": "Spectrum sharing and cognitive wireless systems, including experimental studies.",
+      "special_issues": [],
+      "affinity_units": [],
+      "scope": "Manuscripts that advance cognitive communications and networking. The guidelines define cognitive as perception, learning, reasoning, memory, and adaptive approaches in communication-system design. Original theoretical and experimental work of permanent reference value is welcome.",
+      "scope_source": "https://www.comsoc.org/publications/journals/ieee-tccn/policies-guidelines",
+      "review_model": null,
+      "template": {
+        "text": "IEEE Template Selector (LaTeX and Microsoft Word). LaTeX and Microsoft Word submissions are accepted.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tccn/policies-guidelines"
+      },
+      "paper_types": {
+        "text": "Regular transactions papers, and survey and tutorial papers.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tccn/policies-guidelines"
+      },
+      "length_limits": {
+        "text": "Mandatory double-column, single-spaced, 10-point submission. Regular papers may not exceed 13 pages, and survey or tutorial papers 20 pages, including title, authors, abstract, index terms, text, equations, figures, tables, appendices, and references. Revised manuscripts may not exceed 16 pages (transactions) or 25 pages (survey and tutorial). An optional double-spaced single-column file has no page limit. The abstract is 75 to 200 words.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tccn/policies-guidelines"
+      },
+      "overlength": {
+        "text": "Voluntary page charge of US$110 per printed page for the first ten pages. Mandatory page charge of US$220 for each printed page beyond ten. The open-access fee is in addition to overlength charges.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tccn/policies-guidelines"
+      },
+      "editor_in_chief": {
+        "name": "Shiwen Mao",
+        "affiliation": "Auburn University, USA",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tccn/ieee-transactions-cognitive-communications-and-networking-editorial-board"
+      }
+    },
+    {
+      "id": "tnsm",
+      "name": "IEEE Transactions on Network and Service Management",
+      "acronym": "TNSM",
+      "publisher": "IEEE",
+      "publisher_detail": "IEEE Communications Society",
+      "website": "https://www.comsoc.org/publications/journals/ieee-transactions-network-and-service-management",
+      "submission_url": "https://ieee.atyponrex.com/journal/tnsm",
+      "submission_note": "The guidelines say new manuscripts go through the TNSM Author Portal. The Communications Society menu labels this Author Portal address as Submit a Manuscript.",
+      "guidelines_url": "https://www.comsoc.org/publications/journals/ieee-tnsm/policies-guidelines",
+      "quartile": {
+        "value": "Q1",
+        "category": "Computer Networks and Communications",
+        "year": 2025,
+        "metric": "SJR",
+        "sjr": 1.389,
+        "source_url": "https://www.scimagojr.com/journalsearch.php?clean=0&q=7200153156&tip=sid",
+        "also": [
+          "Electrical and Electronic Engineering"
+        ]
+      },
+      "citescore": null,
+      "impact_factor": {
+        "value": 5.7,
+        "year": 2025,
+        "quartile": "Q1",
+        "source_url": "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-August-2026.pdf",
+        "source_label": "IEEE Open title list, accurate as of 15 August 2026, based on the 2025 Journal Citation Reports"
+      },
+      "percentile": null,
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": {
+        "model": "hybrid",
+        "charges": true,
+        "amount": 2800,
+        "currency": "USD",
+        "year": 2026,
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnsm/policies-guidelines",
+        "note": "IEEE members receive a 5% discount and IEEE society members a 20% discount. Discounts cannot be combined and do not apply to undergraduate or graduate students. Corresponding authors from World Bank low-income countries are eligible for discounts."
+      },
+      "fit": "Network and service management measurement, reliability, and operational case studies.",
+      "special_issues": [],
+      "affinity_units": [],
+      "scope": "Archival research on management of networks, systems, services, and applications, including communications software, service engineering, policies, and business processes. Theoretical contributions and applied reports of experiences and experiments are encouraged. A paper should contain a significant network and service management contribution, such as a performance evaluation, scalability analysis, or optimization.",
+      "scope_source": "https://www.comsoc.org/publications/journals/ieee-transactions-network-and-service-management",
+      "review_model": null,
+      "template": {
+        "text": "IEEE editorial and typographical standards. The guidelines point to the IEEE site section for transactions templates, excluding IEEE Transactions on Magnetics, IEEE Magnetics Letters, and IEEE Photonics Journal.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnsm/policies-guidelines"
+      },
+      "paper_types": {
+        "text": "Regular papers are welcome at any time. Extended conference papers are considered when the extension adds value and the conference paper is cited. The journal also runs special issues; the open-call list had no open deadline on the day this file was checked.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnsm/policies-guidelines"
+      },
+      "length_limits": {
+        "text": "Accepted papers include 10 pages free of charge in two-column format, counting title, abstract, figures, tables, references, biographies, and author pictures. The mandatory charge applies up to a maximum of 16 pages. The abstract is 75 to 200 words. A separate submission page cap, other than that 16-page maximum, is not stated.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnsm/policies-guidelines"
+      },
+      "overlength": {
+        "text": "Publication is free for up to 10 pages. Papers submitted after 1 January 2020 that exceed 10 printed pages pay a mandatory US$220 per page, up to 16 pages. Academic authors who cannot pay may request a waiver within 30 days of acceptance.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnsm/policies-guidelines"
+      },
+      "editor_in_chief": {
+        "name": "Abdallah Shami",
+        "affiliation": "University of Western Ontario, Canada",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnsm/ieee-transactions-network-and-service-management-editorial-board"
+      }
+    },
+    {
+      "id": "oj-coms",
+      "name": "IEEE Open Journal of the Communications Society",
+      "acronym": "OJ-COMS",
+      "publisher": "IEEE",
+      "publisher_detail": "IEEE Communications Society",
+      "website": "https://www.comsoc.org/publications/journals/ieee-ojcoms",
+      "submission_url": "https://ieee.atyponrex.com/dashboard?siteName=oj-coms",
+      "submission_note": null,
+      "guidelines_url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/policies-guidelines",
+      "quartile": {
+        "value": "Q1",
+        "category": "Computer Networks and Communications",
+        "year": 2025,
+        "metric": "SJR",
+        "sjr": 1.723,
+        "source_url": "https://www.scimagojr.com/journalsearch.php?clean=0&q=21101070921&tip=sid"
+      },
+      "citescore": null,
+      "impact_factor": {
+        "value": 6.2,
+        "year": 2025,
+        "quartile": "Q1",
+        "source_url": "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-August-2026.pdf",
+        "source_label": "IEEE Open title list, accurate as of 15 August 2026, based on the 2025 Journal Citation Reports"
+      },
+      "percentile": null,
+      "time_to_decision": {
+        "text": "Papers of 25 pages or fewer are classified as Original Manuscripts, with a review process due date of 2 weeks. Papers exceeding 25 pages are classified as Long Survey Papers, with a review process due date of 4 weeks. The guidelines do not state a time to first decision.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/policies-guidelines"
+      },
+      "publication_target": {
+        "text": "The journal peer-review process targets a publication period of 10 weeks from submission to online publication.",
+        "source_url": "https://open.ieee.org/publishing-options/topical-journals/"
+      },
+      "open_access": {
+        "model": "full",
+        "charges": true,
+        "amount": 2160,
+        "currency": "USD",
+        "year": 2026,
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/policies-guidelines",
+        "note": "Fully open access. All articles use a CC BY 4.0 license and the author retains copyright. The 2026 APC is US$2,160 for articles submitted in 2026. The page also lists a 2025 APC of US$2,075. IEEE members receive a 5% discount and IEEE society members a 20% discount. Discounts cannot be combined and do not apply to undergraduate or graduate students. Corresponding authors from World Bank low-income countries are eligible for discounts."
+      },
+      "fit": "Open-access telecommunications and wireless networks, including architecture, protocols, and quality of service.",
+      "special_issues": [
+        {
+          "title": "Orchestrating Computing, Communication, and Agentic AI for Human-Centric Wireless Systems",
+          "deadline": "2026-11-15",
+          "publication": "First Quarter 2027",
+          "url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/cfp/orchestrating-computing-communication-and-agentic-ai-human-centric-wireless-systems",
+          "source_url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/cfp"
+        },
+        {
+          "title": "Delay-Tolerant Networking for 6G: Architectures, Protocols, and Sustainable Connectivity",
+          "deadline": "2026-12-31",
+          "publication": "Second Quarter 2027",
+          "url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/cfp/delay-tolerant-networking-6g-architectures-protocols-and-sustainable-connectivity",
+          "source_url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/cfp"
+        }
+      ],
+      "affinity_units": [
+        "osnabruck"
+      ],
+      "scope": "Original manuscripts on telecommunications systems and networks, including theory, experiments, and prototypes, plus surveys and tutorials. The scope covers architecture, protocols, quality of service, wireless and mobile communications, and related areas listed on the guidelines page. Lengthy surveys may take longer to review.",
+      "scope_source": "https://www.comsoc.org/publications/journals/ieee-ojcoms/policies-guidelines",
+      "review_model": {
+        "text": "Single-anonymous peer review. Each published article was reviewed by a minimum of two independent reviewers.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/policies-guidelines"
+      },
+      "template": {
+        "text": "Template for IEEE Open Journals in the IEEE Author Center. Word and LaTeX versions are available. Submit the article text as PDF, plus a graphical abstract and figures as separate files.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/policies-guidelines"
+      },
+      "paper_types": {
+        "text": "Original manuscripts, long survey papers, and special-issue articles. Special-issue papers are reviewed when they arrive, not held until the deadline.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/policies-guidelines"
+      },
+      "length_limits": {
+        "text": "The guidelines say this journal has no page limits. Length changes the review class: 25 pages or fewer is an Original Manuscript, and more than 25 pages is a Long Survey Paper.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/policies-guidelines"
+      },
+      "overlength": {
+        "text": "The guidelines say this journal has no page limits and do not state an overlength page charge.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-ojcoms/policies-guidelines"
+      },
+      "editor_in_chief": null,
+      "editor_note": "The Communications Society editorial board lists Sinem Coleri, Koc University, as editor-in-chief. The IEEE Open topical-journals page lists Octavia A. Dobre, Memorial University. The two official pages disagree, so no current editor-in-chief is stored."
+    },
+    {
+      "id": "comst",
+      "name": "IEEE Communications Surveys & Tutorials",
+      "acronym": "COMST",
+      "publisher": "IEEE",
+      "publisher_detail": "IEEE Communications Society",
+      "website": "https://www.comsoc.org/publications/journals/ieee-comst",
+      "submission_url": "https://ieee.atyponrex.com/journal/comst-ieee",
+      "submission_note": "The guidelines give this IEEE Author Portal address for submission. PDF or Microsoft Word is accepted.",
+      "guidelines_url": "https://www.comsoc.org/publications/journals/ieee-comst/policies-guidelines",
+      "quartile": {
+        "value": "Q1",
+        "category": "Electrical and Electronic Engineering",
+        "year": 2025,
+        "metric": "SJR",
+        "sjr": 14.838,
+        "rank": 1,
+        "source_url": "https://www.scimagojr.com/journalrank.php?category=2208"
+      },
+      "citescore": {
+        "value": 86.2,
+        "year": 2024,
+        "category": "Electrical and Electronic Engineering",
+        "rank": 1,
+        "percentile": 99,
+        "source_url": "https://www.scopus.com/sourceid/25038",
+        "note": "Taken from the Electrical and Electronic Engineering ranking table on the Scopus page for source 25038. A direct Scopus source page for this journal did not load."
+      },
+      "impact_factor": {
+        "value": 50.6,
+        "year": 2025,
+        "quartile": "Q1",
+        "source_url": "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-August-2026.pdf",
+        "source_label": "IEEE Open title list, accurate as of 15 August 2026, based on the 2025 Journal Citation Reports"
+      },
+      "percentile": {
+        "label": "Top 1%",
+        "metric": "CiteScore",
+        "category": "Electrical and Electronic Engineering",
+        "percentile": 99,
+        "rank": 1,
+        "year": 2024,
+        "source_url": "https://www.scopus.com/sourceid/25038"
+      },
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": {
+        "model": "hybrid",
+        "charges": true,
+        "amount": 2800,
+        "currency": "USD",
+        "year": 2026,
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-comst/policies-guidelines",
+        "note": "IEEE members receive a 5% discount and IEEE society members a 20% discount. Discounts cannot be combined and do not apply to undergraduate or graduate students. Corresponding authors from World Bank low-income countries are eligible for discounts."
+      },
+      "fit": "Surveys of wireless, network, and measurement literature.",
+      "special_issues": [],
+      "affinity_units": [],
+      "scope": "Tutorial articles teach a selected area, including its background and applications. Survey articles review the literature of a selected area from its development to its current state. Both must be readable outside the specialty, and the abstract and introduction must name the category and the scope.",
+      "scope_source": "https://www.comsoc.org/publications/journals/ieee-comst/policies-guidelines",
+      "review_model": null,
+      "template": {
+        "text": "Double-column format. PDF or Microsoft Word may be submitted.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-comst/policies-guidelines"
+      },
+      "paper_types": {
+        "text": "Tutorials and surveys. The manuscript must say which one it is.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-comst/policies-guidelines"
+      },
+      "length_limits": {
+        "text": "A new manuscript must be no longer than 30 pages in double-column format. After revision it should be less than 40 pages.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-comst/policies-guidelines"
+      },
+      "overlength": {
+        "text": "For papers submitted after 1 January 2020, a mandatory US$220 applies to each printed page beyond 30, and only up to page 38. At most eight pages are charged, so a 38-page paper and a 50-page paper both incur US$1,760.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-comst/policies-guidelines"
+      },
+      "editor_in_chief": {
+        "name": "Trung Q. Duong",
+        "affiliation": "Memorial University, Canada",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-comst/ieee-communications-surveys-tutorials-editorial-board"
+      }
+    },
+    {
+      "id": "ieee-network",
+      "name": "IEEE Network",
+      "acronym": "IEEE Network",
+      "publisher": "IEEE",
+      "publisher_detail": "IEEE Communications Society",
+      "website": "https://www.comsoc.org/publications/magazines/ieee-network",
+      "submission_url": "https://ieee.atyponrex.com/journal/network-ieee",
+      "submission_note": "The Communications Society menu labels this Author Portal address as Submit a Manuscript. The guidelines refer to Manuscript Central for final files.",
+      "guidelines_url": "https://www.comsoc.org/publications/magazines/ieee-network/policies-guidelines",
+      "quartile": {
+        "value": "Q1",
+        "category": "Computer Networks and Communications",
+        "year": 2025,
+        "metric": "SJR",
+        "sjr": 2.58,
+        "rank": 14,
+        "source_url": "https://www.scimagojr.com/journalrank.php?category=1705"
+      },
+      "citescore": null,
+      "impact_factor": {
+        "value": 8.8,
+        "year": 2025,
+        "quartile": "Q1",
+        "source_url": "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-August-2026.pdf",
+        "source_label": "IEEE Open title list, accurate as of 15 August 2026, based on the 2025 Journal Citation Reports"
+      },
+      "percentile": null,
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": {
+        "model": "hybrid",
+        "charges": true,
+        "amount": 2995,
+        "currency": "USD",
+        "year": 2026,
+        "source_url": "https://www.comsoc.org/publications/magazines/ieee-network/policies-guidelines",
+        "note": "IEEE members receive a 5% discount and IEEE society members a 20% discount. Discounts cannot be combined and do not apply to undergraduate or graduate students. Corresponding authors from World Bank low-income countries are eligible for discounts."
+      },
+      "fit": "Magazine-length articles on network architecture and wireless systems.",
+      "special_issues": [
+        {
+          "title": "AI-Empowered Cognitive Digital Twin for Future Network Ecosystems",
+          "deadline": "2026-10-31",
+          "publication": "July 2027",
+          "url": "https://www.comsoc.org/publications/magazines/ieee-network/cfp/ai-empowered-cognitive-digital-twin-future-network",
+          "source_url": "https://www.comsoc.org/publications/magazines/ieee-network/cfp"
+        },
+        {
+          "title": "Towards Intellicise Agent Communication Networks: Autonomous Integration and Evolution of Humans and Networks",
+          "deadline": "2026-11-30",
+          "publication": "August 2027",
+          "url": "https://www.comsoc.org/publications/magazines/ieee-network/cfp/towards-intellicise-agent-communication-networks-autonomous-integration-and-evolution-humans-and-networks",
+          "source_url": "https://www.comsoc.org/publications/magazines/ieee-network/cfp"
+        },
+        {
+          "title": "Distributed Intelligence and Collaborative Inference for Foundation Models over Wireless Edge",
+          "deadline": "2026-12-31",
+          "publication": "September 2027",
+          "url": "https://www.comsoc.org/publications/magazines/ieee-network/cfp/distributed-intelligence-and-collaborative-inference-foundation-models-over-wireless-edge",
+          "source_url": "https://www.comsoc.org/publications/magazines/ieee-network/cfp"
+        }
+      ],
+      "affinity_units": [],
+      "scope": "A bimonthly magazine of practical survey and tutorial articles on computer communications, especially global internetworking, written for specialists and non-specialists.",
+      "scope_source": "https://www.comsoc.org/publications/submit-paper",
+      "review_model": null,
+      "template": {
+        "text": "The guidelines require the IEEE Communications Society Publications Department Style Guide before the final version. They do not print a template URL.",
+        "source_url": "https://www.comsoc.org/publications/magazines/ieee-network/policies-guidelines"
+      },
+      "paper_types": {
+        "text": "Open-call articles, series, and special issues or feature topics. Articles are tutorial in nature. The editor guidelines say manuscripts that miss the submission policy are recommended for immediate rejection.",
+        "source_url": "https://www.comsoc.org/publications/magazines/ieee-network/policies-guidelines"
+      },
+      "length_limits": {
+        "text": "Manuscripts must not exceed 4,500 words. The count is the main body from the introduction through the conclusion. It excludes the title, author information, abstract, figures, tables, captions, footnotes, acknowledgments, references, and author biographies. Each biography is at most 150 words.",
+        "source_url": "https://www.comsoc.org/publications/magazines/ieee-network/policies-guidelines"
+      },
+      "overlength": null,
+      "editor_in_chief": {
+        "name": "Jiming Chen",
+        "affiliation": "Zhejiang University and Zhejiang University of Technology, China",
+        "source_url": "https://www.comsoc.org/publications/magazines/ieee-network/editorial-board"
+      }
+    },
+    {
+      "id": "ieee-wcm",
+      "name": "IEEE Wireless Communications",
+      "acronym": "IEEE Wireless Communications",
+      "publisher": "IEEE",
+      "publisher_detail": "IEEE Communications Society",
+      "website": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications",
+      "submission_url": "https://ieee.atyponrex.com/journal/ieee-wcm",
+      "submission_note": "The Communications Society menu labels this Author Portal address as Submit a Manuscript. The guidelines refer to Manuscript Central for final files.",
+      "guidelines_url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/policies-guidelines",
+      "quartile": {
+        "value": "Q1",
+        "category": "Electrical and Electronic Engineering",
+        "year": 2025,
+        "metric": "SJR",
+        "sjr": 4.523,
+        "rank": 10,
+        "source_url": "https://www.scimagojr.com/journalrank.php?category=2208"
+      },
+      "citescore": {
+        "value": 21.0,
+        "year": 2024,
+        "category": "Electrical and Electronic Engineering",
+        "rank": 20,
+        "percentile": 97,
+        "source_url": "https://www.scopus.com/sourceid/25038",
+        "note": "Taken from the Electrical and Electronic Engineering ranking table on the Scopus page for source 25038."
+      },
+      "impact_factor": {
+        "value": 13.4,
+        "year": 2025,
+        "quartile": "Q1",
+        "source_url": "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-August-2026.pdf",
+        "source_label": "IEEE Open title list, accurate as of 15 August 2026, based on the 2025 Journal Citation Reports"
+      },
+      "percentile": {
+        "label": "Top 5%",
+        "metric": "CiteScore",
+        "category": "Electrical and Electronic Engineering",
+        "percentile": 97,
+        "rank": 20,
+        "year": 2024,
+        "source_url": "https://www.scopus.com/sourceid/25038"
+      },
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": {
+        "model": "hybrid",
+        "charges": true,
+        "amount": 2995,
+        "currency": "USD",
+        "year": 2026,
+        "source_url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/policies-guidelines",
+        "note": "IEEE members receive a 5% discount and IEEE society members a 20% discount. Discounts cannot be combined and do not apply to undergraduate or graduate students. Corresponding authors from World Bank low-income countries are eligible for discounts."
+      },
+      "fit": "Magazine-length wireless communications, including systems and measurement topics.",
+      "special_issues": [
+        {
+          "title": "AI-Empowered Underwater Wireless Optical Communications for Science Exploration and Defense Applications",
+          "deadline": "2026-11-01",
+          "publication": "August 2027",
+          "url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/cfp/ai-empowered-underwater-wireless-optical-communications-science-exploration-and-defense-applications",
+          "source_url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/cfp"
+        },
+        {
+          "title": "In-Orbit Computing: Striding into the Era of Space-Centric Intelligence",
+          "deadline": "2026-11-01",
+          "publication": "August 2027",
+          "url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/cfp/orbit-computing-striding-era-space-centric-intelligence",
+          "source_url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/cfp"
+        },
+        {
+          "title": "3D Metasurface-Assisted Wireless Communications: From Model-Based Designs to AI-Driven Approaches",
+          "deadline": "2027-01-01",
+          "publication": "October 2027",
+          "url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/cfp/3d-metasurface-assisted-wireless-communications-model-based-designs-ai-driven-approaches",
+          "source_url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/cfp"
+        },
+        {
+          "title": "Atomic-to-Network: Quantum Radio Front-Ends for 6G Wireless Communications and Sensing",
+          "deadline": "2027-03-01",
+          "publication": "December 2027",
+          "url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/cfp/atomic-network-quantum-radio-front-ends-6g-wireless-communications-and-sensing",
+          "source_url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/cfp"
+        }
+      ],
+      "affinity_units": [],
+      "scope": "A bimonthly magazine on wireless and mobile communications, including networking, computing, multimedia, policy, and standards. Reviewer guidance says papers should be tutorial and understandable outside the specialty, and that highly theoretical manuscripts meant for journals are not published here.",
+      "scope_source": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/policies-guidelines",
+      "review_model": null,
+      "template": {
+        "text": "The guidelines require the IEEE Communications Society Publications Department Style Guide before the final version. They do not print a template URL.",
+        "source_url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/policies-guidelines"
+      },
+      "paper_types": {
+        "text": "Open-call articles and special issues. Articles should be tutorial. The editor guidelines say a minimum of three reviews is required before a recommendation.",
+        "source_url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/policies-guidelines"
+      },
+      "length_limits": {
+        "text": "Manuscripts must not exceed 4,500 words from the introduction through the conclusion, excluding the title, author information, abstract, figures, tables, captions, footnotes, acknowledgments, references, and author biographies. Each biography is at most 150 words.",
+        "source_url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/policies-guidelines"
+      },
+      "overlength": null,
+      "editor_in_chief": {
+        "name": "Octavia A. Dobre",
+        "affiliation": "Memorial University, Canada",
+        "source_url": "https://www.comsoc.org/publications/magazines/ieee-wireless-communications/editorial-board"
+      }
+    },
+    {
+      "id": "ton",
+      "name": "IEEE Transactions on Networking",
+      "acronym": "ToN",
+      "former_name": "IEEE/ACM Transactions on Networking",
+      "publisher": "IEEE",
+      "publisher_detail": "IEEE Communications Society and IEEE Computer Society",
+      "website": "https://www.comsoc.org/publications/journals/ieee-tnet",
+      "submission_url": "https://ieee.atyponrex.com/journal/TNET",
+      "submission_note": "The guidelines say submissions use the online IEEE Author Portal and describe it as the ScholarOne Manuscripts site. The Communications Society menu labels this address as Submit a Paper.",
+      "guidelines_url": "https://www.comsoc.org/publications/journals/ieee-tnet/policies-guidelines",
+      "quartile": {
+        "value": "Q1",
+        "category": "Computer Networks and Communications",
+        "year": 2025,
+        "metric": "SJR",
+        "sjr": 1.494,
+        "source_url": "https://www.scimagojr.com/journalsearch.php?clean=0&q=21101329154&tip=sid",
+        "also": [
+          "Computer Science Applications",
+          "Electrical and Electronic Engineering",
+          "Software"
+        ]
+      },
+      "citescore": null,
+      "impact_factor": {
+        "value": 5.3,
+        "year": 2025,
+        "quartile": "Q1",
+        "source_url": "https://open.ieee.org/wp-content/uploads/IEEE-Title-List-August-2026.pdf",
+        "source_label": "IEEE Open title list, accurate as of 15 August 2026, based on the 2025 Journal Citation Reports",
+        "note": "The title list says this JCR ranking is for the former title, IEEE/ACM Transactions on Networking. It says the CiteScore ranking is based on the new title."
+      },
+      "percentile": null,
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": {
+        "model": "hybrid",
+        "charges": true,
+        "amount": 2800,
+        "currency": "USD",
+        "year": 2026,
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnet/policies-guidelines",
+        "note": "IEEE members receive a 5% discount and IEEE society members a 20% discount. Discounts cannot be combined and do not apply to undergraduate or graduate students. Corresponding authors from World Bank low-income countries are eligible for discounts."
+      },
+      "fit": "Networking measurement across wired and wireless networks, including experimental system results.",
+      "special_issues": [],
+      "affinity_units": [],
+      "scope": "The guidelines require papers to be within the journal's scope and say papers on social networks, smart grid, or physical-layer communications are outside the scope. A fuller positive scope statement was not on the guidelines page.",
+      "scope_source": "https://www.comsoc.org/publications/journals/ieee-tnet/policies-guidelines",
+      "review_model": {
+        "text": "Single-blind peer review, as the guidelines name it. Each published article was reviewed by a minimum of two independent reviewers. Reviewer identities are hidden from the authors; reviewers know the authors.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnet/policies-guidelines"
+      },
+      "template": {
+        "text": "Two-column, single-spaced, 10-point text. LaTeX and Word style files are required. The final-files section points to the IEEE Template Selector.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnet/policies-guidelines"
+      },
+      "paper_types": {
+        "text": "Regular papers. Supplementary appendices must be submitted with the paper if they are to be reviewed. Data and software need not be submitted.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnet/policies-guidelines"
+      },
+      "length_limits": {
+        "text": "The typical maximum length of a submission is 16 pages in two-column transactions format. A longer paper should use supplementary materials, or the length must be agreed with the editor-in-chief before submission and explained in the cover letter. The abstract must be 150 to 250 words.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnet/policies-guidelines"
+      },
+      "overlength": {
+        "text": "Accepted papers include 10 pages free of charge. Additional pages are US$220 each.",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnet/policies-guidelines"
+      },
+      "editor_in_chief": {
+        "name": "Junshan Zhang",
+        "affiliation": "University of California, Davis, USA",
+        "source_url": "https://www.comsoc.org/publications/journals/ieee-tnet/ieee-transactions-networking-editorial-board"
+      }
+    },
+    {
+      "id": "computer-networks",
+      "name": "Computer Networks",
+      "acronym": "Computer Networks",
+      "publisher": "Elsevier",
+      "publisher_detail": "Elsevier",
+      "website": "https://www.sciencedirect.com/journal/computer-networks",
+      "submission_url": null,
+      "submission_note": null,
+      "guidelines_url": null,
+      "quartile": {
+        "value": "Q1",
+        "category": "Computer Networks and Communications",
+        "year": 2024,
+        "metric": "SJR",
+        "sjr": 1.17,
+        "source_url": "https://www.scimagojr.com/journalsearch.php?q=26811&tip=sid"
+      },
+      "citescore": null,
+      "impact_factor": null,
+      "percentile": null,
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": null,
+      "fit": "Internet architecture, protocols, and measurement of computer-communication networks.",
+      "special_issues": [],
+      "affinity_units": [
+        "karlstad"
+      ],
+      "scope": null,
+      "scope_source": null,
+      "review_model": null,
+      "template": null,
+      "paper_types": null,
+      "length_limits": null,
+      "overlength": null,
+      "editor_in_chief": null
+    },
+    {
+      "id": "computer-communications",
+      "name": "Computer Communications",
+      "acronym": "Computer Communications",
+      "publisher": "Elsevier",
+      "publisher_detail": "Elsevier",
+      "website": "https://www.sciencedirect.com/journal/computer-communications",
+      "submission_url": null,
+      "submission_note": null,
+      "guidelines_url": null,
+      "quartile": {
+        "value": "Q1",
+        "category": "Computer Networks and Communications",
+        "year": 2024,
+        "metric": "SJR",
+        "sjr": 1.114,
+        "source_url": "https://www.scimagojr.com/journalsearch.php?q=13681&tip=sid"
+      },
+      "citescore": null,
+      "impact_factor": null,
+      "percentile": null,
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": null,
+      "fit": "Internet evolution, services, and measurement above the physical layer.",
+      "special_issues": [],
+      "affinity_units": [
+        "karlstad"
+      ],
+      "scope": null,
+      "scope_source": null,
+      "review_model": null,
+      "template": null,
+      "paper_types": null,
+      "length_limits": null,
+      "overlength": null,
+      "editor_in_chief": null
+    },
+    {
+      "id": "pomacs",
+      "name": "Proceedings of the ACM on Measurement and Analysis of Computing Systems",
+      "acronym": "POMACS",
+      "publisher": "ACM",
+      "publisher_detail": "ACM",
+      "website": "https://dl.acm.org/journal/pomacs",
+      "submission_url": null,
+      "submission_note": null,
+      "guidelines_url": null,
+      "quartile": {
+        "value": "Q1",
+        "category": "Computer Networks and Communications",
+        "year": 2025,
+        "metric": "SJR",
+        "sjr": 0.874,
+        "source_url": "https://www.scimagojr.com/journalsearch.php?clean=0&q=21101048533&tip=sid",
+        "also": [
+          "Computer Science (miscellaneous)",
+          "Hardware and Architecture",
+          "Safety, Risk, Reliability and Quality"
+        ]
+      },
+      "citescore": {
+        "value": 5.9,
+        "year": 2024,
+        "category": "Hardware and Architecture",
+        "rank": 66,
+        "out_of": 224,
+        "percentile": 70,
+        "source_url": "https://www.scopus.com/sourceid/21100854831",
+        "note": "This is the Hardware and Architecture figure on the Scopus page for source 21100854831. It is not a top-decile rank, and a Computer Networks and Communications CiteScore was not on that page."
+      },
+      "impact_factor": null,
+      "percentile": null,
+      "time_to_decision": null,
+      "publication_target": null,
+      "open_access": null,
+      "fit": "Performance measurement and analysis of computing and networked systems.",
+      "special_issues": [],
+      "affinity_units": [
+        "mohan-marina",
+        "feamster"
+      ],
+      "scope": null,
+      "scope_source": null,
+      "review_model": null,
+      "template": null,
+      "paper_types": null,
+      "length_limits": null,
+      "overlength": null,
+      "editor_in_chief": null
+    }
+  ]
+}

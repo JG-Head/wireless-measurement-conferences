@@ -2,11 +2,12 @@
 
 Planning board for Tier B+ ACM and IEEE venues on **wireless access network measurement** and **end-to-end networking performance**, October 2026 through October 2028.
 
-Maintained for Jorge Garcia-Cabeza (UPM). The page is a Vue 3 app with a left sidebar (views and filters) and card-style panels. It has three views over one JSON file:
+Maintained for Jorge Garcia-Cabeza (UPM). The page is a Vue 3 app with a left sidebar (views and filters) and card-style panels. It has four views. Conferences share one JSON file:
 
 - **List** — table or cards. The default mode is **Submission opportunities**: a paper or abstract deadline still ahead, or a dated edition whose CFP date is not in the file. Attend-only meetings (closed paper calls) stay in the JSON and appear when that mode is turned off. Other filters: organizer (IEEE, ACM, or Other; multi-select, empty means all), research labs (one chip per cited coauthor cluster), Spain, Europe, status, venue fit, and paper deadlines in the next 90 days. Camera-ready is not treated as a new submission.
 - **Map** — Leaflet markers on OpenStreetMap tiles (no API key). Spain-hosted events use the ETSIT orange. **Reset view** fits the markers that match the current filters. Click a marker for details.
 - **Timeline** — horizontal strip across the window.
+- **Journals** — card grid of Q1 journals (`?view=journals`, and `?view=journals&journal=<id>` opens the info drawer). There is no map or calendar. Filters are publisher, top percentile, open access or APC, and an open special issue. Each card links to the official submission system when that URL is in the file, and an Info button opens the same keyboard-operable drawer used for events. Fields that were not on an official page are left blank.
 
 Events happening now, upcoming deadlines, and series that are still undated (“Still watching”) stay visible above or below the views. Filters and the open event are stored in the query string (`?view=map&event=<id>`, `organizer`, `labs`, `submissions=0`, and the rest), so a link opens the same view.
 
@@ -21,14 +22,14 @@ npm install
 npm run dev
 ```
 
-Dev server: <http://localhost:5173/>. It reads `data/conferences.json` and `data/affinity.json` directly.
+Dev server: <http://localhost:5173/>. It reads `data/conferences.json`, `data/affinity.json`, and `data/journals.json` directly.
 
 ```bash
 npm run build
 npm run preview
 ```
 
-`npm run build` writes the site into `docs/` and copies both JSON files to `docs/data/`. Preview: <http://localhost:4173/wireless-measurement-conferences/>.
+`npm run build` writes the site into `docs/` and copies the JSON files to `docs/data/`. Preview: <http://localhost:4173/wireless-measurement-conferences/>.
 
 Runtime dependencies are free and permissively licensed: Vue (MIT), Bootstrap 5 and Bootstrap Icons (MIT), Leaflet (BSD-2-Clause). Vite is a dev dependency (MIT). The page does not load Highcharts, PrimeVue, or any other paid or dual-licensed library. Map tiles stay OpenStreetMap. Figtree (SIL Open Font License) is the UI face.
 
@@ -81,10 +82,11 @@ The built site is committed under `/docs` on `main` (`.nojekyll` is included so 
 | `index.html`, `src/` | Vue 3 source |
 | `data/conferences.json` | Source of truth for venues |
 | `data/affinity.json` | Source of truth for the lab filter |
+| `data/journals.json` | Source of truth for the Q1 journal cards |
 | `docs/` | Vite build published by GitHub Pages |
 | `docs/data/` | JSON the live site fetches |
 | `scripts/validate_conferences.py` | Schema and copy check |
-| `scripts/copy-data.mjs` | Copies both JSON files into `docs/data/` |
+| `scripts/copy-data.mjs` | Copies the JSON files into `docs/data/` |
 
 ## License
 
