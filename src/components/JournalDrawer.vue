@@ -1,7 +1,8 @@
 <script setup>
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { useDash } from "../composables/useDashboard";
-import { accessLabel, BLANK, money, openIssues, quartileLabel } from "../lib/journals";
+import { accessLabel, BLANK, journalSubmitUrl, money, openIssues, quartileLabel } from "../lib/journals";
+import JournalVia from "./JournalVia.vue";
 
 const dash = useDash();
 const drawer = ref(null);
@@ -77,6 +78,7 @@ onBeforeUnmount(() => {
         {{ dash.selectedJournal.percentile.label }} · {{ dash.selectedJournal.percentile.metric }}
       </span>
     </div>
+    <JournalVia :journal="dash.selectedJournal" detail />
 
     <dl class="meta-grid journal-metrics">
       <dt>Quartile</dt>
@@ -211,9 +213,9 @@ onBeforeUnmount(() => {
 
     <div class="drawer-actions">
       <a
-        v-if="dash.safeUrl(dash.selectedJournal.submission_url)"
+        v-if="dash.safeUrl(journalSubmitUrl(dash.selectedJournal))"
         class="btn btn-accent"
-        :href="dash.safeUrl(dash.selectedJournal.submission_url)"
+        :href="dash.safeUrl(journalSubmitUrl(dash.selectedJournal))"
         target="_blank"
         rel="noopener noreferrer"
       >Submit paper</a>

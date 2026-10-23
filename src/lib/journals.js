@@ -19,6 +19,7 @@ export function filterJournals(journals, state) {
       if (state.joa === "hybrid" && access?.model !== "hybrid") return false;
       if (state.joa === "apc" && access?.charges !== true) return false;
       if (state.jissue && !openIssues(journal).length) return false;
+      if (state.jvia && !viaConference(journal)) return false;
       if (!query) return true;
       const haystack = [
         journal.name,
@@ -27,7 +28,8 @@ export function filterJournals(journals, state) {
         journal.publisher,
         journal.publisher_detail,
         journal.fit,
-        journal.scope
+        journal.scope,
+        journal.submissionVia?.conference
       ].filter(Boolean).join(" ").toLowerCase();
       return haystack.includes(query);
     })
@@ -50,6 +52,24 @@ export function journalStats(journals) {
     { key: "oa", text: `${full} fully open access` },
     { key: "issues", text: `${issues} with an open special issue` }
   ];
+}
+
+export function viaConference(journal) {
+  const via = journal?.submissionVia;
+  if (!via || typeof via !== "object") return null;
+  if (!via.conference || !via.eventId || !via.sourceUrl) return null;
+  return via;
+}
+
+export function viaLabel(journal) {
+  const via = viaConference(journal);
+  return via ? `Solo vía conferencia: ${via.conference}` : "";
+}
+
+export function journalSubmitUrl(journal) {
+  const via = viaConference(journal);
+  if (via) return via.sourceUrl;
+  return journal?.submission_url || "";
 }
 
 export function money(access) {

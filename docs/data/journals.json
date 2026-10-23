@@ -967,7 +967,12 @@
       "publisher_detail": "ACM",
       "website": "https://dl.acm.org/journal/pomacs",
       "submission_url": null,
-      "submission_note": null,
+      "submission_note": "The SIGMETRICS 2027 call says the conference presents papers accepted to POMACS, and that a manuscript is submitted to a SIGMETRICS deadline for publication in POMACS and presentation at the conference. The next cycle on this dashboard is the winter round already stored for SIGMETRICS 2027.",
+      "submissionVia": {
+        "conference": "SIGMETRICS",
+        "eventId": "sigmetrics-2027",
+        "sourceUrl": "https://www.sigmetrics.org/sigmetrics2027/pages/cfp.html"
+      },
       "guidelines_url": null,
       "quartile": {
         "value": "Q1",

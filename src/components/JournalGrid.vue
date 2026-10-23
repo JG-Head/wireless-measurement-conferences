@@ -1,6 +1,7 @@
 <script setup>
 import { useDash } from "../composables/useDashboard";
-import { accessLabel, metricLine, money, openIssues, quartileLabel } from "../lib/journals";
+import { accessLabel, journalSubmitUrl, metricLine, money, openIssues, quartileLabel } from "../lib/journals";
+import JournalVia from "./JournalVia.vue";
 
 const dash = useDash();
 
@@ -35,6 +36,7 @@ function labs(journal) {
             <span v-if="journal.percentile" class="pill high">{{ journal.percentile.label }}</span>
           </span>
         </div>
+        <JournalVia :journal="journal" />
         <h3>{{ journal.name }}</h3>
         <p v-if="journal.former_name" class="journal-meta">Formerly {{ journal.former_name }}</p>
         <p v-if="journal.publisher_detail && journal.publisher_detail !== journal.publisher" class="journal-meta">{{ journal.publisher_detail }}</p>
@@ -63,9 +65,9 @@ function labs(journal) {
         </p>
         <div class="journal-actions">
           <a
-            v-if="dash.safeUrl(journal.submission_url)"
+            v-if="dash.safeUrl(journalSubmitUrl(journal))"
             class="btn btn-accent"
-            :href="dash.safeUrl(journal.submission_url)"
+            :href="dash.safeUrl(journalSubmitUrl(journal))"
             target="_blank"
             rel="noopener noreferrer"
           >Submit paper</a>
