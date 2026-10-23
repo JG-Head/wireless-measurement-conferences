@@ -460,7 +460,10 @@ h1 {
 .pill.own { border: 1px solid var(--link-template); color: var(--link); background: var(--bg); }
 .pill.lab { background: var(--bg); color: var(--link); border: 1px solid var(--link-template); }
 .pill.lab.is-on { background: var(--bg); color: var(--navy); border: 1px solid var(--navy); }
-.pill.org { background: var(--bg); color: var(--navy); border: 1px solid var(--navy); }
+.pill.org, .pill.via { background: var(--bg); color: var(--navy); border: 1px solid var(--navy); }
+.pill.via { white-space: normal; }
+.via-block { display: flex; flex-direction: column; gap: 6px; }
+.via-block .journal-meta { margin: 0; }
 .pill.org-acm { color: var(--link); border-color: var(--link-template); }
 .pill.org-other { color: var(--slate); border-color: var(--muted); }
 .pill-row { display: flex; flex-wrap: wrap; gap: 6px; }

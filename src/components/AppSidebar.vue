@@ -91,6 +91,10 @@ function surname(unit) {
           <span>Open special issue</span>
           <small>Deadline still listed</small>
         </button>
+        <button type="button" class="toggle" :aria-pressed="dash.state.jvia" @click="dash.patch({ jvia: !dash.state.jvia })">
+          <span>Solo vía conferencia</span>
+          <small>Submissions only through a conference cycle</small>
+        </button>
       </div>
 
       <div v-if="dash.state.view !== 'journals'" class="field">

@@ -141,7 +141,7 @@ def http_url(value):
     return isinstance(value, str) and (value.startswith("https://") or value.startswith("http://"))
 
 
-def check_journals(units_by_id, errors):
+def check_journals(units_by_id, event_ids, errors):
     if not JOURNALS_SOURCE.exists() or not JOURNALS_PUBLISHED.exists():
         errors.append("data/journals.json and docs/data/journals.json are required")
         return
@@ -180,6 +180,23 @@ def check_journals(units_by_id, errors):
         for key in ("submission_url", "guidelines_url"):
             if journal.get(key) not in (None, "") and not http_url(journal.get(key)):
                 errors.append(f"{ident} {key} must be an http(s) URL")
+        via = journal.get("submissionVia", None)
+        if via is not None:
+            if not isinstance(via, dict):
+                errors.append(f"{ident} submissionVia must be an object")
+            else:
+                allowed = {"conference", "eventId", "sourceUrl"}
+                extra = sorted(set(via) - allowed)
+                if extra:
+                    errors.append(f"{ident} submissionVia has unexpected fields: {', '.join(extra)}")
+                conference = via.get("conference")
+                if not isinstance(conference, str) or not conference.strip():
+                    errors.append(f"{ident} submissionVia.conference is required")
+                event_id = via.get("eventId")
+                if not isinstance(event_id, str) or event_id not in event_ids:
+                    errors.append(f"{ident} submissionVia.eventId must match a conference id")
+                if not http_url(via.get("sourceUrl")):
+                    errors.append(f"{ident} submissionVia.sourceUrl must be an http(s) URL")
         issues = journal.get("special_issues", [])
         if not isinstance(issues, list):
             errors.append(f"{ident} special_issues must be a list")
@@ -276,7 +293,7 @@ def main():
         if units_by_id:
             check_affinity_tags(item, f"watching {item.get('series')}", units_by_id, errors)
 
-    check_journals(units_by_id, errors)
+    check_journals(units_by_id, seen, errors)
 
     if errors:
         for message in errors:

@@ -451,7 +451,8 @@ export function readFilters(params) {
     jpub: params.get("jpub") || "all",
     jtop: params.get("jtop") === "1",
     joa: JOURNAL_OA.includes(params.get("joa")) ? params.get("joa") : "all",
-    jissue: params.get("jissue") === "1"
+    jissue: params.get("jissue") === "1",
+    jvia: params.get("jvia") === "1"
   };
 }
 
@@ -483,5 +484,6 @@ export function writeFilters(state) {
   set("jtop", state.jtop ? "1" : "", "");
   set("joa", state.joa, "all");
   set("jissue", state.jissue ? "1" : "", "");
+  set("jvia", state.jvia ? "1" : "", "");
   history.replaceState(null, "", url);
 }

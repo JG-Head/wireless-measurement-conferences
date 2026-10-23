@@ -3,6 +3,7 @@ import {
   ORGANIZERS,
   VIEWS,
   cfpRole,
+  deadlineEntries,
   emptyLead,
   eventLabs,
   filterEvents,
@@ -60,6 +61,7 @@ export function createDashboard(data, labs, journalsFile = {}, initial = {}) {
     jtop: false,
     joa: "all",
     jissue: false,
+    jvia: false,
     ...initial
   });
 
@@ -156,6 +158,7 @@ export function createDashboard(data, labs, journalsFile = {}, initial = {}) {
     state.jtop = false;
     state.joa = "all";
     state.jissue = false;
+    state.jvia = false;
     persist();
   }
 
@@ -255,6 +258,8 @@ export function createDashboard(data, labs, journalsFile = {}, initial = {}) {
     labById: (id) => labById(labs, id),
     eventLabs: (event) => eventLabs(event, labs),
     journalLabs: (journal) => (journal?.affinity_units || []).map((id) => labById(labs, id)).filter(Boolean),
+    eventById: (id) => events.find((event) => event.id === id) || null,
+    deadlineEntries,
     formatDay,
     formatMonthYear,
     safeUrl,
